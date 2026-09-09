@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPAN1001 · Unit 0</title>
+
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --white: #ffffff;
+      --text: #20242c;
+      --muted: #697386;
+      --border: #e5e8ef;
+      --red: #9c3155;
+      --orange: #d96b42;
+      --green: #397779;
+      --shadow: 0 12px 35px rgba(25,35,55,.08);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(217,107,66,.14), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(57,119,121,.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      background: rgba(255,255,255,.9);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+    }
+
+    .back {
+      padding: 9px 15px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .back:hover {
+      background: var(--red);
+      color: white;
+      border-color: var(--red);
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: auto;
+      padding: 50px 24px 30px;
+    }
+
+    .hero-box {
+      padding: 50px 30px;
+      border-radius: 28px;
+      color: white;
+      text-align: center;
+      background: linear-gradient(
+        120deg,
+        #8f2d56,
+        #d55f43 60%,
+        #e5ae3f
+      );
+      box-shadow: var(--shadow);
+    }
+
+    .course {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .9;
+    }
+
+    h1 {
+      margin: 10px 0 6px;
+      font-size: clamp(42px, 7vw, 68px);
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px 24px 70px;
+    }
+
+    .section-title {
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 6px;
+      font-size: 32px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      min-height: 190px;
+      box-shadow: 0 7px 22px rgba(20,30,50,.045);
+      transition: .22s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .label {
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .card h3 {
+      margin: 12px 0 8px;
+      font-size: 28px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .enter {
+      margin-top: 24px;
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    footer {
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: white;
+      padding: 28px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      SPAN1001 · Unit 0
+    </div>
+
+    <a class="back" href="../">
+      ← Back to SPAN1001
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-box">
+    <div class="course">
+      SPAN1001 · Spanish I
+    </div>
+
+    <h1>
+      Unit 0
+    </h1>
+
+    <div class="subtitle">
+      Getting Started with Spanish
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <div class="section-title">
+    <h2>Learning Materials</h2>
+    <p>
+      Choose an activity below.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <a class="card" href="spanish-pronunciation.html">
+      <div class="label">
+        Pronunciation
+      </div>
+
+      <h3>
+        Spanish Pronunciation
+      </h3>
+
+      <p>
+        Learn and practise the basic sounds and pronunciation system of Spanish.
+      </p>
+
+      <div class="enter">
+        Open activity →
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <strong>Dr. Song Yang Alejandro</strong><br>
+  Lecturer in Spanish and Global and Area Studies<br>
+  The University of Hong Kong
+</footer>
+
+</body>
+</html>
