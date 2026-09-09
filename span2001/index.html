@@ -1,1 +1,171 @@
+from pathlib import Path
+
+html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPAN2001 | Spanish Interactive Learning</title>
+  <style>
+    :root{
+      --background:#f7f8fb; --white:#fff; --text:#20242c; --muted:#697386;
+      --border:#e5e8ef; --red:#9c3155; --orange:#d96b42; --yellow:#e9b94f;
+      --green:#397779; --blue:#526da5; --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%,rgba(217,107,66,.16),transparent 30%),
+        radial-gradient(circle at 100% 0%,rgba(82,109,165,.13),transparent 28%),
+        var(--background);
+      color:var(--text); line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none}
+    header{
+      background:rgba(255,255,255,.88);border-bottom:1px solid var(--border);
+      position:sticky;top:0;backdrop-filter:blur(12px);z-index:20;
+    }
+    .nav{
+      max-width:1180px;margin:auto;padding:16px 24px;
+      display:flex;justify-content:space-between;align-items:center;gap:20px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px}
+    .brand-logo{
+      width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+      color:#fff;font-weight:900;background:linear-gradient(135deg,var(--orange),var(--red));
+    }
+    .home-button{
+      padding:9px 15px;border:1px solid var(--border);border-radius:999px;
+      font-size:14px;font-weight:700;color:var(--muted);transition:.2s;
+    }
+    .home-button:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+    .hero{max-width:1180px;margin:auto;padding:56px 24px 34px}
+    .hero-box{
+      background:linear-gradient(120deg,#9b3a4d,#d66b43 56%,#4f6d9c);
+      border-radius:30px;padding:55px 30px;text-align:center;color:#fff;
+      box-shadow:var(--shadow);position:relative;overflow:hidden;
+    }
+    .hero-box::before,.hero-box::after{
+      content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.10);
+    }
+    .hero-box::before{width:270px;height:270px;top:-110px;left:-80px}
+    .hero-box::after{width:230px;height:230px;bottom:-105px;right:-55px}
+    .course-code{
+      font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+      opacity:.88;position:relative;z-index:1;
+    }
+    h1{
+      margin:10px 0 8px;font-size:clamp(42px,7vw,72px);line-height:1;
+      letter-spacing:-.05em;position:relative;z-index:1;
+    }
+    .hero-subtitle{font-size:22px;font-weight:600;margin-top:8px;position:relative;z-index:1}
+    .hero-university{margin-top:18px;opacity:.88;font-size:15px;position:relative;z-index:1}
+    main{max-width:1180px;margin:auto;padding:25px 24px 80px}
+    .section-title{margin-bottom:26px}
+    .section-title span{
+      color:var(--orange);text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:800;
+    }
+    .section-title h2{margin:5px 0 4px;font-size:34px;letter-spacing:-.03em}
+    .section-title p{margin:0;color:var(--muted)}
+    .units-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+    .unit-card{
+      background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+      padding:26px;min-height:195px;display:flex;flex-direction:column;justify-content:space-between;
+      box-shadow:0 7px 22px rgba(20,30,50,.045);transition:.22s;
+    }
+    .unit-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .unit-number{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--orange)}
+    .unit-card h3{margin:10px 0 4px;font-size:27px;letter-spacing:-.03em}
+    .unit-card p{margin:0;color:var(--muted);font-size:15px}
+    .enter{margin-top:22px;font-size:14px;font-weight:800;color:var(--orange)}
+    .u2 .unit-number,.u2 .enter{color:var(--green)}
+    .u3 .unit-number,.u3 .enter{color:var(--blue)}
+    .u4 .unit-number,.u4 .enter{color:var(--red)}
+    .u5 .unit-number,.u5 .enter{color:#806511}
+    footer{
+      border-top:1px solid var(--border);background:#fff;text-align:center;padding:30px 20px;
+      color:var(--muted);font-size:14px;
+    }
+    footer strong{color:var(--text)}
+    @media(max-width:900px){.units-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){
+      .units-grid{grid-template-columns:1fr}
+      .hero{padding-top:28px}
+      .hero-box{padding:45px 20px}
+      .brand span:last-child{display:none}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="../">
+      <div class="brand-logo">S</div>
+      <span>Spanish Interactive Learning</span>
+    </a>
+    <a class="home-button" href="../">← All Courses</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-box">
+    <div class="course-code">Spanish Language Programme</div>
+    <h1>SPAN2001</h1>
+    <div class="hero-subtitle">Spanish III</div>
+    <div class="hero-university">The University of Hong Kong</div>
+  </div>
+</section>
+
+<main>
+  <div class="section-title">
+    <span>Course Materials</span>
+    <h2>Unidades</h2>
+    <p>Select a unidad to explore its interactive learning materials.</p>
+  </div>
+
+  <div class="units-grid">
+    <a class="unit-card" href="unidad5/">
+      <div><div class="unit-number">Unidad 5</div><h3>Unidad 5</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+    <a class="unit-card u2" href="unidad6/">
+      <div><div class="unit-number">Unidad 6</div><h3>Unidad 6</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+    <a class="unit-card u3" href="unidad7/">
+      <div><div class="unit-number">Unidad 7</div><h3>Unidad 7</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+    <a class="unit-card u4" href="unidad8/">
+      <div><div class="unit-number">Unidad 8</div><h3>Unidad 8</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+    <a class="unit-card u5" href="unidad9/">
+      <div><div class="unit-number">Unidad 9</div><h3>Unidad 9</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+    <a class="unit-card" href="unidad10/">
+      <div><div class="unit-number">Unidad 10</div><h3>Unidad 10</h3><p>Interactive explanations, practice and classroom learning materials.</p></div>
+      <div class="enter">Explore Unidad →</div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <strong>Dr. Song Yang Alejandro</strong><br>
+  Lecturer in Spanish and Global and Area Studies<br>
+  The University of Hong Kong
+</footer>
+</body>
+</html>
+"""
+
+outdir = Path("/mnt/data/span2001")
+outdir.mkdir(parents=True, exist_ok=True)
+path = outdir / "index.html"
+path.write_text(html, encoding="utf-8")
+print(f"Created {path} ({path.stat().st_size:,} bytes)")
 
