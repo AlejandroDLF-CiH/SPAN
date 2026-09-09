@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#13213a">
+  <title>Spanish Word Stress</title>
+  <meta name="description" content="A five-page classroom guide to finding and pronouncing stressed syllables in Spanish.">
+  <style>
+    :root {
+      --ink: #14213d;
+      --muted: #5d6881;
+      --paper: #fffdf9;
+      --line: #dbe2ee;
+      --blue: #1479ff;
+      --pink: #ed3e86;
+      --orange: #f07b23;
+      --green: #00a884;
+      --violet: #7957d5;
+      --yellow: #ffd166;
+      --shadow: 0 24px 70px rgba(24, 36, 64, .18);
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 8% 14%, rgba(255, 209, 102, .7) 0 7%, transparent 7.2%),
+        radial-gradient(circle at 92% 87%, rgba(237, 62, 134, .2) 0 10%, transparent 10.2%),
+        linear-gradient(135deg, #eaf5ff 0%, #f7f0ff 49%, #fff4e6 100%);
+      overflow: hidden;
+    }
+    button { font: inherit; }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 16px;
+      padding: clamp(14px, 2vw, 28px);
+    }
+    .topbar, .nav {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-mark {
+      display: grid; place-items: center;
+      width: 40px; height: 40px; border-radius: 13px;
+      background: var(--ink); color: #fff; font-size: 1.15rem;
+      box-shadow: 0 8px 20px rgba(20,33,61,.2);
+    }
+    .part-pill {
+      padding: 7px 13px; border-radius: 999px;
+      color: #fff; background: var(--blue);
+      font-weight: 750; font-size: .86rem;
+    }
+    .stage {
+      position: relative;
+      width: min(1180px, 100%);
+      min-height: 0;
+      margin: 0 auto;
+      background: rgba(255, 253, 249, .96);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .stage::before {
+      content: ""; position: absolute; width: 180px; height: 180px;
+      right: -76px; top: -82px; border-radius: 50%;
+      background: var(--yellow); opacity: .72;
+    }
+    .slides { height: 100%; }
+    .slide {
+      position: absolute; inset: 0;
+      padding: clamp(24px, 4.5vw, 58px) clamp(24px, 6vw, 74px);
+      overflow: auto;
+      opacity: 0; visibility: hidden;
+      transform: translateX(36px) scale(.985);
+      transition: opacity .32s ease, transform .32s ease, visibility .32s;
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: none; }
+    .eyebrow {
+      margin: 0 0 7px; color: var(--blue); font-size: .82rem;
+      text-transform: uppercase; letter-spacing: .14em; font-weight: 850;
+    }
+    h1, h2 { margin: 0; letter-spacing: -.045em; line-height: 1.04; }
+    h1 { font-size: clamp(2.4rem, 6vw, 5.5rem); max-width: 920px; }
+    h2 { font-size: clamp(2rem, 4.2vw, 4rem); }
+    .lead { margin: 18px 0 0; color: var(--muted); font-size: clamp(1.05rem, 1.8vw, 1.42rem); line-height: 1.5; max-width: 850px; }
+    .hero-examples, .practice-row { display: flex; flex-wrap: wrap; gap: 15px; margin-top: clamp(24px, 4vh, 42px); }
+    .word-card {
+      min-width: 190px; padding: 18px 22px; border-radius: 19px;
+      background: #fff; border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(34,51,84,.08);
+    }
+    .word { font-size: clamp(1.45rem, 2.7vw, 2.2rem); font-weight: 850; letter-spacing: .03em; white-space: nowrap; }
+    .meaning { display: block; color: var(--muted); font-size: .83rem; margin-top: 7px; }
+    .stress-blue { color: var(--blue); }
+    .stress-pink { color: var(--pink); }
+    .stress-orange { color: var(--orange); }
+    .stress-green { color: var(--green); }
+    .stress-violet { color: var(--violet); }
+    .note {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 26px; padding: 13px 17px; border-radius: 15px;
+      background: #eef6ff; color: #1d5795; font-weight: 700;
+    }
+    .note .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); }
+    .decision {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: stretch;
+      margin-top: clamp(24px, 4vh, 42px);
+    }
+    .decision-card { padding: 22px; border-radius: 20px; border: 2px solid var(--line); background: #fff; }
+    .decision-card.yes { border-color: rgba(0,168,132,.45); background: #effbf7; }
+    .decision-card.no { border-color: rgba(121,87,213,.34); background: #f7f3ff; }
+    .decision-card h3 { margin: 0 0 10px; font-size: 1.3rem; }
+    .decision-card p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .arrow { align-self: center; font-size: 1.6rem; color: var(--muted); }
+    .examples-inline { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 9px; }
+    .mini-word { padding: 9px 12px; background: #fff; border-radius: 12px; font-weight: 800; border: 1px solid rgba(20,33,61,.1); }
+    .rule-table { margin-top: clamp(20px, 3.3vh, 34px); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
+    .rule-row { display: grid; grid-template-columns: 1.2fr .95fr 1.4fr; }
+    .rule-row > div { padding: 16px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); line-height: 1.42; }
+    .rule-row > div:last-child { border-right: 0; }
+    .rule-row:last-child > div { border-bottom: 0; }
+    .rule-row.header { background: var(--ink); color: #fff; font-weight: 800; }
+    .rule-row:not(.header) > div:first-child { font-weight: 750; }
+    .rule-row:not(.header) > div:nth-child(2) { color: var(--violet); font-weight: 850; }
+    .remember { margin-top: 18px; font-size: clamp(1rem, 1.7vw, 1.25rem); font-weight: 850; }
+    .tips { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin-top: clamp(20px, 3.5vh, 34px); }
+    .tip { padding: 17px 18px; border-radius: 17px; background: #fff; border: 1px solid var(--line); display: flex; gap: 13px; align-items: center; font-weight: 720; }
+    .tip-icon { flex: 0 0 auto; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; color: #fff; background: var(--orange); }
+    .tip:nth-child(2) .tip-icon { background: var(--green); }
+    .tip:nth-child(3) .tip-icon { background: var(--violet); }
+    .tip:nth-child(4) .tip-icon { background: var(--pink); }
+    .say-card { cursor: pointer; transition: transform .16s ease, box-shadow .16s ease; }
+    .say-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(34,51,84,.12); }
+    .say-card.pulse .stress { display: inline-block; animation: pulse .52s ease; }
+    @keyframes pulse { 50% { transform: scale(1.18); filter: brightness(.88); } }
+    .steps { counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin-top: 22px; }
+    .step { counter-increment: step; padding: 15px; border-radius: 16px; background: #f6f8fc; font-weight: 720; line-height: 1.4; }
+    .step::before { content: counter(step); display: grid; place-items: center; width: 29px; height: 29px; border-radius: 10px; color: #fff; background: var(--blue); margin-bottom: 8px; }
+    .quiz { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 20px; }
+    .quiz-card { position: relative; min-height: 92px; padding: 17px; border-radius: 17px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; }
+    .quiz-card .answer { display: none; }
+    .quiz.revealed .quiz-card .prompt { display: none; }
+    .quiz.revealed .quiz-card .answer { display: block; }
+    .reveal {
+      margin-top: 17px; border: 0; border-radius: 14px; padding: 12px 18px;
+      background: var(--ink); color: #fff; font-weight: 800; cursor: pointer;
+      box-shadow: 0 7px 18px rgba(20,33,61,.18);
+    }
+    .reveal:hover { background: #263a61; }
+    .nav { gap: 16px; }
+    .nav-btn {
+      min-width: 110px; padding: 11px 16px; border-radius: 14px;
+      border: 1px solid rgba(20,33,61,.12); background: rgba(255,255,255,.83);
+      color: var(--ink); font-weight: 800; cursor: pointer;
+    }
+    .nav-btn:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+    .dots { display: flex; align-items: center; justify-content: center; gap: 9px; }
+    .page-dot { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 50%; background: rgba(20,33,61,.2); cursor: pointer; transition: .2s ease; }
+    .page-dot.active { width: 31px; border-radius: 999px; background: var(--blue); }
+    .counter { min-width: 50px; text-align: center; color: var(--muted); font-weight: 700; font-size: .9rem; }
+    @media (max-width: 720px) {
+      body { overflow: auto; }
+      .app { min-height: 100svh; grid-template-rows: auto minmax(640px, 1fr) auto; }
+      .stage { border-radius: 23px; }
+      .decision { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); justify-self: center; }
+      .rule-row { grid-template-columns: 1fr; }
+      .rule-row.header { display: none; }
+      .rule-row > div { border-right: 0; padding: 10px 15px; }
+      .rule-row > div::before { display: block; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+      .rule-row > div:nth-child(1)::before { content: "Word ending"; }
+      .rule-row > div:nth-child(2)::before { content: "Stress position"; }
+      .rule-row > div:nth-child(3)::before { content: "Examples"; }
+      .tips, .steps, .quiz { grid-template-columns: 1fr; }
+      .word-card { min-width: 145px; flex: 1; }
+      .nav-btn { min-width: 88px; }
+      .part-pill { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">´</span><span>Spanish Word Stress</span></div>
+      <span class="part-pill" id="partPill">Part 1 · Find the stress</span>
+    </header>
+
+    <section class="stage" aria-live="polite">
+      <div class="slides">
+        <article class="slide active" aria-hidden="false">
+          <p class="eyebrow">Page 1 · The idea</p>
+          <h1>What is word stress?</h1>
+          <p class="lead">When we say a word, one syllable usually stands out. This is the <strong>stressed syllable</strong>. A syllable is a beat in a word.</p>
+          <div class="hero-examples">
+            <div class="word-card"><span class="word"><span class="stress stress-blue">CA</span>-sa</span><span class="meaning">2 syllables</span></div>
+            <div class="word-card"><span class="word">es-pa-<span class="stress stress-pink">ÑOL</span></span><span class="meaning">3 syllables</span></div>
+            <div class="word-card"><span class="word">te-<span class="stress stress-orange">LÉ</span>-fo-no</span><span class="meaning">4 syllables</span></div>
+          </div>
+          <div class="note"><span class="dot"></span>Stress is something we hear. A tilde (´) is a mark we see.</div>
+        </article>
+
+        <article class="slide" aria-hidden="true">
+          <p class="eyebrow">Page 2 · Step 1</p>
+          <h2>Look for an accent mark</h2>
+          <p class="lead">Does the word have <strong>á, é, í, ó or ú</strong>?</p>
+          <div class="decision">
+            <div class="decision-card yes">
+              <h3>Yes ✓</h3>
+              <p>Stress the syllable with the accent mark.</p>
+              <div class="examples-inline">
+                <span class="mini-word">ca-<span class="stress stress-pink">FÉ</span></span>
+                <span class="mini-word"><span class="stress stress-violet">LÁ</span>-piz</span>
+                <span class="mini-word">bo-<span class="stress stress-orange">LÍ</span>-gra-fo</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="decision-card no">
+              <h3>No accent mark?</h3>
+              <p>Go to Step 2 and look at the final letter.</p>
+            </div>
+          </div>
+          <div class="note"><span class="dot"></span>The accent mark shows you where to put the stress.</div>
+        </article>
+
+        <article class="slide" aria-hidden="true">
+          <p class="eyebrow">Page 3 · Step 2</p>
+          <h2>Look at the ending</h2>
+          <p class="lead">For most words without an accent mark:</p>
+          <div class="rule-table" role="table" aria-label="Spanish word stress rules">
+            <div class="rule-row header" role="row"><div>Word ending</div><div>Stress position</div><div>Examples</div></div>
+            <div class="rule-row" role="row">
+              <div>A vowel (<strong>a, e, i, o, u</strong>), <strong>n</strong>, or <strong>s</strong></div>
+              <div>Second-to-last syllable</div>
+              <div><span class="stress stress-blue">ME</span>-sa · <span class="stress stress-green">LI</span>-bro · <span class="stress stress-pink">HA</span>-blan · <span class="stress stress-violet">LU</span>-nes</div>
+            </div>
+            <div class="rule-row" role="row">
+              <div>Any other consonant</div>
+              <div>Last syllable</div>
+              <div>ha-<span class="stress stress-orange">BLAR</span> · pa-<span class="stress stress-blue">PEL</span> · es-pa-<span class="stress stress-pink">ÑOL</span></div>
+            </div>
+          </div>
+          <p class="remember">Remember: <span class="stress-green">accent mark first</span>. <span class="stress-violet">Word ending second</span>.</p>
+        </article>
+
+        <article class="slide" aria-hidden="true">
+          <p class="eyebrow">Page 4 · Say the stress</p>
+          <h2>Make one syllable stand out</h2>
+          <p class="lead">Give the stressed syllable a little more emphasis.</p>
+          <div class="tips">
+            <div class="tip"><span class="tip-icon">1</span>Say it with a little more energy.</div>
+            <div class="tip"><span class="tip-icon">2</span>Hold its vowel slightly longer while practising.</div>
+            <div class="tip"><span class="tip-icon">3</span>Keep the other vowels clear.</div>
+            <div class="tip"><span class="tip-icon">4</span>Keep the word flowing. Do not pause.</div>
+          </div>
+          <div class="practice-row" aria-label="Click a word to highlight its stressed syllable">
+            <div class="word-card say-card" tabindex="0"><span class="word"><span class="stress stress-blue">ME</span>-sa</span></div>
+            <div class="word-card say-card" tabindex="0"><span class="word">pa-<span class="stress stress-pink">PEL</span></span></div>
+            <div class="word-card say-card" tabindex="0"><span class="word">te-<span class="stress stress-orange">LÉ</span>-fo-no</span></div>
+          </div>
+          <div class="note"><span class="dot"></span>You do not need to shout. Tap a word and say it smoothly.</div>
+        </article>
+
+        <article class="slide" aria-hidden="true">
+          <p class="eyebrow">Page 5 · Practice</p>
+          <h2>Find it, tap it, say it</h2>
+          <div class="steps">
+            <div class="step">Look for an accent mark.</div>
+            <div class="step">If there is no accent mark, check the ending.</div>
+            <div class="step">Say the word and tap on its stressed syllable.</div>
+          </div>
+          <div class="quiz" id="quiz">
+            <div class="quiz-card"><span class="prompt word">mochila</span><span class="answer word">mo-<span class="stress stress-blue">CHI</span>-la</span></div>
+            <div class="quiz-card"><span class="prompt word">profesor</span><span class="answer word">pro-fe-<span class="stress stress-pink">SOR</span></span></div>
+            <div class="quiz-card"><span class="prompt word">cuaderno</span><span class="answer word">cua-<span class="stress stress-orange">DER</span>-no</span></div>
+            <div class="quiz-card"><span class="prompt word">números</span><span class="answer word"><span class="stress stress-green">NÚ</span>-me-ros</span></div>
+            <div class="quiz-card"><span class="prompt word">dieciséis</span><span class="answer word">die-ci-<span class="stress stress-violet">SÉIS</span></span></div>
+            <div class="quiz-card"><span class="prompt word">veinte</span><span class="answer word"><span class="stress stress-blue">VEIN</span>-te</span></div>
+          </div>
+          <button class="reveal" id="revealBtn" type="button">Reveal the stressed syllables</button>
+        </article>
+      </div>
+    </section>
+
+    <nav class="nav" aria-label="Page navigation">
+      <button class="nav-btn" id="prevBtn" type="button" disabled>← Previous</button>
+      <div class="dots" id="dots" aria-label="Choose a page"></div>
+      <span class="counter" id="counter">1 / 5</span>
+      <button class="nav-btn" id="nextBtn" type="button">Next →</button>
+    </nav>
+  </main>
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const dots = document.getElementById('dots');
+    const prev = document.getElementById('prevBtn');
+    const next = document.getElementById('nextBtn');
+    const counter = document.getElementById('counter');
+    const partPill = document.getElementById('partPill');
+    let page = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'page-dot' + (i === 0 ? ' active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.addEventListener('click', () => show(i));
+      dots.appendChild(dot);
+    });
+
+    function show(index) {
+      page = Math.max(0, Math.min(slides.length - 1, index));
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === page);
+        slide.setAttribute('aria-hidden', i === page ? 'false' : 'true');
+      });
+      [...dots.children].forEach((dot, i) => dot.classList.toggle('active', i === page));
+      prev.disabled = page === 0;
+      next.disabled = page === slides.length - 1;
+      counter.textContent = `${page + 1} / ${slides.length}`;
+      partPill.textContent = page < 3 ? 'Part 1 · Find the stress' : 'Part 2 · Say the stress';
+      partPill.style.background = page < 3 ? 'var(--blue)' : 'var(--pink)';
+    }
+    prev.addEventListener('click', () => show(page - 1));
+    next.addEventListener('click', () => show(page + 1));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(page - 1);
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(page + 1); }
+    });
+
+    let touchStart = null;
+    document.querySelector('.stage').addEventListener('touchstart', e => touchStart = e.changedTouches[0].clientX, {passive:true});
+    document.querySelector('.stage').addEventListener('touchend', e => {
+      if (touchStart === null) return;
+      const delta = e.changedTouches[0].clientX - touchStart;
+      if (Math.abs(delta) > 55) show(page + (delta < 0 ? 1 : -1));
+      touchStart = null;
+    }, {passive:true});
+
+    document.querySelectorAll('.say-card').forEach(card => {
+      const pulse = () => { card.classList.remove('pulse'); void card.offsetWidth; card.classList.add('pulse'); };
+      card.addEventListener('click', pulse);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') pulse(); });
+    });
+
+    const revealBtn = document.getElementById('revealBtn');
+    revealBtn.addEventListener('click', () => {
+      const revealed = document.getElementById('quiz').classList.toggle('revealed');
+      revealBtn.textContent = revealed ? 'Hide the answers' : 'Reveal the stressed syllables';
+    });
+  </script>
+</body>
+</html>
