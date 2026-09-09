@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From BE to SER: Spanish Verb Conjugation</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#8b2f56;
+      --english:#2f65a7;
+      --spanish:#b04a2f;
+      --green:#2f7d5b;
+      --gold:#a06a1f;
+      --shadow:0 18px 50px rgba(31,41,55,.10);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139,47,86,.08), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(47,101,167,.08), transparent 34%),
+        var(--bg);
+    }
+
+    .app{
+      width:min(1120px, 94vw);
+      margin:0 auto;
+      padding:28px 0 36px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:16px;
+    }
+
+    .course{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+
+    .counter{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .deck{
+      position:relative;
+      min-height:650px;
+    }
+
+    .slide{
+      display:none;
+      min-height:650px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:44px 52px;
+      animation:fade .22s ease;
+    }
+
+    .slide.active{display:block}
+
+    @keyframes fade{
+      from{opacity:.3; transform:translateY(5px)}
+      to{opacity:1; transform:none}
+    }
+
+    h1,h2,h3{margin-top:0}
+    h1{
+      font-size:44px;
+      line-height:1.08;
+      color:var(--accent);
+      margin-bottom:18px;
+    }
+
+    h2{
+      font-size:34px;
+      line-height:1.16;
+      color:var(--accent);
+      margin-bottom:22px;
+    }
+
+    h3{
+      font-size:22px;
+      color:var(--green);
+      margin:22px 0 10px;
+    }
+
+    p,li{
+      font-size:20px;
+      line-height:1.55;
+    }
+
+    .lead{
+      font-size:26px;
+      line-height:1.45;
+      margin:16px 0 26px;
+    }
+
+    .small{
+      font-size:16px;
+      color:var(--muted);
+    }
+
+    .en{
+      color:var(--english);
+      font-weight:800;
+    }
+
+    .es{
+      color:var(--spanish);
+      font-weight:800;
+    }
+
+    .slash{
+      color:#9ca3af;
+      font-weight:700;
+      padding:0 5px;
+    }
+
+    .verb{
+      font-style:italic;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--border);
+      border-radius:18px;
+      overflow:hidden;
+      margin:22px 0;
+      font-size:18px;
+    }
+
+    th,td{
+      padding:15px 16px;
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      vertical-align:middle;
+    }
+
+    th:last-child,td:last-child{border-right:none}
+    tr:last-child td{border-bottom:none}
+
+    thead th{
+      background:#fafafa;
+      font-weight:800;
+      text-align:left;
+    }
+
+    .center th,.center td{text-align:center}
+
+    .box{
+      margin:20px 0;
+      padding:18px 22px;
+      border-radius:14px;
+      background:#fbf6f8;
+      border-left:5px solid var(--accent);
+      font-size:20px;
+      line-height:1.5;
+    }
+
+    .box.blue{
+      background:#f3f7fc;
+      border-left-color:var(--english);
+    }
+
+    .box.orange{
+      background:#fff6f1;
+      border-left-color:var(--spanish);
+    }
+
+    .box.green{
+      background:#f2f8f5;
+      border-left-color:var(--green);
+    }
+
+    .compare{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:22px;
+    }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px 22px;
+      background:#fff;
+    }
+
+    .card h3{margin-top:0}
+
+    .forms{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:18px 0;
+    }
+
+    .form{
+      padding:11px 16px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fafafa;
+      font-size:20px;
+      font-weight:800;
+    }
+
+    .question{
+      font-size:30px;
+      font-weight:800;
+      color:var(--accent);
+      margin:28px 0 20px;
+    }
+
+    .controls{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    button{
+      appearance:none;
+      border:none;
+      border-radius:14px;
+      padding:13px 20px;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      background:var(--accent);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(139,47,86,.18);
+    }
+
+    button.secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    button:disabled{
+      opacity:.35;
+      cursor:not-allowed;
+    }
+
+    .dots{
+      display:flex;
+      justify-content:center;
+      gap:7px;
+      flex:1;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:#d1d5db;
+      cursor:pointer;
+    }
+
+    .dot.active{background:var(--accent)}
+
+    .legend{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+      font-size:17px;
+    }
+
+    .legend span{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+    }
+
+    .swatch{
+      width:13px;
+      height:13px;
+      border-radius:50%;
+      display:inline-block;
+    }
+
+    .swatch.en-swatch{background:var(--english)}
+    .swatch.es-swatch{background:var(--spanish)}
+
+    @media (max-width:760px){
+      .slide{padding:30px 24px; min-height:700px}
+      h1{font-size:35px}
+      h2{font-size:29px}
+      p,li{font-size:18px}
+      .lead{font-size:22px}
+      .compare{grid-template-columns:1fr}
+      table{font-size:15px}
+      th,td{padding:11px 9px}
+    }
+
+    .es{font-style:italic}
+    .subject{border-bottom:2px solid currentColor}
+    .verb-em{background:#f9e5d9;border-radius:4px;padding:1px 3px}
+    .translation{font-size:17px;font-weight:500;margin-top:5px}
+    .dialogue .translation{margin-bottom:15px}
+    .table-scroll{overflow-x:auto}
+    .examples{min-width:650px}
+    .dot{padding:0;box-shadow:none;border:0}
+    button:focus-visible{outline:3px solid var(--english);outline-offset:4px}
+    @media print{
+      body{background:white}.app{width:100%;padding:0}
+      .topbar,.controls{display:none}.deck{min-height:0}
+      .slide,.slide.active{display:block;min-height:0;box-shadow:none;border:none;padding:20px;break-after:page;animation:none}
+      .slide:last-child{break-after:auto}.compare{grid-template-columns:1fr 1fr}
+    }
+    @media(prefers-reduced-motion:reduce){.slide{animation:none}}
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <div class="topbar">
+      <div class="course">SPAN1001 · Verb Conjugation</div>
+      <div class="counter" id="counter">Page 1 / 9</div>
+    </div>
+
+    <div class="deck">
+
+      <!-- PAGE 1 -->
+      <section class="slide active">
+        <h1>From <span class="en verb">BE</span> to <span class="es verb">SER</span></h1>
+
+        <div class="legend">
+          <span><i class="swatch en-swatch"></i><strong class="en">English</strong></span>
+          <span><i class="swatch es-swatch"></i><strong class="es">Spanish</strong></span>
+        </div>
+
+        <p class="lead">English verbs can also change according to the subject.</p>
+
+        <h3>The verb <span class="en verb">BE</span> in the present tense</h3>
+
+        <table class="center">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th><span class="en verb">BE</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="en">I</span></td><td><span class="en">am</span></td></tr>
+            <tr><td><span class="en">you</span></td><td><span class="en">are</span></td></tr>
+            <tr><td><span class="en">he / she / it</span></td><td><span class="en">is</span></td></tr>
+            <tr><td><span class="en">we</span></td><td><span class="en">are</span></td></tr>
+            <tr><td><span class="en">you</span></td><td><span class="en">are</span></td></tr>
+            <tr><td><span class="en">they</span></td><td><span class="en">are</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="box blue">
+          In English, the verb changes, but the number of different forms is limited:
+          <strong class="en">am, is, are</strong>.
+        </div>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section class="slide">
+        <h2>What is verb conjugation?</h2>
+
+        <p class="lead">
+          <strong>Verb conjugation</strong> means changing the form of a verb according to the subject.
+        </p>
+
+        <div class="compare">
+          <div class="card">
+            <h3><span class="en">English</span></h3>
+            <p>The verb changes, but often only a little.</p>
+            <div class="forms">
+              <span class="form en">am</span>
+              <span class="form en">is</span>
+              <span class="form en">are</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3><span class="es">Spanish</span></h3>
+            <p>The verb normally changes more clearly according to the subject.</p>
+          </div>
+        </div>
+
+        <div class="box orange">
+          We usually organize Spanish verb conjugation into <strong>six basic slots</strong>. Some slots may share the same form.
+        </div>
+      </section>
+
+      <!-- PAGE 3 -->
+      <section class="slide">
+        <h2><span class="en verb">BE</span> and <span class="es verb">SER</span></h2>
+<p><span class="es verb">Ser</span> is one of the Spanish verbs that mean <span class="en">“to be.”</span></p>
+
+        <div class="legend">
+          <span><i class="swatch en-swatch"></i><strong class="en">English</strong></span>
+          <span><i class="swatch es-swatch"></i><strong class="es">Spanish</strong></span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Subject</th>
+              <th><span class="en verb">BE</span> <span class="slash">/</span> <span class="es verb">SER</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1st singular</strong></td>
+              <td><span class="en">I</span> <span class="slash">/</span> <span class="es">yo</span></td>
+              <td><span class="en">am</span> <span class="slash">/</span> <span class="es">soy</span></td>
+            </tr>
+            <tr>
+              <td><strong>2nd singular</strong></td>
+              <td><span class="en">you</span> <span class="slash">/</span> <span class="es">tú</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">eres</span></td>
+            </tr>
+            <tr>
+              <td><strong>2nd singular</strong></td>
+              <td><span class="en">you</span> <span class="slash">/</span> <span class="es">usted</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">es</span></td>
+            </tr>
+            <tr>
+              <td><strong>3rd singular</strong></td>
+              <td><span class="en">he, she</span> <span class="slash">/</span> <span class="es">él, ella</span></td>
+              <td><span class="en">is</span> <span class="slash">/</span> <span class="es">es</span></td>
+            </tr>
+            <tr>
+              <td><strong>1st plural</strong></td>
+              <td><span class="en">we</span> <span class="slash">/</span> <span class="es">nosotros, nosotras</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">somos</span></td>
+            </tr>
+            <tr>
+              <td><strong>2nd plural</strong></td>
+              <td><span class="en">you</span> <span class="slash">/</span> <span class="es">vosotros, vosotras</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">sois</span></td>
+            </tr>
+            <tr>
+              <td><strong>2nd plural</strong></td>
+              <td><span class="en">you</span> <span class="slash">/</span> <span class="es">ustedes</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">son</span></td>
+            </tr>
+            <tr>
+              <td><strong>3rd plural</strong></td>
+              <td><span class="en">they</span> <span class="slash">/</span> <span class="es">ellos, ellas</span></td>
+              <td><span class="en">are</span> <span class="slash">/</span> <span class="es">son</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="compare">
+          <div class="box blue">
+            <span class="en verb">BE</span>: <strong class="en">3 forms</strong><br>
+            <span class="en">am, is, are</span>
+          </div>
+          <div class="box orange">
+            <span class="es verb">SER</span>: <strong class="es">6 forms</strong><br>
+            <span class="es">soy, eres, es, somos, sois, son</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 4 -->
+      <section class="slide">
+        <h2>A special case: <span class="es verb">usted</span> and <span class="es verb">ustedes</span></h2>
+
+        <p class="question">What do you notice?</p>
+
+        <table class="center">
+          <thead>
+            <tr>
+              <th>Pronoun</th>
+              <th><span class="es verb">SER</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="es">usted</span></td>
+              <td><span class="es">es</span></td>
+            </tr>
+            <tr>
+              <td><span class="es">él / ella</span></td>
+              <td><span class="es">es</span></td>
+            </tr>
+            <tr>
+              <td><span class="es">ustedes</span></td>
+              <td><span class="es">son</span></td>
+            </tr>
+            <tr>
+              <td><span class="es">ellos / ellas</span></td>
+              <td><span class="es">son</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="box orange">
+          <strong><span class="es">usted</span> and <span class="es">ustedes</span> are second-person pronouns.</strong>
+        </div>
+
+        <div class="box green">
+          But they use the same verb forms as the third person:
+          <br><span class="es">usted → es</span>, like <span class="es">él / ella → es</span>
+          <br><span class="es">ustedes → son</span>, like <span class="es">ellos / ellas → son</span>
+        </div>
+      </section>
+
+      <!-- PAGE 5 -->
+      <section class="slide">
+        <h2>The standard conjugation table of <span class="es verb">SER</span></h2>
+
+        <table class="center">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th><span class="es verb">SER</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="es">yo</span></td><td><span class="es">soy</span></td></tr>
+            <tr><td><span class="es">tú</span></td><td><span class="es">eres</span></td></tr>
+            <tr><td><span class="es">él / ella / usted</span></td><td><span class="es">es</span></td></tr>
+            <tr><td><span class="es">nosotros / nosotras</span></td><td><span class="es">somos</span></td></tr>
+            <tr><td><span class="es">vosotros / vosotras</span></td><td><span class="es">sois</span></td></tr>
+            <tr><td><span class="es">ellos / ellas / ustedes</span></td><td><span class="es">son</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="box">
+          <strong>Important:</strong>
+          <br><span class="es">usted</span> and <span class="es">ustedes</span> are still <strong>second-person pronouns</strong>.
+          <br>They are grouped here with the third-person forms because they use the same verb forms.
+        </div>
+      </section>
+
+      <!-- PAGE 6 -->
+      <section class="slide">
+        <h2>Six basic verb-form slots</h2>
+
+        <table class="center">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Singular</th>
+              <th>Plural</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1st</strong></td>
+              <td><span class="es">yo → soy</span></td>
+              <td><span class="es">nosotros/as → somos</span></td>
+            </tr>
+            <tr>
+              <td><strong>2nd</strong></td>
+              <td><span class="es">tú → eres</span></td>
+              <td><span class="es">vosotros/as → sois</span></td>
+            </tr>
+            <tr>
+              <td><strong>3rd-form slot</strong></td>
+              <td><span class="es">él / ella / usted → es</span></td>
+              <td><span class="es">ellos / ellas / ustedes → son</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="box green">
+          These six slots help us organize and learn verb forms.
+        </div>
+
+        <p class="lead">
+          Now let’s use <span class="es verb">ser</span> in sentences. Do we always need to say the subject?
+        </p>
+      </section>
+
+      <!-- PAGE 7 -->
+      <section class="slide">
+        <h2>Spanish often leaves out the subject</h2>
+        <p>Compare the sentences. In Spanish, both versions are correct when the meaning is clear.</p>
+        <div class="table-scroll"><table class="examples">
+          <thead><tr><th class="en">English</th><th>Spanish: <span class="es">with the subject</span></th><th>Spanish: <span class="es">without the subject</span></th></tr></thead>
+          <tbody><tr><td class="en">I am a teacher.</td><td class="es"><span class="subject">Yo</span> <strong class="verb-em">soy</strong> profesor.</td><td class="es"><strong class="verb-em">Soy</strong> profesor.</td></tr><tr><td class="en">You are a student.</td><td class="es"><span class="subject">Tú</span> <strong class="verb-em">eres</strong> estudiante.</td><td class="es"><strong class="verb-em">Eres</strong> estudiante.</td></tr><tr><td class="en">She is Spanish.</td><td class="es"><span class="subject">Ella</span> <strong class="verb-em">es</strong> española.</td><td class="es"><strong class="verb-em">Es</strong> española.</td></tr><tr><td class="en">We are students.</td><td class="es"><span class="subject">Nosotros</span> <strong class="verb-em">somos</strong> estudiantes.</td><td class="es"><strong class="verb-em">Somos</strong> estudiantes.</td></tr><tr><td class="en">You are students.</td><td class="es"><span class="subject">Vosotros</span> <strong class="verb-em">sois</strong> estudiantes.</td><td class="es"><strong class="verb-em">Sois</strong> estudiantes.</td></tr><tr><td class="en">They are from Hong Kong.</td><td class="es"><span class="subject">Ellos</span> <strong class="verb-em">son</strong> de Hong Kong.</td><td class="es"><strong class="verb-em">Son</strong> de Hong Kong.</td></tr></tbody>
+        </table></div>
+        <div class="box blue">In English, we normally need a subject:<br><span class="en">I am a teacher.</span></div>
+        <div class="box orange">In Spanish, we can say <span class="es">Soy profesor.</span><br>We do not need to say <span class="es">yo</span>.</div>
+        <div class="box green"><strong>We often leave out the subject when the verb form or the context makes the meaning clear.</strong></div>
+      </section>
+
+      <!-- PAGE 8 -->
+      <section class="slide">
+        <h2>How do we know who the subject is?</h2>
+        <table>
+          <thead><tr><th>Verb form</th><th>What it tells us</th></tr></thead>
+          <tbody>
+            <tr><td class="es verb">soy</td><td><span class="es">yo</span> <span class="slash">/</span> <span class="en">I</span></td></tr>
+            <tr><td class="es verb">eres</td><td><span class="es">tú</span> <span class="slash">/</span> <span class="en">you</span> (singular)</td></tr>
+            <tr><td class="es verb">somos</td><td><span class="es">nosotros / nosotras</span> <span class="slash">/</span> <span class="en">we</span></td></tr>
+            <tr><td class="es verb">sois</td><td><span class="es">vosotros / vosotras</span> <span class="slash">/</span> <span class="en">you</span> (plural)</td></tr>
+          </tbody>
+        </table>
+        <p><strong>Some verb forms have more than one possible subject.</strong></p>
+        <div class="compare">
+          <div class="card"><h3 class="es verb">es</h3><p class="es">él / ella / usted</p></div>
+          <div class="card"><h3 class="es verb">son</h3><p class="es">ellos / ellas / ustedes</p></div>
+        </div>
+        <div class="box blue dialogue">
+          <div class="es">— ¿De dónde es María?</div><div class="en translation">Where is María from?</div>
+          <div class="es">— <strong class="verb-em">Es</strong> de España.</div><div class="en translation">She is from Spain.</div>
+        </div>
+        <p>We already know we are talking about <span class="es">María</span>, so we do not need to repeat <span class="es">María</span> or <span class="es">ella</span>.</p>
+      </section>
+
+      <!-- PAGE 9 -->
+      <section class="slide">
+        <h2>When do we include the subject?</h2>
+        <h3>1. To make it clear who we mean</h3>
+        <div class="box orange">
+          <div class="es"><span class="subject">María</span> es profesora. <span class="subject">Pedro</span> es estudiante.</div>
+          <div class="en translation">María is a teacher. Pedro is a student.</div>
+        </div>
+        <p>We name the subjects to make it clear who we are talking about. If both people are in the conversation, <span class="es">Es estudiante</span> may not tell us who we mean.</p>
+        <h3>2. To emphasize or contrast</h3>
+        <div class="box orange">
+          <div class="es"><span class="subject">Yo</span> soy profesor. <span class="subject">Tú</span> eres estudiante.</div>
+          <div class="en translation"><strong>I</strong> am a teacher. <strong>You</strong> are a student.</div>
+        </div>
+        <p>We include <span class="es">yo</span> and <span class="es">tú</span> to emphasize the difference between us.</p>
+        <div class="box green"><strong>In Spanish, subjects can be left out in all persons—singular and plural.</strong><br><br>Leave out the subject when the meaning is clear. Include it when needed for <strong>clarity, emphasis or contrast</strong>.</div>
+      </section>
+
+    </div>
+
+    <div class="controls">
+      <button class="secondary" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+      <div class="dots" id="dots"></div>
+      <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsBox = document.getElementById('dots');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => showSlide(i));
+      dotsBox.appendChild(dot);
+    });
+
+    function showSlide(index){
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((s,i) => s.classList.toggle('active', i === current));
+      Array.from(dotsBox.children).forEach((d,i) => { d.classList.toggle('active', i === current); d.setAttribute('aria-current', i === current ? 'page' : 'false'); });
+      counter.textContent = `Page ${current + 1} / ${slides.length}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    function changeSlide(step){
+      showSlide(current + step);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); changeSlide(1); }
+      if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); changeSlide(-1); }
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>

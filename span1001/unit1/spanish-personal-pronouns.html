@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spanish Personal Pronouns</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#8b2f56;
+      --accent2:#315f8b;
+      --green:#2f7d5b;
+      --gold:#a06a1f;
+      --shadow:0 18px 50px rgba(31,41,55,.10);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139,47,86,.08), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(49,95,139,.08), transparent 34%),
+        var(--bg);
+    }
+
+    .app{
+      width:min(1100px, 94vw);
+      margin:0 auto;
+      padding:28px 0 36px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
+    }
+
+    .course{
+      font-size:14px;
+      color:var(--muted);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    .counter{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .deck{
+      position:relative;
+      min-height:640px;
+    }
+
+    .slide{
+      display:none;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:46px 54px;
+      min-height:640px;
+      animation:fade .22s ease;
+    }
+
+    .slide.active{display:block}
+
+    @keyframes fade{
+      from{opacity:.3; transform:translateY(5px)}
+      to{opacity:1; transform:none}
+    }
+
+    h1,h2,h3{margin-top:0}
+    h1{
+      font-size:46px;
+      line-height:1.08;
+      margin-bottom:18px;
+      color:var(--accent);
+    }
+
+    h2{
+      font-size:34px;
+      line-height:1.15;
+      margin-bottom:22px;
+      color:var(--accent);
+    }
+
+    h3{
+      font-size:22px;
+      margin:24px 0 10px;
+      color:var(--accent2);
+    }
+
+    p, li{
+      font-size:21px;
+      line-height:1.55;
+    }
+
+    .lead{
+      font-size:27px;
+      line-height:1.45;
+      margin:18px 0 28px;
+    }
+
+    .small{
+      font-size:17px;
+      color:var(--muted);
+    }
+
+    .bigline{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin:28px 0;
+    }
+
+    .pill{
+      padding:12px 18px;
+      border-radius:999px;
+      background:#f7f2f4;
+      border:1px solid #ead8df;
+      font-size:21px;
+      font-weight:800;
+    }
+
+    .pill.blue{
+      background:#f0f5fa;
+      border-color:#d8e4ef;
+    }
+
+    .pill.green{
+      background:#eff8f3;
+      border-color:#d5eadf;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      margin:24px 0;
+      overflow:hidden;
+      border:1px solid var(--border);
+      border-radius:18px;
+      font-size:19px;
+    }
+
+    th,td{
+      padding:16px 18px;
+      border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      vertical-align:middle;
+      text-align:left;
+    }
+
+    th:last-child, td:last-child{border-right:none}
+    tr:last-child td{border-bottom:none}
+
+    thead th{
+      background:#fafafa;
+      font-weight:800;
+    }
+
+    .center th, .center td{text-align:center}
+
+    .first{color:var(--accent); font-weight:800}
+    .second{color:var(--accent2); font-weight:800}
+    .third{color:var(--green); font-weight:800}
+
+    .spanish-term{
+      color:var(--accent2);
+      font-style:italic;
+      font-weight:800;
+    }
+
+    .box{
+      border-left:5px solid var(--accent);
+      background:#fbf6f8;
+      padding:18px 22px;
+      border-radius:14px;
+      margin:20px 0;
+      font-size:20px;
+      line-height:1.5;
+    }
+
+    .box.blue{
+      border-left-color:var(--accent2);
+      background:#f4f8fb;
+    }
+
+    .box.green{
+      border-left-color:var(--green);
+      background:#f2f8f5;
+    }
+
+    .compare{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px 22px;
+      background:#fff;
+    }
+
+    .card h3{margin-top:0}
+
+    .example{
+      font-size:22px;
+      margin:9px 0;
+    }
+
+    .arrow{
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    .review{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px 20px;
+      margin-top:20px;
+    }
+
+    .review-item{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:15px 18px;
+      background:#fcfcfd;
+    }
+
+    .review-item strong{
+      display:block;
+      margin-bottom:5px;
+      color:var(--accent2);
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    button{
+      appearance:none;
+      border:none;
+      border-radius:14px;
+      padding:13px 20px;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      background:var(--accent);
+      color:white;
+      box-shadow:0 8px 18px rgba(139,47,86,.18);
+    }
+
+    button.secondary{
+      background:white;
+      color:var(--text);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    button:disabled{
+      opacity:.35;
+      cursor:not-allowed;
+    }
+
+    .dots{
+      display:flex;
+      gap:7px;
+      justify-content:center;
+      flex:1;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:#d1d5db;
+      cursor:pointer;
+    }
+
+    .dot.active{background:var(--accent)}
+
+    @media (max-width:760px){
+      .slide{padding:30px 24px; min-height:680px}
+      h1{font-size:36px}
+      h2{font-size:30px}
+      p,li{font-size:18px}
+      .lead{font-size:22px}
+      table{font-size:16px}
+      th,td{padding:12px 10px}
+      .compare,.review{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="course">SPAN1001 · Grammar Foundation</div>
+      <div class="counter" id="counter">Page 1 / 9</div>
+    </div>
+
+    <div class="deck">
+
+      <!-- PAGE 1 -->
+      <section class="slide active">
+        <h1>Spanish Personal Pronouns</h1>
+        <p class="lead">Before we learn verb conjugation, we need to know one thing first:</p>
+
+        <div class="box">
+          <strong>WHO is doing the action?</strong>
+        </div>
+
+        <h3>Three grammatical persons</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Meaning</th>
+              <th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="first">1st person</td>
+              <td>the speaker</td>
+              <td><strong>I / we</strong></td>
+            </tr>
+            <tr>
+              <td class="second">2nd person</td>
+              <td>the person or people I am speaking to</td>
+              <td><strong>you</strong></td>
+            </tr>
+            <tr>
+              <td class="third">3rd person</td>
+              <td>other people or things</td>
+              <td><strong>he / she / it / they</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="bigline">
+          <span class="pill">ME → 1st person</span>
+          <span class="pill blue">YOU → 2nd person</span>
+          <span class="pill green">OTHERS → 3rd person</span>
+        </div>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section class="slide">
+        <h2>English and Spanish</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>English</th>
+              <th>Spanish</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1st singular</td>
+              <td><strong>I</strong></td>
+              <td><strong>yo</strong></td>
+            </tr>
+            <tr>
+              <td>2nd singular</td>
+              <td><strong>you</strong></td>
+              <td><strong>tú / usted</strong></td>
+            </tr>
+            <tr>
+              <td>3rd singular</td>
+              <td><strong>he / she</strong></td>
+              <td><strong>él / ella</strong></td>
+            </tr>
+            <tr>
+              <td>1st plural</td>
+              <td><strong>we</strong></td>
+              <td><strong>nosotros / nosotras</strong></td>
+            </tr>
+            <tr>
+              <td>2nd plural</td>
+              <td><strong>you</strong></td>
+              <td><strong>vosotros / vosotras / ustedes</strong></td>
+            </tr>
+            <tr>
+              <td>3rd plural</td>
+              <td><strong>they</strong></td>
+              <td><strong>ellos / ellas</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="box blue">
+          In some parts of Latin America, <strong>vos</strong> is also used for singular <strong>you</strong>.
+        </div>
+
+        <p class="lead">English has one word: <strong>you</strong>.<br>Spanish has several different forms.</p>
+      </section>
+
+      <!-- PAGE 3 -->
+      <section class="slide">
+        <h2>English “YOU” vs. Spanish “YOU”</h2>
+
+        <p class="lead">English has <strong>one</strong> “you”. Spanish has <strong>several</strong>.</p>
+
+        <div class="compare">
+          <div class="card">
+            <h3>Singular</h3>
+            <p><strong>tú</strong> — familiar / informal</p>
+            <p><strong>usted</strong> — respectful / formal</p>
+            <p><strong>vos</strong> — used in parts of Latin America</p>
+          </div>
+
+          <div class="card">
+            <h3>Plural</h3>
+            <p><strong>vosotros / vosotras</strong> — familiar / informal</p>
+            <p><strong>ustedes</strong> — plural “you”</p>
+          </div>
+        </div>
+
+        <div class="box">
+          All of these forms refer to the <strong>second person</strong>: the person or people we are speaking to.
+        </div>
+
+        <h3>Spain</h3>
+        <p><strong>tú / usted / vosotros(as) / ustedes</strong></p>
+
+        <h3>Latin America</h3>
+        <p><strong>ustedes</strong> is normally used instead of <strong>vosotros(as)</strong>. In some regions, <strong>vos</strong> is also used.</p>
+      </section>
+
+      <!-- PAGE 4 -->
+      <section class="slide">
+        <h2>The Spanish Person System</h2>
+
+        <table class="center">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="first">1st person</th>
+              <th class="second">2nd person</th>
+              <th class="third">3rd person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Singular</strong></td>
+              <td><strong>yo</strong></td>
+              <td><strong>tú / usted / vos</strong></td>
+              <td><strong>él / ella</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Plural</strong></td>
+              <td><strong>nosotros / nosotras</strong></td>
+              <td><strong>vosotros / vosotras / ustedes</strong></td>
+              <td><strong>ellos / ellas</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="compare">
+          <div class="card">
+            <h3>Person</h3>
+            <p>1st, 2nd or 3rd</p>
+          </div>
+          <div class="card">
+            <h3>Number</h3>
+            <p>singular or plural</p>
+          </div>
+        </div>
+
+        <div class="box green">
+          Spanish personal pronouns are organized by <strong>person</strong> and <strong>number</strong>.
+        </div>
+      </section>
+
+      <!-- PAGE 5 -->
+      <section class="slide">
+        <h2>Third-person singular is more than <span class="spanish-term">él</span> or <span class="spanish-term">ella</span></h2>
+
+        <p class="lead"><strong>Third-person singular</strong> is a grammatical category. It can be a pronoun, a name, or a noun.</p>
+
+        <div class="compare">
+          <div class="card">
+            <h3>Pronouns</h3>
+            <p class="example"><span class="spanish-term">él</span></p>
+            <p class="example"><span class="spanish-term">ella</span></p>
+          </div>
+
+          <div class="card">
+            <h3>Names and nouns</h3>
+            <p class="example"><strong>María</strong></p>
+            <p class="example"><strong>Peter</strong></p>
+            <p class="example"><strong>my brother</strong></p>
+            <p class="example"><strong>the teacher</strong></p>
+            <p class="example"><strong>the university</strong></p>
+            <p class="example"><strong>Hong Kong</strong></p>
+            <p class="example"><strong>the book</strong></p>
+            <p class="example"><strong>my dog</strong></p>
+          </div>
+        </div>
+
+        <div class="box">
+          They can all be <strong>third-person singular</strong>: one person or one thing we are talking about.
+        </div>
+
+        <p class="example"><strong>María</strong> <span class="arrow">→</span> <span class="spanish-term">ella</span></p>
+        <p class="example"><strong>Peter</strong> <span class="arrow">→</span> <span class="spanish-term">él</span></p>
+        <p class="example"><strong>the university</strong> <span class="arrow">→</span> <em>it</em></p>
+      </section>
+
+      <!-- PAGE 6 -->
+      <section class="slide">
+        <h2>Third-person plural is more than <span class="spanish-term">ellos</span> or <span class="spanish-term">ellas</span></h2>
+
+        <p class="lead"><strong>Third-person plural</strong> can also be a pronoun, names, or plural nouns.</p>
+
+        <div class="compare">
+          <div class="card">
+            <h3>Pronouns</h3>
+            <p class="example"><span class="spanish-term">ellos</span></p>
+            <p class="example"><span class="spanish-term">ellas</span></p>
+          </div>
+
+          <div class="card">
+            <h3>Names and nouns</h3>
+            <p class="example"><strong>María and Ana</strong></p>
+            <p class="example"><strong>Peter and John</strong></p>
+            <p class="example"><strong>my parents</strong></p>
+            <p class="example"><strong>the students</strong></p>
+            <p class="example"><strong>the books</strong></p>
+            <p class="example"><strong>Hong Kong and Macao</strong></p>
+          </div>
+        </div>
+
+        <div class="box green">
+          They can all be <strong>third-person plural</strong>: two or more people or things we are talking about.
+        </div>
+
+        <p class="example"><strong>María and Ana</strong> <span class="arrow">→</span> <span class="spanish-term">ellas</span></p>
+        <p class="example"><strong>Peter and John</strong> <span class="arrow">→</span> <span class="spanish-term">ellos</span></p>
+        <p class="example"><strong>my parents</strong> <span class="arrow">→</span> <span class="spanish-term">ellos</span></p>
+      </section>
+
+      <!-- PAGE 7 -->
+      <section class="slide">
+        <h2>What happens when people are combined?</h2>
+
+        <div class="card">
+          <h3>María + I</h3>
+          <p class="example">María y yo <span class="arrow">→</span> <strong>we</strong></p>
+          <p class="example"><strong>nosotros / nosotras</strong></p>
+        </div>
+
+        <div class="box">
+          If <strong>I</strong> am included, the group becomes <strong>1st-person plural</strong>.
+        </div>
+
+        <div class="card">
+          <h3>María + you</h3>
+          <p class="example">María y tú <span class="arrow">→</span> <strong>you two</strong></p>
+          <p class="example">This is <strong>2nd-person plural</strong>.</p>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+          <h3>María + Juan</h3>
+          <p class="example">María y Juan <span class="arrow">→</span> <strong>they</strong></p>
+          <p class="example"><strong>ellos</strong></p>
+        </div>
+      </section>
+
+      <!-- PAGE 8 -->
+      <section class="slide">
+        <h2>Gender in plural pronouns</h2>
+
+        <h3>All female</h3>
+        <p class="example">Ana + María <span class="arrow">→</span> <strong>ellas</strong></p>
+        <p class="example">Ana + María + yo <span class="arrow">→</span> <strong>nosotras</strong> <span class="small">(if the speaker is female)</span></p>
+
+        <h3>Male or mixed group</h3>
+        <p class="example">Juan + Pedro <span class="arrow">→</span> <strong>ellos</strong></p>
+        <p class="example">Juan + María <span class="arrow">→</span> <strong>ellos</strong></p>
+        <p class="example">Juan + María + yo <span class="arrow">→</span> <strong>nosotros</strong></p>
+
+        <div class="box blue">
+          In traditional standard Spanish, masculine plural forms are used for male or mixed groups.
+        </div>
+      </section>
+
+      <!-- PAGE 9 -->
+      <section class="slide">
+        <h2>Review: Who are we talking about?</h2>
+
+        <div class="review">
+          <div class="review-item">
+            <strong>1. I</strong>
+            yo — 1st person singular
+          </div>
+
+          <div class="review-item">
+            <strong>2. María</strong>
+            ella — 3rd person singular
+          </div>
+
+          <div class="review-item">
+            <strong>3. You, my student</strong>
+            tú / usted — 2nd person singular
+          </div>
+
+          <div class="review-item">
+            <strong>4. María and Ana</strong>
+            ellas — 3rd person plural
+          </div>
+
+          <div class="review-item">
+            <strong>5. María and I</strong>
+            nosotros / nosotras — 1st person plural
+          </div>
+
+          <div class="review-item">
+            <strong>6. You and your classmates</strong>
+            vosotros / vosotras / ustedes — 2nd person plural
+          </div>
+        </div>
+
+        <div class="box green" style="margin-top:28px;">
+          Ask two questions:
+          <br><strong>1. Which person?</strong> — 1st, 2nd or 3rd
+          <br><strong>2. Singular or plural?</strong>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="controls">
+      <button class="secondary" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+      <div class="dots" id="dots"></div>
+      <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counter = document.getElementById('counter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsBox = document.getElementById('dots');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => showSlide(i));
+      dotsBox.appendChild(dot);
+    });
+
+    function showSlide(index){
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((s,i) => s.classList.toggle('active', i === current));
+      Array.from(dotsBox.children).forEach((d,i) => d.classList.toggle('active', i === current));
+      counter.textContent = `Page ${current + 1} / ${slides.length}`;
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+    }
+
+    function changeSlide(step){
+      showSlide(current + step);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+      if(e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
