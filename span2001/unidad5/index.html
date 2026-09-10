@@ -60,11 +60,19 @@
     .section-title h2{margin:0 0 6px;font-size:32px;letter-spacing:-.03em}
     .section-title p{margin:0;color:var(--muted)}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-    .placeholder{
-      background:var(--white);border:1px dashed var(--border);border-radius:var(--radius);
-      padding:34px;min-height:180px;display:flex;align-items:center;justify-content:center;
-      text-align:center;color:var(--muted);box-shadow:0 7px 22px rgba(20,30,50,.035);
+    .card{
+      background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+      padding:28px;min-height:190px;box-shadow:0 7px 22px rgba(20,30,50,.045);
+      transition:.22s;
     }
+    .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .label{
+      color:var(--orange);font-size:13px;font-weight:800;text-transform:uppercase;
+      letter-spacing:.1em;
+    }
+    .card h3{margin:12px 0 8px;font-size:28px;letter-spacing:-.03em}
+    .card p{margin:0;color:var(--muted)}
+    .enter{margin-top:24px;color:var(--orange);font-weight:800}
     footer{
       text-align:center;border-top:1px solid var(--border);background:#fff;
       padding:28px 20px;color:var(--muted);font-size:14px;
@@ -95,11 +103,16 @@
 <main>
   <div class="section-title">
     <h2>Learning Materials</h2>
-    <p>Activities and learning resources for Unidad 5 will appear here.</p>
+    <p>Choose an activity below.</p>
   </div>
 
   <div class="grid">
-    <div class="placeholder">Unidad 5 materials will be added here.</div>
+    <a class="card" href="es-que-porque.html">
+      <div class="label">Grammar</div>
+      <h3>Es que… &amp; porque</h3>
+      <p>Learn how to use <em>es que</em> and <em>porque</em> to give reasons and explanations in conversation.</p>
+      <div class="enter">Open activity →</div>
+    </a>
   </div>
 </main>
 
