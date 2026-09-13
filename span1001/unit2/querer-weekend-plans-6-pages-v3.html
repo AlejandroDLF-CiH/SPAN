@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Querer in Context · Weekend Plans</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#fff; --text:#1f2937; --muted:#667085;
+  --border:#dde4ee; --blue:#2563eb; --blue2:#eaf1ff;
+  --red:#c2415d; --red2:#fdecef; --green:#15803d; --green2:#eaf8ee;
+  --purple:#7c3aed; --purple2:#f1ebff; --orange:#b45309; --orange2:#fff4df;
+  --shadow:0 18px 50px rgba(31,41,55,.10); --radius:24px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(37,99,235,.08), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(124,58,237,.08), transparent 30%),
+    var(--bg);
+}
+.app{width:min(1180px,94vw); margin:0 auto; padding:22px 0 34px}
+.topbar{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:14px}
+.brand,.progress{font-size:14px; color:var(--muted); font-weight:800; letter-spacing:.04em}
+.stage{position:relative; min-height:700px}
+.page{
+  display:none; min-height:700px; padding:46px 54px 94px;
+  background:rgba(255,255,255,.98); border:1px solid var(--border);
+  border-radius:var(--radius); box-shadow:var(--shadow); animation:fade .25s ease;
+}
+.page.active{display:block}
+@keyframes fade{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1,h2{margin:0 0 22px; letter-spacing:-.025em}
+h1{font-size:clamp(40px,5vw,64px)}
+h2{font-size:clamp(34px,4vw,50px)}
+.tag{
+  display:inline-block; margin-bottom:14px; padding:8px 14px; border-radius:999px;
+  background:var(--blue2); color:var(--blue); font-size:14px; font-weight:900;
+  text-transform:uppercase; letter-spacing:.04em;
+}
+.lead{font-size:clamp(23px,2.7vw,32px); line-height:1.45; color:#374151}
+.question{
+  margin:28px 0; padding:28px; border-radius:20px;
+  background:var(--blue2); border:1px solid #c8d9ff;
+  font-size:clamp(30px,4vw,48px); font-weight:900; text-align:center;
+}
+.translation{text-align:center; color:var(--muted); font-size:21px; margin-top:-12px}
+.formula{
+  margin:26px auto; max-width:800px; padding:20px 24px;
+  background:#f8fafc; border:1px solid var(--border); border-radius:18px;
+  text-align:center; font-size:clamp(26px,3vw,40px); font-weight:900;
+}
+.arrow{color:var(--muted); padding:0 10px}
+.summary{
+  margin-top:24px; padding:18px 20px; border-radius:16px;
+  background:var(--green2); border:1px solid #bfe9c9; color:#166534;
+  font-size:20px; font-weight:800; line-height:1.5;
+}
+.activities{
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:26px;
+}
+.activity{
+  padding:19px 22px; border:1px solid var(--border); border-radius:16px;
+  background:#fff; font-size:23px; font-weight:800;
+}
+.activity span{color:var(--blue)}
+.note{
+  margin-top:24px; padding:18px 20px; border-radius:16px;
+  background:var(--orange2); border:1px solid #f1d2a1; color:#92400e;
+  font-size:19px; font-weight:800; line-height:1.5;
+}
+.dialogue{display:grid; gap:16px; max-width:900px; margin:26px auto}
+.bubble{padding:18px 22px; border-radius:18px; font-size:24px; line-height:1.5; font-weight:700}
+.a{background:var(--blue2); border:1px solid #c8d9ff}
+.b{background:var(--purple2); border:1px solid #d9ccff}
+.small-en{display:block; margin-top:6px; font-size:16px; color:var(--muted); font-weight:600}
+.compare{
+  display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:28px;
+}
+.card{
+  padding:28px; border-radius:20px; border:1px solid var(--border); background:#fff;
+  text-align:center;
+}
+.card .who{font-size:18px; color:var(--muted); font-weight:800; margin-bottom:12px}
+.card .sent{font-size:30px; font-weight:900; line-height:1.4}
+.highlight{color:var(--red)}
+table{
+  width:100%; border-collapse:separate; border-spacing:0; overflow:hidden;
+  border:1px solid var(--border); border-radius:18px; margin-top:24px; font-size:21px;
+}
+th,td{
+  padding:19px 16px; border-right:1px solid var(--border); border-bottom:1px solid var(--border);
+  text-align:center;
+}
+th:last-child,td:last-child{border-right:none}
+tr:last-child td,tr:last-child th{border-bottom:none}
+thead th{background:#f8fafc; color:#475569; text-transform:uppercase; letter-spacing:.04em; font-size:15px}
+tbody th{background:#f8fafc; color:#475569; width:30%}
+.bigform{font-size:29px; font-weight:900}
+.prompt-list{
+  margin:28px auto 0; max-width:960px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+}
+.prompt{
+  padding:10px 14px; border-radius:999px; background:#f8fafc;
+  border:1px solid var(--border); font-size:18px; font-weight:700;
+}
+.task{
+  margin:28px auto 0; max-width:940px; padding:20px 24px;
+  border-radius:18px; background:var(--green2); border:1px solid #bfe9c9;
+  color:#166534; text-align:center; font-size:22px; font-weight:900; line-height:1.5;
+}
+.nav{
+  position:absolute; left:0; right:0; bottom:22px;
+  display:flex; justify-content:space-between; padding:0 28px; pointer-events:none;
+}
+.nav button{
+  pointer-events:auto; border:1px solid var(--border); background:#fff; color:var(--text);
+  border-radius:14px; padding:11px 18px; font-size:16px; font-weight:800;
+  cursor:pointer; box-shadow:0 8px 20px rgba(31,41,55,.08);
+}
+.nav button:disabled{opacity:.35; cursor:default}
+.dots{display:flex; justify-content:center; gap:8px; margin-top:14px}
+.dot{width:10px;height:10px;border:none;border-radius:50%;padding:0;background:#ccd5e1;cursor:pointer}
+.dot.active{background:var(--blue)}
+@media(max-width:820px){
+  .page{padding:34px 22px 92px; min-height:790px}.stage{min-height:790px}
+  .activities,.compare{grid-template-columns:1fr}
+  .bubble{font-size:20px}
+  th,td{padding:14px 9px;font-size:17px}
+}
+
+  .hero-spanish{
+    margin:26px auto 14px;
+    max-width:1000px;
+    padding:32px 28px;
+    border-radius:22px;
+    background:var(--blue2);
+    border:1px solid #c8d9ff;
+    text-align:center;
+    font-size:clamp(42px,5.8vw,76px);
+    line-height:1.15;
+    font-weight:900;
+    letter-spacing:-.03em;
+  }
+  .book-shot-wrap{
+    margin:18px auto 0;
+    display:flex;
+    justify-content:center;
+  }
+  .book-shot{
+    display:block;
+    width:min(100%,1050px);
+    height:auto;
+    max-height:700px;
+    object-fit:contain;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(31,41,55,.10);
+    border:1px solid var(--border);
+    background:#fff;
+  }
+
+
+  .vocab-instruction{
+    margin:4px 0 22px;
+    text-align:center;
+    color:var(--muted);
+    font-size:17px;
+    font-weight:700;
+  }
+  .vocab-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+    margin-top:20px;
+  }
+  .vocab-card{
+    min-height:170px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:#fff;
+    padding:18px 16px;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    user-select:none;
+  }
+  .vocab-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px rgba(31,41,55,.09);
+    border-color:#bfd0ee;
+  }
+  .vocab-icon{
+    font-size:44px;
+    line-height:1;
+    margin-bottom:12px;
+  }
+  .vocab-es{
+    font-size:21px;
+    line-height:1.25;
+    font-weight:900;
+  }
+  .vocab-en{
+    display:none;
+    margin-top:11px;
+    padding-top:10px;
+    width:100%;
+    border-top:1px dashed #d8e0ea;
+    color:var(--blue);
+    font-size:16px;
+    font-weight:800;
+    line-height:1.3;
+  }
+  .vocab-card.revealed .vocab-en{
+    display:block;
+    animation:fadeMeaning .2s ease;
+  }
+  @keyframes fadeMeaning{
+    from{opacity:0;transform:translateY(-4px)}
+    to{opacity:1;transform:none}
+  }
+  @media(max-width:950px){
+    .vocab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media(max-width:620px){
+    .vocab-grid{grid-template-columns:1fr}
+  }
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">QUERER · WEEKEND PLANS</div>
+    <div class="progress" id="progress">1 / 6</div>
+  </div>
+
+  <div class="stage">
+
+    <!-- PAGE 1 -->
+    <section class="page active">
+      <span class="tag">Page 1</span>
+
+      <div class="hero-spanish">¿Qué quieres hacer este fin de semana?</div>
+      <div class="translation">What do you want to do this weekend?</div>
+
+      <div class="formula">
+        <strong>¿Qué quieres hacer…?</strong>
+        <span class="arrow">→</span>
+        <strong>Quiero + infinitive</strong>
+      </div>
+
+      <div class="compare">
+        <div class="card">
+          <div class="sent">Quiero <span class="highlight">ir al cine</span>.</div>
+        </div>
+        <div class="card">
+          <div class="sent">Quiero <span class="highlight">cocinar</span>.</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        <strong>Este fin de semana</strong> is a time expression. Here, <strong>quiero + infinitive</strong> means what you want to do.
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page">
+      <span class="tag">Page 2</span>
+      <h2>Este fin de semana</h2>
+
+      <div class="vocab-instruction">
+        Click each card to see the English meaning.
+      </div>
+
+      <div class="vocab-grid">
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🎵</div>
+          <div class="vocab-es">escuchar música</div>
+          <div class="vocab-en">listen to music</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🎤</div>
+          <div class="vocab-es">ir a un concierto</div>
+          <div class="vocab-en">go to a concert</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">📺</div>
+          <div class="vocab-es">ver la televisión</div>
+          <div class="vocab-en">watch TV</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🖼️</div>
+          <div class="vocab-es">ir a una exposición</div>
+          <div class="vocab-en">go to an exhibition</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🌙</div>
+          <div class="vocab-es">salir de noche</div>
+          <div class="vocab-en">go out at night</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🏛️</div>
+          <div class="vocab-es">visitar lugares históricos</div>
+          <div class="vocab-en">visit historical sites</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🎬</div>
+          <div class="vocab-es">ir al cine</div>
+          <div class="vocab-en">go to the cinema</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🍽️</div>
+          <div class="vocab-es">salir a cenar</div>
+          <div class="vocab-en">go out for dinner</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">👩‍🍳</div>
+          <div class="vocab-es">cocinar</div>
+          <div class="vocab-en">cook</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🛍️</div>
+          <div class="vocab-es">ir de compras</div>
+          <div class="vocab-en">go shopping</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🏖️</div>
+          <div class="vocab-es">ir a la playa</div>
+          <div class="vocab-en">go to the beach</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">📚</div>
+          <div class="vocab-es">leer</div>
+          <div class="vocab-en">read</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🎮</div>
+          <div class="vocab-es">jugar a videojuegos</div>
+          <div class="vocab-en">play video games</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🥾</div>
+          <div class="vocab-es">ir de excursión</div>
+          <div class="vocab-en">go on an excursion</div>
+        </div>
+        <div class="vocab-card" tabindex="0" role="button"
+             onclick="toggleVocab(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVocab(this);}">
+          <div class="vocab-icon">🎭</div>
+          <div class="vocab-es">hacer un curso de teatro</div>
+          <div class="vocab-en">take a theatre course</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="page">
+      <span class="tag">Page 3</span>
+      <h2>Talk about your weekend</h2>
+
+      <div class="dialogue">
+        <div class="bubble a">
+          <strong>A:</strong> Quiero ir al cine. ¿Y tú?
+          <span class="small-en">I want to go to the cinema. And you?</span>
+        </div>
+
+        <div class="bubble b">
+          <strong>B:</strong> Yo también. Y quiero salir a cenar.
+          <span class="small-en">Me too. And I want to go out for dinner.</span>
+        </div>
+      </div>
+
+      <div class="formula">
+        <strong>¿Y tú?</strong>
+        <span class="arrow">=</span>
+        <strong>And you?</strong>
+      </div>
+
+      <div class="formula">
+        <strong>Yo también.</strong>
+        <span class="arrow">=</span>
+        <strong>Me too.</strong>
+      </div>
+
+      <div class="summary">
+        Keep the conversation simple: say what you want to do, ask <strong>¿Y tú?</strong>, and respond with <strong>Yo también</strong> when you agree.
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page">
+      <span class="tag">Page 4</span>
+      <h2>From <em>yo</em> to <em>él / ella</em></h2>
+
+      <p class="lead">First, ask your classmate:</p>
+
+      <div class="question" style="font-size:38px">¿Qué quieres hacer?</div>
+
+      <div class="compare">
+        <div class="card">
+          <div class="who">YOUR ANSWER</div>
+          <div class="sent"><span class="highlight">Quiero</span> viajar.</div>
+        </div>
+
+        <div class="card">
+          <div class="who">ABOUT ANNA</div>
+          <div class="sent">Anna <span class="highlight">quiere</span> viajar.</div>
+        </div>
+      </div>
+
+      <div class="summary">
+        When you talk about yourself: <strong>quiero</strong>.<br>
+        When you talk about another person: <strong>quiere</strong>.
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="page">
+      <span class="tag">Page 5</span>
+      <h2>Who wants to do it?</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Who?</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>yo</th>
+            <td><span class="bigform">Quiero</span> aprender español.</td>
+          </tr>
+          <tr>
+            <th>Ana</th>
+            <td>Ana <span class="bigform">quiere</span> aprender español.</td>
+          </tr>
+          <tr>
+            <th>Ana y yo</th>
+            <td>Ana y yo <span class="bigform">queremos</span> aprender español.</td>
+          </tr>
+          <tr>
+            <th>Ana y Pedro</th>
+            <td>Ana y Pedro <span class="bigform">quieren</span> aprender español.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="formula">
+        <strong>quiero → quiere → queremos → quieren</strong>
+      </div>
+
+      <div class="summary">
+        You already know the conjugation. Now use the form that matches the person or people you are talking about.
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="page">
+      <span class="tag">Page 6</span>
+      <h2>Talk to a classmate</h2>
+
+      <div class="dialogue">
+        <div class="bubble a">
+          <strong>A:</strong> ¿Qué quieres hacer este fin de semana?
+        </div>
+
+        <div class="bubble b">
+          <strong>B:</strong> Quiero ir al cine. ¿Y tú?
+        </div>
+
+        <div class="bubble a">
+          <strong>A:</strong> Quiero ir de excursión / ir a la playa / … ¿Y tú?
+        </div>
+
+        <div class="bubble b">
+          <strong>B:</strong> Yo también. Y quiero salir a cenar.
+        </div>
+      </div>
+
+      <div class="prompt-list">
+        <span class="prompt">escuchar música</span>
+        <span class="prompt">ir a un concierto</span>
+        <span class="prompt">ver la televisión</span>
+        <span class="prompt">ir a una exposición</span>
+        <span class="prompt">salir de noche</span>
+        <span class="prompt">visitar lugares históricos</span>
+        <span class="prompt">ir al cine</span>
+        <span class="prompt">salir a cenar</span>
+        <span class="prompt">cocinar</span>
+        <span class="prompt">ir de compras</span>
+        <span class="prompt">ir a la playa</span>
+        <span class="prompt">leer</span>
+        <span class="prompt">jugar a videojuegos</span>
+        <span class="prompt">ir de excursión</span>
+        <span class="prompt">hacer un curso de teatro</span>
+      </div>
+
+      <div class="task">
+        Work with a partner. Ask and answer about your weekend plans.
+      </div>
+    </section>
+
+    <div class="nav">
+      <button id="prevBtn" onclick="changePage(-1)">← Previous</button>
+      <button id="nextBtn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+const pages=[...document.querySelectorAll('.page')];
+const progress=document.getElementById('progress');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const dotsWrap=document.getElementById('dots');
+let current=0;
+
+pages.forEach((_,i)=>{
+  const d=document.createElement('button');
+  d.className='dot'+(i===0?' active':'');
+  d.setAttribute('aria-label','Go to page '+(i+1));
+  d.onclick=()=>showPage(i);
+  dotsWrap.appendChild(d);
+});
+
+function showPage(index){
+  current=Math.max(0,Math.min(index,pages.length-1));
+  pages.forEach((p,i)=>p.classList.toggle('active',i===current));
+  [...dotsWrap.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+  progress.textContent=(current+1)+' / '+pages.length;
+  prevBtn.disabled=current===0;
+  nextBtn.disabled=current===pages.length-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function changePage(step){showPage(current+step)}
+
+function toggleVocab(card){
+  card.classList.toggle('revealed');
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')changePage(1);
+  if(e.key==='ArrowLeft')changePage(-1);
+});
+showPage(0);
+</script>
+</body>
+</html>

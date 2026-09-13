@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanish Articles</title>
+<style>
+  :root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --border:#dbe3ee;
+    --blue:#2563eb;
+    --blue2:#eaf1ff;
+    --red:#c2415d;
+    --red2:#fdecef;
+    --green:#15803d;
+    --green2:#eaf8ee;
+    --purple:#7c3aed;
+    --purple2:#f1ebff;
+    --shadow:0 18px 50px rgba(31,41,55,.10);
+    --radius:24px;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at top left, rgba(37,99,235,.08), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(124,58,237,.08), transparent 30%),
+      var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;
+  }
+
+  .app{
+    width:min(1180px, 94vw);
+    margin:0 auto;
+    padding:22px 0 34px;
+  }
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:14px;
+  }
+
+  .brand{
+    font-size:14px;
+    color:var(--muted);
+    letter-spacing:.04em;
+    font-weight:700;
+  }
+
+  .progress{
+    font-size:14px;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  .stage{
+    position:relative;
+    min-height:690px;
+  }
+
+  .page{
+    display:none;
+    background:rgba(255,255,255,.96);
+    border:1px solid rgba(219,227,238,.95);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    min-height:690px;
+    padding:48px 54px 92px;
+    animation:fade .28s ease;
+  }
+
+  .page.active{display:block}
+
+  @keyframes fade{
+    from{opacity:.2; transform:translateY(8px)}
+    to{opacity:1; transform:none}
+  }
+
+  h1{
+    margin:0 0 18px;
+    font-size:clamp(38px,5vw,64px);
+    line-height:1.05;
+    letter-spacing:-.03em;
+  }
+
+  h2{
+    margin:0 0 24px;
+    font-size:clamp(32px,4vw,50px);
+    letter-spacing:-.02em;
+  }
+
+  .lead{
+    font-size:clamp(22px,2.5vw,31px);
+    line-height:1.45;
+    color:#374151;
+    margin:12px 0;
+  }
+
+  .example-row{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr));
+    gap:22px;
+    margin:32px 0;
+  }
+
+  .example{
+    border:2px solid var(--border);
+    border-radius:20px;
+    padding:30px 24px;
+    text-align:center;
+    font-size:clamp(30px,4vw,48px);
+    font-weight:800;
+    background:#fff;
+  }
+
+  .tag{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:999px;
+    background:var(--blue2);
+    color:var(--blue);
+    font-weight:800;
+    font-size:14px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+
+  .center{text-align:center}
+
+  .big-word{
+    font-size:clamp(58px,8vw,98px);
+    font-weight:900;
+    letter-spacing:-.04em;
+    margin:10px 0 26px;
+    color:var(--blue);
+  }
+
+  .reveal{
+    display:none;
+    margin-top:24px;
+  }
+
+  .reveal.show{display:block}
+
+  .reveal-btn, .answer-btn{
+    border:none;
+    border-radius:14px;
+    padding:13px 18px;
+    background:var(--text);
+    color:#fff;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+  }
+
+  .reveal-btn:hover, .answer-btn:hover{opacity:.9}
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:20px;
+    margin-top:22px;
+    font-size:20px;
+  }
+
+  th, td{
+    padding:20px 18px;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+    vertical-align:middle;
+  }
+
+  th:last-child, td:last-child{border-right:none}
+  tr:last-child td{border-bottom:none}
+  thead th{
+    background:#f8fafc;
+    font-size:17px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:#475569;
+  }
+  tbody th{
+    background:#f8fafc;
+    color:#475569;
+    width:22%;
+  }
+
+  .article{
+    display:block;
+    font-size:38px;
+    font-weight:900;
+    margin-bottom:6px;
+  }
+
+  .mini{
+    font-size:15px;
+    color:var(--muted);
+    margin-top:3px;
+  }
+
+  .examples{
+    margin-top:12px;
+    font-size:21px;
+    font-weight:700;
+    line-height:1.55;
+  }
+
+  .note{
+    margin-top:26px;
+    padding:18px 20px;
+    border-radius:16px;
+    background:var(--purple2);
+    color:#4c1d95;
+    font-size:19px;
+    font-weight:700;
+    border:1px solid #d9c8ff;
+  }
+
+  .summary{
+    margin-top:24px;
+    padding:17px 20px;
+    border-radius:16px;
+    background:var(--green2);
+    color:#166534;
+    border:1px solid #bfe9c9;
+    font-size:20px;
+    font-weight:800;
+  }
+
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin:28px 0 34px;
+  }
+
+  .compare-card{
+    border-radius:20px;
+    padding:28px;
+    border:2px solid var(--border);
+    background:#fff;
+  }
+
+  .compare-card h3{
+    margin:0 0 10px;
+    font-size:34px;
+  }
+
+  .compare-card p{
+    margin:0;
+    color:#4b5563;
+    font-size:21px;
+    line-height:1.45;
+  }
+
+  .sentence-box{
+    margin:24px 0 0;
+    padding:24px 28px;
+    border-radius:18px;
+    background:#f8fafc;
+    border:1px solid var(--border);
+    font-size:clamp(26px,3vw,38px);
+    line-height:1.55;
+    font-weight:700;
+  }
+
+  .practice-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:18px;
+    margin-top:20px;
+  }
+
+  .practice{
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    background:#fff;
+  }
+
+  .practice h3{
+    margin:0 0 12px;
+    font-size:20px;
+  }
+
+  .q{
+    padding:10px 0;
+    font-size:20px;
+    border-bottom:1px dashed #d7dee8;
+  }
+
+  .q:last-of-type{border-bottom:none}
+
+  .answer{
+    display:none;
+    margin-top:14px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:var(--green2);
+    color:#166534;
+    font-weight:800;
+    line-height:1.6;
+  }
+
+  .answer.show{display:block}
+
+  .nav{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:22px;
+    display:flex;
+    justify-content:space-between;
+    padding:0 28px;
+    pointer-events:none;
+  }
+
+  .nav button{
+    pointer-events:auto;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    border-radius:14px;
+    padding:11px 18px;
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(31,41,55,.08);
+  }
+
+  .nav button:disabled{
+    opacity:.35;
+    cursor:default;
+  }
+
+  .dots{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top:14px;
+  }
+
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#ccd5e1;
+    border:none;
+    padding:0;
+    cursor:pointer;
+  }
+
+  .dot.active{background:var(--blue)}
+
+  .masc{color:var(--blue)}
+  .fem{color:var(--red)}
+
+  @media(max-width:800px){
+    .page{padding:34px 22px 90px; min-height:760px}
+    .stage{min-height:760px}
+    .example-row,.compare,.practice-grid{grid-template-columns:1fr}
+    th,td{padding:15px 10px}
+    table{font-size:17px}
+    .article{font-size:30px}
+    .examples{font-size:17px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">SPANISH GRAMMAR · ARTICLES</div>
+    <div class="progress" id="progress">1 / 6</div>
+  </div>
+
+  <div class="stage">
+    <!-- PAGE 1 -->
+    <section class="page active">
+      <span class="tag">Page 1</span>
+      <h1>What’s an article?</h1>
+
+      <div class="example-row">
+        <div class="example"><strong>the</strong> book</div>
+        <div class="example"><strong>a</strong> book</div>
+      </div>
+
+      <p class="lead">
+        In English, we use <strong>the</strong> as the <strong>definite article</strong>,
+        and <strong>a / an</strong> as <strong>indefinite articles</strong>.
+      </p>
+
+      <p class="lead">
+        Spanish also has definite and indefinite articles.
+      </p>
+
+      <div class="summary">
+        But Spanish articles change according to <strong>gender</strong> and <strong>number</strong>.
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page">
+      <span class="tag">Page 2</span>
+      <h2>Definite Articles</h2>
+
+      <div class="center">
+        <div class="mini">English</div>
+        <div class="big-word">the</div>
+        <button class="reveal-btn" onclick="toggleReveal('definiteTable')">Show Spanish forms</button>
+      </div>
+
+      <div class="reveal" id="definiteTable">
+        <div class="mini center" style="margin-top:22px;">Spanish</div>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Singular</th>
+              <th>Plural</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Masculine</th>
+              <td><span class="article masc">el</span></td>
+              <td><span class="article masc">los</span></td>
+            </tr>
+            <tr>
+              <th>Feminine</th>
+              <td><span class="article fem">la</span></td>
+              <td><span class="article fem">las</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          <strong>One more form: <em>lo</em></strong><br>
+          Spanish also has the article <strong>lo</strong>. We will learn how to use <strong>lo</strong> later.
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="page">
+      <span class="tag">Page 3</span>
+      <h2>The Four Forms</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Singular</th>
+            <th>Plural</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Masculine</th>
+            <td>
+              <span class="article masc">EL</span>
+              <div class="mini">masculine singular</div>
+              <div class="examples">el libro<br>el profesor</div>
+            </td>
+            <td>
+              <span class="article masc">LOS</span>
+              <div class="mini">masculine plural</div>
+              <div class="examples">los libros<br>los profesores</div>
+            </td>
+          </tr>
+          <tr>
+            <th>Feminine</th>
+            <td>
+              <span class="article fem">LA</span>
+              <div class="mini">feminine singular</div>
+              <div class="examples">la casa<br>la profesora</div>
+            </td>
+            <td>
+              <span class="article fem">LAS</span>
+              <div class="mini">feminine plural</div>
+              <div class="examples">las casas<br>las profesoras</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="summary">
+        The article agrees with the noun in <strong>gender</strong> and <strong>number</strong>.
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page">
+      <span class="tag">Page 4</span>
+      <h2>Indefinite Articles</h2>
+
+      <div class="center">
+        <div class="mini">English</div>
+        <div class="big-word">a / an</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Singular</th>
+            <th>Plural</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Masculine</th>
+            <td><span class="article masc">un</span></td>
+            <td><span class="article masc">unos</span></td>
+          </tr>
+          <tr>
+            <th>Feminine</th>
+            <td><span class="article fem">una</span></td>
+            <td><span class="article fem">unas</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="example-row" style="margin-top:22px;">
+        <div class="example" style="font-size:26px;">un / una ≈ <strong>a / an</strong></div>
+        <div class="example" style="font-size:26px;">unos / unas ≈ <strong>some</strong></div>
+      </div>
+
+      <div class="center" style="font-size:24px; line-height:1.8; font-weight:700;">
+        un libro · una casa · unos libros · unas casas
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="page">
+      <span class="tag">Page 5</span>
+      <h2>Definite or Indefinite?</h2>
+
+      <p class="lead center" style="font-weight:800;">
+        What’s the difference between <span class="masc">el libro</span> and <span class="masc">un libro</span>?
+      </p>
+
+      <div class="compare">
+        <div class="compare-card">
+          <h3>un libro</h3>
+          <p>one book, <strong>not specific</strong></p>
+        </div>
+        <div class="compare-card">
+          <h3>el libro</h3>
+          <p>a <strong>specific</strong> book</p>
+        </div>
+      </div>
+
+      <div class="sentence-box">
+        Tengo <strong>un libro</strong>.<br>
+        <strong>El libro</strong> es interesante.
+      </div>
+
+      <div class="summary">
+        First, we introduce <strong>a book</strong>. Then we talk about <strong>the same book</strong>.
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section class="page">
+      <span class="tag">Page 6</span>
+      <h2>Practice</h2>
+
+      <div class="practice-grid">
+        <div class="practice">
+          <h3>1. Choose the correct definite article</h3>
+          <div class="q">___ libro</div>
+          <div class="q">___ casa</div>
+          <div class="q">___ profesores</div>
+          <div class="q">___ universidades</div>
+          <button class="answer-btn" onclick="toggleAnswer('a1')">Show answer</button>
+          <div class="answer" id="a1">
+            <strong>el</strong> libro<br>
+            <strong>la</strong> casa<br>
+            <strong>los</strong> profesores<br>
+            <strong>las</strong> universidades
+          </div>
+        </div>
+
+        <div class="practice">
+          <h3>2. Choose the correct indefinite article</h3>
+          <div class="q">___ profesor</div>
+          <div class="q">___ profesora</div>
+          <div class="q">___ libros</div>
+          <div class="q">___ casas</div>
+          <button class="answer-btn" onclick="toggleAnswer('a2')">Show answer</button>
+          <div class="answer" id="a2">
+            <strong>un</strong> profesor<br>
+            <strong>una</strong> profesora<br>
+            <strong>unos</strong> libros<br>
+            <strong>unas</strong> casas
+          </div>
+        </div>
+
+        <div class="practice">
+          <h3>3. Definite or indefinite?</h3>
+          <div class="q">Tengo ___ libro. ___ libro es interesante.</div>
+          <div class="q">María tiene ___ coche. ___ coche es rojo.</div>
+          <button class="answer-btn" onclick="toggleAnswer('a3')">Show answer</button>
+          <div class="answer" id="a3">
+            Tengo <strong>un</strong> libro. <strong>El</strong> libro es interesante.<br><br>
+            María tiene <strong>un</strong> coche. <strong>El</strong> coche es rojo.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="nav">
+      <button id="prevBtn" onclick="changePage(-1)">← Previous</button>
+      <button id="nextBtn" onclick="changePage(1)">Next →</button>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+  const pages = [...document.querySelectorAll('.page')];
+  const progress = document.getElementById('progress');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsWrap = document.getElementById('dots');
+  let current = 0;
+
+  pages.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to page ' + (i + 1));
+    dot.onclick = () => showPage(i);
+    dotsWrap.appendChild(dot);
+  });
+
+  function showPage(index){
+    current = Math.max(0, Math.min(index, pages.length - 1));
+    pages.forEach((p, i) => p.classList.toggle('active', i === current));
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current));
+    progress.textContent = (current + 1) + ' / ' + pages.length;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === pages.length - 1;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function changePage(step){
+    showPage(current + step);
+  }
+
+  function toggleReveal(id){
+    document.getElementById(id).classList.toggle('show');
+  }
+
+  function toggleAnswer(id){
+    document.getElementById(id).classList.toggle('show');
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight') changePage(1);
+    if(e.key === 'ArrowLeft') changePage(-1);
+  });
+
+  showPage(0);
+</script>
+</body>
+</html>
