@@ -1,1 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPAN2001 · Unidad 6</title>
 
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --white:#fff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+      --orange:#d96b42;
+      --red:#9c3155;
+      --blue:#526da5;
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%,rgba(217,107,66,.15),transparent 30%),
+        radial-gradient(circle at 100% 0%,rgba(82,109,165,.12),transparent 28%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    header{
+      background:rgba(255,255,255,.9);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter:blur(12px);
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:auto;
+      padding:16px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .brand{
+      font-weight:800;
+    }
+
+    .back{
+      padding:9px 15px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--muted);
+      white-space:nowrap;
+      transition:.2s;
+    }
+
+    .back:hover{
+      background:var(--orange);
+      color:#fff;
+      border-color:var(--orange);
+    }
+
+    .hero{
+      max-width:1100px;
+      margin:auto;
+      padding:50px 24px 30px;
+    }
+
+    .hero-box{
+      padding:50px 30px;
+      border-radius:28px;
+      color:#fff;
+      text-align:center;
+      background:linear-gradient(
+        120deg,
+        #9b3a4d,
+        #d66b43 58%,
+        #4f6d9c
+      );
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-box::before,
+    .hero-box::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      background:rgba(255,255,255,.10);
+    }
+
+    .hero-box::before{
+      width:260px;
+      height:260px;
+      top:-120px;
+      left:-80px;
+    }
+
+    .hero-box::after{
+      width:220px;
+      height:220px;
+      bottom:-110px;
+      right:-60px;
+    }
+
+    .course{
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.9;
+      position:relative;
+      z-index:1;
+    }
+
+    h1{
+      margin:10px 0 6px;
+      font-size:clamp(42px,7vw,68px);
+      letter-spacing:-.04em;
+      position:relative;
+      z-index:1;
+    }
+
+    .subtitle{
+      font-size:20px;
+      font-weight:600;
+      position:relative;
+      z-index:1;
+    }
+
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:20px 24px 70px;
+    }
+
+    .section-title{
+      margin-bottom:22px;
+    }
+
+    .section-title h2{
+      margin:0 0 6px;
+      font-size:32px;
+      letter-spacing:-.03em;
+    }
+
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:28px;
+      min-height:210px;
+      box-shadow:0 7px 22px rgba(20,30,50,.045);
+      transition:.22s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow);
+    }
+
+    .label{
+      color:var(--orange);
+      font-size:13px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+    }
+
+    .card h3{
+      margin:12px 0 8px;
+      font-size:28px;
+      letter-spacing:-.03em;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .enter{
+      margin-top:24px;
+      color:var(--orange);
+      font-weight:800;
+    }
+
+    footer{
+      text-align:center;
+      border-top:1px solid var(--border);
+      background:#fff;
+      padding:28px 20px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    footer strong{
+      color:var(--text);
+    }
+
+    @media(max-width:700px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">SPAN2001 · Unidad 6</div>
+    <a class="back" href="../">← Back to SPAN2001</a>
+  </div>
+</header>
+
+
+<section class="hero">
+  <div class="hero-box">
+    <div class="course">SPAN2001 · Spanish II.1</div>
+
+    <h1>Unidad 6</h1>
+
+    <div class="subtitle">
+      Interactive Learning Materials
+    </div>
+  </div>
+</section>
+
+
+<main>
+
+  <div class="section-title">
+    <h2>Learning Materials</h2>
+    <p>Choose a learning material below.</p>
+  </div>
+
+
+  <div class="grid">
+
+    <!-- Present Perfect -->
+
+    <a
+      class="card"
+      href="spanish-present-perfect-complete.html"
+    >
+
+      <div class="label">
+        Grammar
+      </div>
+
+      <h3>
+        Present Perfect
+      </h3>
+
+      <p>
+        Learn how to form and use the Spanish present perfect
+        (<em>pretérito perfecto compuesto</em>).
+      </p>
+
+      <div class="enter">
+        Open material →
+      </div>
+
+    </a>
+
+
+    <!-- La perla del Cantábrico -->
+
+    <a
+      class="card"
+      href="span2001_unidad6_la_perla_del_cantabrico_v2.html"
+    >
+
+      <div class="label">
+        Reading · Culture
+      </div>
+
+      <h3>
+        La perla del Cantábrico
+      </h3>
+
+      <p>
+        Explore San Sebastián through four short texts about
+        a museum, a place, a building and a restaurant.
+      </p>
+
+      <div class="enter">
+        Open material →
+      </div>
+
+    </a>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <strong>
+    Dr. Song Yang Alejandro
+  </strong>
+
+  <br>
+
+  Lecturer in Spanish and Global and Area Studies
+
+  <br>
+
+  The University of Hong Kong
+
+</footer>
+
+</body>
+</html>
