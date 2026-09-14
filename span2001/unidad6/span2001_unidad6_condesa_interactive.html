@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciudad de México · 10 lugares en la Condesa</title>
+<style>
+:root{
+  --bg:#f6f2ea; --paper:#fffdf8; --ink:#232323; --muted:#6b6862;
+  --red:#b8092f; --red2:#cf173d; --line:#e6dfd4; --purple:#65479a;
+  --shadow:0 14px 38px rgba(68,47,35,.10);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:linear-gradient(180deg,#f4efe6,#faf8f3);
+}
+header{
+  background:linear-gradient(120deg,#a70028,#d20b3e);
+  color:white; padding:34px 24px 30px; text-align:center;
+}
+.eyebrow{font-family:Georgia,serif;font-size:18px}
+header h1{margin:4px 0 0;font-family:Georgia,serif;font-size:clamp(38px,6vw,70px);line-height:.95}
+header .sub{font-family:Georgia,serif;font-size:20px;margin-top:6px}
+.navline{
+  background:#fff9ed;color:#a3162d;text-align:center;
+  padding:13px 18px;font-family:Georgia,serif;font-weight:700;
+  border-bottom:1px solid #eadfcf
+}
+main{max-width:1100px;margin:0 auto;padding:30px 20px 70px}
+.intro{
+  background:var(--paper);border:1px solid var(--line);border-radius:22px;
+  padding:28px 30px;box-shadow:var(--shadow);margin-bottom:24px;
+}
+.intro h2{font-family:Georgia,serif;font-size:32px;margin:0 0 12px;color:var(--red)}
+.intro p{font-family:Georgia,serif;font-style:italic;font-size:20px;line-height:1.5;margin:0}
+.legend{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.legend span{background:#f3eee7;padding:8px 10px;border-radius:999px}
+.controls{display:flex;gap:10px;justify-content:flex-end;margin:0 0 14px;flex-wrap:wrap}
+.controls button{
+  border:1px solid var(--line);background:white;padding:9px 13px;border-radius:999px;
+  cursor:pointer;font-weight:700;color:#534d47
+}
+.controls button:hover{border-color:var(--red);color:var(--red)}
+.place-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  margin:12px 0;overflow:visible;box-shadow:0 6px 20px rgba(60,40,30,.05)
+}
+.place-head{
+  width:100%;border:0;background:transparent;display:grid;
+  grid-template-columns:auto auto 1fr auto;align-items:center;gap:14px;
+  padding:18px 20px;text-align:left;cursor:pointer;color:inherit
+}
+.number{
+  background:var(--red);color:white;border-radius:7px;padding:5px 7px;
+  font-weight:900;font-family:Georgia,serif
+}
+.place-icon{font-size:28px}
+.place-title{font-family:Georgia,serif;font-size:24px;font-weight:800;display:block}
+.category{font-size:13px;color:var(--muted);margin-top:2px;display:block}
+.chevron{font-size:28px;color:var(--red);transition:.2s}
+.place-head[aria-expanded="true"] .chevron{transform:rotate(180deg)}
+.place-body{
+  display:none;grid-template-columns:minmax(0,1.6fr) minmax(260px,.8fr);
+  gap:22px;padding:0 22px 22px;border-top:1px solid transparent
+}
+.place-card.open .place-body{display:grid;border-top-color:var(--line);padding-top:22px}
+.text-col p{margin:0;font-size:18px;line-height:1.7}
+.visual-box{background:#faf5ee;border:1px solid #eadfd2;border-radius:16px;padding:15px}
+.visual-title{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:#8a7160;margin-bottom:10px}
+.visual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.visual-item{background:white;border:1px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;font-size:12px;font-weight:700}
+.visual-icon{display:block;font-size:28px;margin-bottom:5px}
+
+.vocab{
+  position:relative;display:inline-block;color:var(--purple);font-weight:750;
+  border-bottom:2px dotted #8c74ba;cursor:help;line-height:1.35
+}
+.vocab::after{
+  content:attr(data-gloss);position:absolute;left:50%;bottom:calc(100% + 10px);
+  transform:translate(-50%,6px);background:#25222a;color:white;border-radius:9px;
+  padding:8px 10px;font-size:13px;line-height:1.35;font-weight:600;
+  width:max-content;max-width:250px;opacity:0;visibility:hidden;pointer-events:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.15s;z-index:40
+}
+.vocab:hover::after,.vocab:focus::after,.vocab.open::after{
+  opacity:1;visibility:visible;transform:translate(-50%,0)
+}
+.vocab:focus{outline:2px solid rgba(101,71,154,.2);outline-offset:2px;border-radius:3px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:25px;border-top:1px solid var(--line);background:#fff}
+
+@media(max-width:760px){
+  .place-body{grid-template-columns:1fr}
+  .visual-grid{grid-template-columns:repeat(3,1fr)}
+  .place-head{grid-template-columns:auto auto 1fr auto;padding:16px}
+  .place-title{font-size:20px}
+  .text-col p{font-size:17px}
+  .vocab::after{left:0;transform:translate(0,6px);max-width:210px}
+  .vocab:hover::after,.vocab:focus::after,.vocab.open::after{transform:translate(0,0)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Tiempo libre en…</div>
+  <h1>CIUDAD DE MÉXICO</h1>
+  <div class="sub">Los planes que buscas</div>
+</header>
+<div class="navline">RESTAURANTES Y CAFÉS · ANTROS Y BARES · MÚSICA · ARTE · DE COMPRAS · AL AIRE LIBRE · EVENTOS · EN FAMILIA</div>
+
+<main>
+  <section class="intro">
+    <h2>10 lugares que debes conocer en la Condesa</h2>
+    <p>¿No conoces la Condesa? Restaurantes, cafeterías, <span class="vocab" tabindex="0" data-gloss="taco shops">taquerías</span>, bares, <span class="vocab" tabindex="0" data-gloss="bookshops">librerías</span>… Uno de los barrios más lindos de la ciudad con infinitas opciones de <span class="vocab" tabindex="0" data-gloss="leisure; free-time activities">ocio</span> para <span class="vocab" tabindex="0" data-gloss="to enjoy">disfrutar</span>. Descubre nuestros lugares preferidos de Colonia Condesa.</p>
+    <div class="legend">
+      <span>🟣 Hover or click purple words for English meaning</span>
+      <span>🖼️ Visual vocabulary appears inside each place</span>
+      <span>▾ Click each place to open the text</span>
+    </div>
+  </section>
+
+  <div class="controls">
+    <button id="openAll">Open all</button>
+    <button id="closeAll">Close all</button>
+  </div>
+
+  
+    <article class="place-card" data-category="Nightlife">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">01</span>
+        <span class="place-icon">🎧</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Studio 73</span>
+          <span class="category">Nightlife</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Un <span class="vocab" data-gloss="nightclub; club">antro</span> 100% urbano, original y <span class="vocab" data-gloss="bold; daring">atrevido</span>. Una <span class="vocab" data-gloss="authentic; genuine">auténtica</span> experiencia visual, con un interior decorado con <span class="vocab" data-gloss="graffiti">grafitis</span>, para una noche de música y baile. Los mejores DJ del momento y la mejor música: <span class="vocab" data-gloss="reggaeton">reguetón</span>, electrónica, rap y los <span class="vocab" data-gloss="hits; hit songs">éxitos</span> mundiales más actuales.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🎧</span><span>DJ</span></div><div class="visual-item"><span class="visual-icon">🎨</span><span>grafitis</span></div><div class="visual-item"><span class="visual-icon">💃</span><span>baile</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Music">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">02</span>
+        <span class="place-icon">🎸</span>
+        <span class="place-title-wrap">
+          <span class="place-title">El Club del Rock &amp; Roll</span>
+          <span class="category">Music</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Un lugar mágico para los <span class="vocab" data-gloss="fans; lovers">amantes</span> de la música, que encontrarán allí un enorme catálogo de <span class="vocab" data-gloss="vinyl records">vinilos</span> de todos los <span class="vocab" data-gloss="genres">géneros</span>: rock, jazz, funk… Además de su impresionante <span class="vocab" data-gloss="music selection; musical offering">oferta musical</span>, cuentan también con una <span class="vocab" data-gloss="bar; counter">barra</span> de <span class="vocab" data-gloss="craft beers">cervezas artesanales</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">💿</span><span>vinilos</span></div><div class="visual-item"><span class="visual-icon">🎸</span><span>rock</span></div><div class="visual-item"><span class="visual-icon">🍺</span><span>cerveza artesanal</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Books &amp; Café">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">03</span>
+        <span class="place-icon">📚</span>
+        <span class="place-title-wrap">
+          <span class="place-title">El Péndulo</span>
+          <span class="category">Books &amp; Café</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Para los amantes del café y de los libros. ¿Tienes la <span class="vocab" data-gloss="free afternoon">tarde libre</span> y no sabes qué hacer? En la calle Nuevo León está El Péndulo, una <span class="vocab" data-gloss="café-bookshop; café and bookstore">cafetería-librería</span> en un espacio <span class="vocab" data-gloss="spacious">amplio</span> y <span class="vocab" data-gloss="bright; well-lit">luminoso</span>, ideal para leer un libro y <span class="vocab" data-gloss="to enjoy">disfrutar</span> de un buen café.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">📖</span><span>libro</span></div><div class="visual-item"><span class="visual-icon">☕</span><span>café</span></div><div class="visual-item"><span class="visual-icon">💡</span><span>luminoso</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Shopping &amp; Art">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">04</span>
+        <span class="place-icon">🏺</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Tamarindo Guayaba</span>
+          <span class="category">Shopping &amp; Art</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Una colorida <span class="vocab" data-gloss="shop; store">tienda</span> repleta de <span class="vocab" data-gloss="toys">juguetes</span>, objetos <span class="vocab" data-gloss="vintage; retro">vintage</span>, <span class="vocab" data-gloss="ceramics; pottery">cerámica</span>… <span class="vocab" data-gloss="unique pieces">Piezas únicas</span> que la <span class="vocab" data-gloss="owner (female)">propietaria</span> compra durante sus viajes por países de todo el mundo. Aquí puedes encontrar, además, <span class="vocab" data-gloss="works; artworks">obras</span> de <span class="vocab" data-gloss="emerging artists">artistas emergentes</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🧸</span><span>juguetes</span></div><div class="visual-item"><span class="visual-icon">🏺</span><span>cerámica</span></div><div class="visual-item"><span class="visual-icon">🖼️</span><span>obras de arte</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Food">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">05</span>
+        <span class="place-icon">🌮</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Los Loosers</span>
+          <span class="category">Food</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>En este pequeño <span class="vocab" data-gloss="place; establishment; premises">local</span> de la Condesa ofrecen un <span class="vocab" data-gloss="vegan menu">menú vegano</span> con más de 30 <span class="vocab" data-gloss="options; choices">opciones</span>. <span class="vocab" data-gloss="handmade tortillas">Tortillas hechas a mano</span> y una amplia <span class="vocab" data-gloss="variety; range">variedad</span> de tacos. Buena <span class="vocab" data-gloss="value for money; price-quality ratio">relación calidad-precio</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🌮</span><span>tacos</span></div><div class="visual-item"><span class="visual-icon">🌱</span><span>vegano</span></div><div class="visual-item"><span class="visual-icon">🫓</span><span>tortillas</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Food &amp; Café">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">06</span>
+        <span class="place-icon">🥪</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Canica</span>
+          <span class="category">Food &amp; Café</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p><span class="vocab" data-gloss="warm atmosphere">Ambiente cálido</span> y <span class="vocab" data-gloss="simple decor">decoración sencilla</span> en este local de la calle Mazatlán, en el que encontrarás deliciosos <span class="vocab" data-gloss="sandwiches">sándwiches</span>: <span class="vocab" data-gloss="surprising combinations">combinaciones sorprendentes</span> y buenos <span class="vocab" data-gloss="ingredients">ingredientes</span>. También sirven cerveza, vino y café.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🥪</span><span>sándwich</span></div><div class="visual-item"><span class="visual-icon">☕</span><span>café</span></div><div class="visual-item"><span class="visual-icon">🍷</span><span>vino</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Culture">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">07</span>
+        <span class="place-icon">🎭</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Bunko Roma-Condesa</span>
+          <span class="category">Culture</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Un espacio que busca <span class="vocab" data-gloss="to bring literature closer to">acercar la literatura a</span> los más <span class="vocab" data-gloss="young people; younger people">jóvenes</span> de forma <span class="vocab" data-gloss="fun and enjoyable">divertida y amena</span> con <span class="vocab" data-gloss="artistic and cultural activities">actividades artísticas y culturales</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">📚</span><span>literatura</span></div><div class="visual-item"><span class="visual-icon">🎨</span><span>actividades artísticas</span></div><div class="visual-item"><span class="visual-icon">🎭</span><span>cultura</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Outdoors">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">08</span>
+        <span class="place-icon">🌳</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Parque México</span>
+          <span class="category">Outdoors</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Este parque es el <span class="vocab" data-gloss="meeting and gathering place">centro de reunión y encuentro</span> en Colonia Condesa. <span class="vocab" data-gloss="fountains">Fuentes</span>, <span class="vocab" data-gloss="ponds">estanques</span> y <span class="vocab" data-gloss="waterfalls">cascadas</span> para visitar y el <span class="vocab" data-gloss="ideal place">espacio ideal</span> para caminar, practicar yoga, patinar, <span class="vocab" data-gloss="to walk the dog">pasear al perro</span> o leer un libro. Perfecto para pasar el día con tu familia o tu <span class="vocab" data-gloss="partner; significant other">pareja</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">⛲</span><span>fuente</span></div><div class="visual-item"><span class="visual-icon">🦆</span><span>estanque</span></div><div class="visual-item"><span class="visual-icon">🐕</span><span>pasear al perro</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Tea House">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">09</span>
+        <span class="place-icon">🫖</span>
+        <span class="place-title-wrap">
+          <span class="place-title">Tomás: Casa Editora de Té</span>
+          <span class="category">Tea House</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p>Un <span class="vocab" data-gloss="cozy; welcoming place">espacio acogedor</span> en el <span class="vocab" data-gloss="neighborhood">barrio</span> de la Condesa con más de 100 <span class="vocab" data-gloss="varieties">variedades</span> de té para descubrir. <span class="vocab" data-gloss="let yourself be advised; ask for recommendations">Déjate aconsejar</span> y vive la experiencia. Un lugar pequeño y <span class="vocab" data-gloss="calm; peaceful">tranquilo</span> para pasar un rato <span class="vocab" data-gloss="pleasant; enjoyable">agradable</span>.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🫖</span><span>té</span></div><div class="visual-item"><span class="visual-icon">🍵</span><span>taza de té</span></div><div class="visual-item"><span class="visual-icon">🪑</span><span>espacio acogedor</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+
+    <article class="place-card" data-category="Concerts">
+      <button class="place-head" aria-expanded="false">
+        <span class="number">10</span>
+        <span class="place-icon">🎤</span>
+        <span class="place-title-wrap">
+          <span class="place-title">El Plaza Condesa</span>
+          <span class="category">Concerts</span>
+        </span>
+        <span class="chevron">⌄</span>
+      </button>
+      <div class="place-body">
+        <div class="text-col">
+          <p><span class="vocab" data-gloss="unique and cosmopolitan atmosphere">Ambiente único y cosmopolita</span> en esta <span class="vocab" data-gloss="concert hall; music venue">sala de conciertos</span> <span class="vocab" data-gloss="located">ubicada</span> en el <span class="vocab" data-gloss="in the heart of">corazón</span> de Colonia Condesa. <span class="vocab" data-gloss="check; consult">Consulta</span> en su página web sus próximos <span class="vocab" data-gloss="events">eventos</span> y disfruta de artistas <span class="vocab" data-gloss="of the caliber of; such as well-known artists like">de la talla de</span> Nick Cave o Patti Smith.</p>
+        </div>
+        <aside class="visual-box">
+          <div class="visual-title">Visual vocabulary</div>
+          <div class="visual-grid">
+            <div class="visual-item"><span class="visual-icon">🎤</span><span>concierto</span></div><div class="visual-item"><span class="visual-icon">🎟️</span><span>evento</span></div><div class="visual-item"><span class="visual-icon">🌆</span><span>cosmopolita</span></div>
+          </div>
+        </aside>
+      </div>
+    </article>
+    
+</main>
+
+<footer>SPAN2001 · Unidad 6 · Interactive Reading</footer>
+
+<script>
+document.querySelectorAll('.place-head').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.place-card');
+    const open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+
+document.getElementById('openAll').addEventListener('click', () => {
+  document.querySelectorAll('.place-card').forEach(card => {
+    card.classList.add('open');
+    card.querySelector('.place-head').setAttribute('aria-expanded','true');
+  });
+});
+document.getElementById('closeAll').addEventListener('click', () => {
+  document.querySelectorAll('.place-card').forEach(card => {
+    card.classList.remove('open');
+    card.querySelector('.place-head').setAttribute('aria-expanded','false');
+  });
+});
+
+document.addEventListener('click', e => {
+  const v = e.target.closest('.vocab');
+  document.querySelectorAll('.vocab.open').forEach(x => {
+    if (x !== v) x.classList.remove('open');
+  });
+  if (v) {
+    v.classList.toggle('open');
+    e.stopPropagation();
+  }
+});
+</script>
+</body>
+</html>
