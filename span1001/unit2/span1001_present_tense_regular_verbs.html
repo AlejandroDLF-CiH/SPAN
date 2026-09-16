@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN1001 · Present Tense · Regular Verbs</title>
+<style>
+:root{
+  --bg:#f5f7fb;
+  --panel:#ffffff;
+  --text:#20242c;
+  --muted:#687386;
+  --border:#e3e7ef;
+  --blue:#496ba8;
+  --blue-soft:#eef3ff;
+  --red:#b0445e;
+  --red-soft:#fff0f3;
+  --green:#2f7b5d;
+  --green-soft:#eaf7f1;
+  --gold:#9b721c;
+  --gold-soft:#fff7de;
+  --purple:#7757a8;
+  --purple-soft:#f2edfb;
+  --shadow:0 16px 38px rgba(28,40,70,.09);
+  --radius:24px;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+body{overflow:hidden}
+.deck{height:100vh;display:flex;flex-direction:column}
+.topbar{
+  height:62px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;background:rgba(255,255,255,.96);border-bottom:1px solid var(--border)
+}
+.brand{font-weight:900;letter-spacing:.02em}
+.brand small{font-weight:700;color:var(--muted);margin-left:8px}
+.pagecount{font-size:14px;color:var(--muted);font-weight:800}
+.stage{flex:1;position:relative;overflow:hidden}
+.slide{
+  position:absolute;inset:0;display:none;overflow:auto;
+  padding:26px 42px 86px;
+}
+.slide.active{display:block}
+.card{
+  max-width:1180px;margin:0 auto;background:var(--panel);
+  border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:32px 36px;
+}
+h1{font-size:44px;line-height:1.08;margin:0 0 12px}
+h2{font-size:31px;line-height:1.15;margin:0 0 17px}
+h3{font-size:22px;margin:0 0 10px}
+p{font-size:19px;line-height:1.55;margin:8px 0}
+.lead{font-size:24px;color:var(--muted)}
+.center{text-align:center}
+.badge{
+  display:inline-block;background:var(--blue-soft);color:var(--blue);
+  padding:7px 12px;border-radius:999px;font-size:13px;font-weight:900;
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:13px
+}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mini{
+  border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff
+}
+.mini strong{display:block;font-size:22px;margin-bottom:5px}
+.note{
+  background:#f8fbff;border-left:5px solid var(--blue);
+  padding:14px 17px;border-radius:12px;margin-top:17px
+}
+.tip{
+  background:var(--gold-soft);border-left:5px solid var(--gold);
+  padding:14px 17px;border-radius:12px;margin-top:17px
+}
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  border:1px solid var(--border);border-radius:17px;overflow:hidden;
+  font-size:17px
+}
+th,td{
+  padding:12px 14px;border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);text-align:left
+}
+th:last-child,td:last-child{border-right:0}
+tr:last-child td{border-bottom:0}
+thead th{background:#f8fafc;font-weight:900}
+.subject{font-weight:850;white-space:nowrap}
+.ar{color:var(--red);font-weight:900}
+.er{color:var(--blue);font-weight:900}
+.ir{color:var(--green);font-weight:900}
+.stem{color:#344054;font-weight:900}
+.ending{font-weight:950;padding:1px 4px;border-radius:6px}
+.ending.arbg{background:var(--red-soft);color:var(--red)}
+.ending.erbg{background:var(--blue-soft);color:var(--blue)}
+.ending.irbg{background:var(--green-soft);color:var(--green)}
+.bigverb{font-size:56px;font-weight:950;letter-spacing:.01em;margin:12px 0}
+.arrow{font-size:28px;color:var(--muted);font-weight:800}
+.flow{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:22px 0}
+.flow .box{
+  border:1px solid var(--border);border-radius:16px;padding:13px 18px;
+  background:#fff;font-size:24px;font-weight:900
+}
+.pattern{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin:18px 0
+}
+.pattern div{
+  text-align:center;border:1px solid var(--border);border-radius:14px;
+  padding:14px 8px;background:#fff;font-size:22px;font-weight:950
+}
+.question{font-size:27px;font-weight:900;margin:20px 0 12px}
+.choice{
+  width:100%;display:block;text-align:left;border:2px solid var(--border);
+  background:#fff;border-radius:14px;padding:13px 16px;margin:9px 0;
+  font-size:19px;font-weight:800;cursor:pointer
+}
+.choice:hover{border-color:#bcc9e5}
+.choice.correct{background:var(--green-soft);border-color:var(--green);color:#205a45}
+.choice.wrong{background:var(--red-soft);border-color:var(--red);color:#842d43}
+.btn{
+  border:0;border-radius:12px;padding:11px 16px;font-size:16px;font-weight:900;cursor:pointer
+}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.green{background:var(--green);color:#fff}
+.btn.secondary{background:#edf1f7;color:#344054}
+.revealbox{
+  display:none;margin-top:13px;padding:14px 16px;border-radius:13px;
+  background:var(--green-soft);border:1px solid #cde8dd;
+  font-size:18px;line-height:1.5
+}
+.practice-row{
+  display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border)
+}
+.practice-row:last-child{border-bottom:0}
+.practice-row .prompt{font-size:21px;font-weight:800}
+.blank{color:var(--blue);font-weight:950}
+.footer{
+  position:absolute;left:0;right:0;bottom:0;height:70px;background:rgba(255,255,255,.96);
+  border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  gap:12px;padding:0 18px
+}
+.navbtn{
+  border:0;border-radius:11px;padding:10px 15px;font-size:15px;font-weight:900;
+  cursor:pointer;background:#edf1f7;color:#344054
+}
+.navbtn.primary{background:var(--blue);color:white}
+.dots{display:flex;gap:5px;max-width:520px;overflow:hidden}
+.dot{width:7px;height:7px;border-radius:50%;background:#cfd5df;flex:none}
+.dot.active{background:var(--blue)}
+.kbd{font-size:12px;color:var(--muted)}
+@media(max-width:850px){
+  body{overflow:auto}
+  .deck{height:auto;min-height:100vh}
+  .stage{min-height:calc(100vh - 62px)}
+  .slide{padding:18px 12px 88px}
+  .card{padding:24px 18px}
+  h1{font-size:34px}
+  h2{font-size:27px}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr}
+  .pattern{grid-template-columns:repeat(3,1fr)}
+  .brand small{display:none}
+  .topbar{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="topbar">
+    <div class="brand">SPAN1001 <small>Present Tense · Regular Verbs</small></div>
+    <div class="pagecount"><span id="cur">1</span> / <span id="total"></span></div>
+  </div>
+
+  <div class="stage">
+
+    <section class="slide active">
+      <div class="card center">
+        <div class="badge">Grammar</div>
+        <h1>PRESENT TENSE</h1>
+        <p class="lead">El presente</p>
+        <p>Today we are going to learn how <b>regular verbs</b> change in the present tense.</p>
+        <div class="grid3" style="margin-top:28px">
+          <div class="mini"><strong>habl<span class="ar">ar</span></strong><span>to speak</span></div>
+          <div class="mini"><strong>com<span class="er">er</span></strong><span>to eat</span></div>
+          <div class="mini"><strong>viv<span class="ir">ir</span></strong><span>to live</span></div>
+        </div>
+        <div class="note">
+          <p>Spanish infinitives normally end in <b>-ar</b>, <b>-er</b> or <b>-ir</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Review</div>
+        <h2>The six persons</h2>
+        <table>
+          <thead>
+            <tr><th>Person</th><th>Subject pronoun</th><th>English</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1st person singular</td><td class="subject">yo</td><td>I</td></tr>
+            <tr><td>2nd person singular</td><td class="subject">tú</td><td>you</td></tr>
+            <tr><td>3rd person singular</td><td class="subject">él / ella / usted</td><td>he / she / you</td></tr>
+            <tr><td>1st person plural</td><td class="subject">nosotros / nosotras</td><td>we</td></tr>
+            <tr><td>2nd person plural</td><td class="subject">vosotros / vosotras</td><td>you</td></tr>
+            <tr><td>3rd person plural</td><td class="subject">ellos / ellas / ustedes</td><td>they / you</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <p>Spanish has <b>six verb forms</b> because the verb changes according to the subject.</p>
+          <p><b>usted</b> uses the same form as <b>él / ella</b>. <b>ustedes</b> uses the same form as <b>ellos / ellas</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Review</div>
+        <h2>Verbs we already know</h2>
+        <table>
+          <thead>
+            <tr><th>Subject</th><th>SER</th><th>TENER</th><th>LLAMARSE</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td><b>soy</b></td><td><b>tengo</b></td><td><b>me llamo</b></td></tr>
+            <tr><td class="subject">tú</td><td><b>eres</b></td><td><b>tienes</b></td><td><b>te llamas</b></td></tr>
+            <tr><td class="subject">él / ella / usted</td><td><b>es</b></td><td><b>tiene</b></td><td><b>se llama</b></td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td><b>somos</b></td><td><b>tenemos</b></td><td><b>nos llamamos</b></td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td><b>sois</b></td><td><b>tenéis</b></td><td><b>os llamáis</b></td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td><b>son</b></td><td><b>tienen</b></td><td><b>se llaman</b></td></tr>
+          </tbody>
+        </table>
+        <div class="grid3" style="margin-top:18px">
+          <div class="mini"><strong>Soy estudiante.</strong><span>I am a student.</span></div>
+          <div class="mini"><strong>Tengo dieciocho años.</strong><span>I am 18 years old.</span></div>
+          <div class="mini"><strong>Me llamo Ana.</strong><span>My name is Ana.</span></div>
+        </div>
+        <div class="note"><p>You already know that Spanish verbs change according to the subject.</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card center">
+        <div class="badge">New idea</div>
+        <h2>Three types of Spanish verbs</h2>
+        <div class="grid3">
+          <div class="mini"><div class="bigverb">habl<span class="ar">AR</span></div><p>to speak</p></div>
+          <div class="mini"><div class="bigverb">com<span class="er">ER</span></div><p>to eat</p></div>
+          <div class="mini"><div class="bigverb">viv<span class="ir">IR</span></div><p>to live</p></div>
+        </div>
+        <div class="note">
+          <p>To conjugate a regular verb, we remove <b>-ar, -er or -ir</b> and add a new ending.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card center">
+        <div class="badge">How it works</div>
+        <h2>Conjugation = stem + ending</h2>
+        <div class="flow">
+          <div class="box">habl<span class="ar">ar</span></div>
+          <div class="arrow">→</div>
+          <div class="box"><span class="stem">habl-</span></div>
+          <div class="arrow">+</div>
+          <div class="box"><span class="ending arbg">-o</span></div>
+          <div class="arrow">=</div>
+          <div class="box"><span class="stem">habl</span><span class="ending arbg">o</span></div>
+        </div>
+        <p class="lead"><b>hablo</b> = I speak</p>
+        <div class="tip">
+          <p><b>Step 1:</b> find the infinitive ending. <b>Step 2:</b> remove it. <b>Step 3:</b> add the correct person ending.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Regular verbs</div>
+        <h2><span class="ar">-AR</span> verbs: hablar</h2>
+        <table>
+          <thead><tr><th>Subject</th><th>Ending</th><th>HABLAR</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td><span class="ending arbg">-o</span></td><td><span class="stem">habl</span><span class="ending arbg">o</span></td></tr>
+            <tr><td class="subject">tú</td><td><span class="ending arbg">-as</span></td><td><span class="stem">habl</span><span class="ending arbg">as</span></td></tr>
+            <tr><td class="subject">él / ella / usted</td><td><span class="ending arbg">-a</span></td><td><span class="stem">habl</span><span class="ending arbg">a</span></td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td><span class="ending arbg">-amos</span></td><td><span class="stem">habl</span><span class="ending arbg">amos</span></td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td><span class="ending arbg">-áis</span></td><td><span class="stem">habl</span><span class="ending arbg">áis</span></td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td><span class="ending arbg">-an</span></td><td><span class="stem">habl</span><span class="ending arbg">an</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card center">
+        <div class="badge">Pattern</div>
+        <h2>Remember the <span class="ar">-AR</span> endings</h2>
+        <div class="pattern">
+          <div>-o</div><div>-as</div><div>-a</div><div>-amos</div><div>-áis</div><div>-an</div>
+        </div>
+        <p>These endings work with many regular <b>-ar</b> verbs.</p>
+        <div class="grid3" style="margin-top:20px">
+          <div class="mini"><strong>estudiar</strong><span>to study</span></div>
+          <div class="mini"><strong>trabajar</strong><span>to work</span></div>
+          <div class="mini"><strong>viajar</strong><span>to travel</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Regular verbs</div>
+        <h2><span class="er">-ER</span> verbs: comer</h2>
+        <table>
+          <thead><tr><th>Subject</th><th>Ending</th><th>COMER</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td><span class="ending erbg">-o</span></td><td><span class="stem">com</span><span class="ending erbg">o</span></td></tr>
+            <tr><td class="subject">tú</td><td><span class="ending erbg">-es</span></td><td><span class="stem">com</span><span class="ending erbg">es</span></td></tr>
+            <tr><td class="subject">él / ella / usted</td><td><span class="ending erbg">-e</span></td><td><span class="stem">com</span><span class="ending erbg">e</span></td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td><span class="ending erbg">-emos</span></td><td><span class="stem">com</span><span class="ending erbg">emos</span></td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td><span class="ending erbg">-éis</span></td><td><span class="stem">com</span><span class="ending erbg">éis</span></td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td><span class="ending erbg">-en</span></td><td><span class="stem">com</span><span class="ending erbg">en</span></td></tr>
+          </tbody>
+        </table>
+        <div class="pattern">
+          <div>-o</div><div>-es</div><div>-e</div><div>-emos</div><div>-éis</div><div>-en</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Regular verbs</div>
+        <h2><span class="ir">-IR</span> verbs: vivir</h2>
+        <table>
+          <thead><tr><th>Subject</th><th>Ending</th><th>VIVIR</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td><span class="ending irbg">-o</span></td><td><span class="stem">viv</span><span class="ending irbg">o</span></td></tr>
+            <tr><td class="subject">tú</td><td><span class="ending irbg">-es</span></td><td><span class="stem">viv</span><span class="ending irbg">es</span></td></tr>
+            <tr><td class="subject">él / ella / usted</td><td><span class="ending irbg">-e</span></td><td><span class="stem">viv</span><span class="ending irbg">e</span></td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td><span class="ending irbg">-imos</span></td><td><span class="stem">viv</span><span class="ending irbg">imos</span></td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td><span class="ending irbg">-ís</span></td><td><span class="stem">viv</span><span class="ending irbg">ís</span></td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td><span class="ending irbg">-en</span></td><td><span class="stem">viv</span><span class="ending irbg">en</span></td></tr>
+          </tbody>
+        </table>
+        <div class="pattern">
+          <div>-o</div><div>-es</div><div>-e</div><div>-imos</div><div>-ís</div><div>-en</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Compare</div>
+        <h2>Compare the three types</h2>
+        <table>
+          <thead><tr><th>Subject</th><th class="ar">-AR</th><th class="er">-ER</th><th class="ir">-IR</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td><b>-o</b></td><td><b>-o</b></td><td><b>-o</b></td></tr>
+            <tr><td class="subject">tú</td><td><b>-as</b></td><td><b>-es</b></td><td><b>-es</b></td></tr>
+            <tr><td class="subject">él / ella / usted</td><td><b>-a</b></td><td><b>-e</b></td><td><b>-e</b></td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td><b>-amos</b></td><td><b>-emos</b></td><td><b>-imos</b></td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td><b>-áis</b></td><td><b>-éis</b></td><td><b>-ís</b></td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td><b>-an</b></td><td><b>-en</b></td><td><b>-en</b></td></tr>
+          </tbody>
+        </table>
+        <div class="grid2" style="margin-top:18px">
+          <div class="mini"><strong>What is the same?</strong><p><b>yo → -o</b> for all three types.</p></div>
+          <div class="mini"><strong>What is very similar?</strong><p><b>-ER</b> and <b>-IR</b> are almost the same.</p></div>
+        </div>
+        <div class="tip">
+          <p>The main difference between <b>-er</b> and <b>-ir</b> is in <b>nosotros</b> and <b>vosotros</b>: <b>-emos / -imos</b> and <b>-éis / -ís</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Compare</div>
+        <h2>hablar · comer · vivir</h2>
+        <table>
+          <thead><tr><th>Subject</th><th>HABLAR</th><th>COMER</th><th>VIVIR</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td>hablo</td><td>como</td><td>vivo</td></tr>
+            <tr><td class="subject">tú</td><td>hablas</td><td>comes</td><td>vives</td></tr>
+            <tr><td class="subject">él / ella / usted</td><td>habla</td><td>come</td><td>vive</td></tr>
+            <tr><td class="subject">nosotros / nosotras</td><td>hablamos</td><td>comemos</td><td>vivimos</td></tr>
+            <tr><td class="subject">vosotros / vosotras</td><td>habláis</td><td>coméis</td><td>vivís</td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td>hablan</td><td>comen</td><td>viven</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Vocabulary</div>
+        <h2>Regular verbs you already know</h2>
+        <div class="grid3">
+          <div class="mini">
+            <h3 class="ar">-AR</h3>
+            <p>hablar</p><p>estudiar</p><p>trabajar</p><p>viajar</p><p>escuchar</p><p>mirar</p><p>practicar</p>
+          </div>
+          <div class="mini">
+            <h3 class="er">-ER</h3>
+            <p>comer</p><p>beber</p><p>leer</p><p>aprender</p>
+          </div>
+          <div class="mini">
+            <h3 class="ir">-IR</h3>
+            <p>vivir</p><p>escribir</p>
+          </div>
+        </div>
+        <div class="note"><p><b>leer</b> is a regular <b>-er</b> verb: leo, lees, lee, leemos, leéis, leen.</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Practice</div>
+        <h2>Try it: HABLAR</h2>
+        <div class="practice-row"><div class="prompt">yo habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p1')">Answer</button></div>
+        <div id="p1" class="revealbox">hablo</div>
+        <div class="practice-row"><div class="prompt">tú habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p2')">Answer</button></div>
+        <div id="p2" class="revealbox">hablas</div>
+        <div class="practice-row"><div class="prompt">ella habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p3')">Answer</button></div>
+        <div id="p3" class="revealbox">habla</div>
+        <div class="practice-row"><div class="prompt">nosotros habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p4')">Answer</button></div>
+        <div id="p4" class="revealbox">hablamos</div>
+        <div class="practice-row"><div class="prompt">vosotros habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p5')">Answer</button></div>
+        <div id="p5" class="revealbox">habláis</div>
+        <div class="practice-row"><div class="prompt">ellos habl<span class="blank">____</span></div><button class="btn green" onclick="showOne('p6')">Answer</button></div>
+        <div id="p6" class="revealbox">hablan</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Practice</div>
+        <h2>Try it: COMER</h2>
+        <div class="practice-row"><div class="prompt">yo com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c1')">Answer</button></div>
+        <div id="c1" class="revealbox">como</div>
+        <div class="practice-row"><div class="prompt">tú com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c2')">Answer</button></div>
+        <div id="c2" class="revealbox">comes</div>
+        <div class="practice-row"><div class="prompt">él com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c3')">Answer</button></div>
+        <div id="c3" class="revealbox">come</div>
+        <div class="practice-row"><div class="prompt">nosotros com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c4')">Answer</button></div>
+        <div id="c4" class="revealbox">comemos</div>
+        <div class="practice-row"><div class="prompt">vosotros com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c5')">Answer</button></div>
+        <div id="c5" class="revealbox">coméis</div>
+        <div class="practice-row"><div class="prompt">ellos com<span class="blank">____</span></div><button class="btn green" onclick="showOne('c6')">Answer</button></div>
+        <div id="c6" class="revealbox">comen</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Practice</div>
+        <h2>Try it: VIVIR</h2>
+        <div class="practice-row"><div class="prompt">yo viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v1')">Answer</button></div>
+        <div id="v1" class="revealbox">vivo</div>
+        <div class="practice-row"><div class="prompt">tú viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v2')">Answer</button></div>
+        <div id="v2" class="revealbox">vives</div>
+        <div class="practice-row"><div class="prompt">ella viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v3')">Answer</button></div>
+        <div id="v3" class="revealbox">vive</div>
+        <div class="practice-row"><div class="prompt">nosotros viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v4')">Answer</button></div>
+        <div id="v4" class="revealbox">vivimos</div>
+        <div class="practice-row"><div class="prompt">vosotros viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v5')">Answer</button></div>
+        <div id="v5" class="revealbox">vivís</div>
+        <div class="practice-row"><div class="prompt">ellos viv<span class="blank">____</span></div><button class="btn green" onclick="showOne('v6')">Answer</button></div>
+        <div id="v6" class="revealbox">viven</div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Practice</div>
+        <h2>Choose the correct form</h2>
+
+        <div class="question">1. Yo ______ español.</div>
+        <button class="choice" onclick="mcq(this,true)">hablo</button>
+        <button class="choice" onclick="mcq(this,false)">hablas</button>
+        <button class="choice" onclick="mcq(this,false)">habla</button>
+
+        <div class="question">2. María ______ en Hong Kong.</div>
+        <button class="choice" onclick="mcq(this,false)">vivo</button>
+        <button class="choice" onclick="mcq(this,true)">vive</button>
+        <button class="choice" onclick="mcq(this,false)">vivimos</button>
+
+        <div class="question">3. Nosotros ______ español.</div>
+        <button class="choice" onclick="mcq(this,true)">estudiamos</button>
+        <button class="choice" onclick="mcq(this,false)">estudian</button>
+        <button class="choice" onclick="mcq(this,false)">estudias</button>
+
+        <div class="question">4. Carlos y Ana ______ en Madrid.</div>
+        <button class="choice" onclick="mcq(this,false)">vive</button>
+        <button class="choice" onclick="mcq(this,true)">viven</button>
+        <button class="choice" onclick="mcq(this,false)">vivís</button>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Important</div>
+        <h2>Regular vs irregular verbs</h2>
+        <div class="grid2">
+          <div class="mini" style="background:var(--green-soft)">
+            <h3>Regular verbs</h3>
+            <p><b>hablar → hablo</b></p>
+            <p><b>comer → como</b></p>
+            <p><b>vivir → vivo</b></p>
+          </div>
+          <div class="mini" style="background:var(--red-soft)">
+            <h3>Irregular verbs</h3>
+            <p><b>ser → soy</b></p>
+            <p><b>tener → tengo</b></p>
+          </div>
+        </div>
+        <div class="note">
+          <p>Not all Spanish verbs are regular. Today, focus on the <b>regular pattern</b>. We will learn irregular verbs step by step.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="card">
+        <div class="badge">Summary</div>
+        <h2>Present tense: regular verbs</h2>
+        <div class="grid3">
+          <div class="mini">
+            <h3>1. Find the ending</h3>
+            <p>habl<b>ar</b></p>
+            <p>com<b>er</b></p>
+            <p>viv<b>ir</b></p>
+          </div>
+          <div class="mini">
+            <h3>2. Remove it</h3>
+            <p><b>habl-</b></p>
+            <p><b>com-</b></p>
+            <p><b>viv-</b></p>
+          </div>
+          <div class="mini">
+            <h3>3. Add the ending</h3>
+            <p>habl + o → <b>hablo</b></p>
+            <p>com + o → <b>como</b></p>
+            <p>viv + o → <b>vivo</b></p>
+          </div>
+        </div>
+
+        <table style="margin-top:20px">
+          <thead><tr><th></th><th class="ar">-AR</th><th class="er">-ER</th><th class="ir">-IR</th></tr></thead>
+          <tbody>
+            <tr><td class="subject">yo</td><td>-o</td><td>-o</td><td>-o</td></tr>
+            <tr><td class="subject">tú</td><td>-as</td><td>-es</td><td>-es</td></tr>
+            <tr><td class="subject">él / ella / usted</td><td>-a</td><td>-e</td><td>-e</td></tr>
+            <tr><td class="subject">nosotros/as</td><td>-amos</td><td>-emos</td><td>-imos</td></tr>
+            <tr><td class="subject">vosotros/as</td><td>-áis</td><td>-éis</td><td>-ís</td></tr>
+            <tr><td class="subject">ellos / ellas / ustedes</td><td>-an</td><td>-en</td><td>-en</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    <button class="navbtn" onclick="prevSlide()">← Previous</button>
+    <div class="dots" id="dots"></div>
+    <button class="navbtn primary" onclick="nextSlide()">Next →</button>
+    <span class="kbd">← → keys</span>
+  </div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let idx=0;
+document.getElementById('total').textContent=slides.length;
+const dots=document.getElementById('dots');
+slides.forEach((_,i)=>{
+  const d=document.createElement('span');
+  d.className='dot'+(i===0?' active':'');
+  dots.appendChild(d);
+});
+function showSlide(n){
+  idx=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===idx));
+  document.getElementById('cur').textContent=idx+1;
+  slides[idx].scrollTop=0;
+}
+function nextSlide(){showSlide(idx+1)}
+function prevSlide(){showSlide(idx-1)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown') nextSlide();
+  if(e.key==='ArrowLeft'||e.key==='PageUp') prevSlide();
+});
+function showOne(id){
+  const x=document.getElementById(id);
+  x.style.display=x.style.display==='block'?'none':'block';
+}
+function mcq(el,ok){
+  const parent=el.parentElement;
+  const choices=[...parent.querySelectorAll('.choice')];
+  const y=el.getBoundingClientRect().top;
+  choices.forEach(c=>{
+    if(Math.abs(c.getBoundingClientRect().top-y)<160){
+      c.classList.remove('correct','wrong');
+    }
+  });
+  el.classList.add(ok?'correct':'wrong');
+}
+</script>
+</body>
+</html>
