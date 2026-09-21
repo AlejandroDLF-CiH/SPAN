@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPAN2001 · Spanish Charades</title>
+<style>
+:root{--paper:#f5f3ed;--ink:#183c38;--muted:#6a7771;--accent:#c65332;--line:#d8dfd6;--white:#fffefa}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #e8a643;outline-offset:4px}button:disabled{opacity:.35;cursor:default}[hidden]{display:none!important}.shell{max-width:1550px;margin:auto;padding:24px 42px;min-height:100svh;display:flex;flex-direction:column}header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:17px;border-bottom:1px solid var(--line)}.brand{font-weight:700;font-size:14px;letter-spacing:2px}.brand span{color:var(--muted);font-weight:400;letter-spacing:0;margin-left:15px}.controls{display:flex;gap:10px}.plain{border:1px solid var(--line);border-radius:9px;background:transparent;color:var(--ink);padding:10px 16px;font-size:14px}.primary{border:0;border-radius:11px;padding:15px 28px;background:var(--ink);color:white;font-weight:700;font-size:18px}.intro{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:22px 0 18px}h1{font-size:clamp(32px,4vw,52px);letter-spacing:-1.8px;margin:0 0 6px}p{margin:0;line-height:1.5}.lead{color:var(--muted);font-size:16px}.tag{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:bold;margin-bottom:9px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.word{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:15px 17px;position:relative}.word .es{font-size:clamp(18px,1.65vw,25px);font-weight:700;line-height:1.2}.word .en{font-size:clamp(13px,1.1vw,16px);color:var(--muted);margin-top:7px}.rule-card{grid-column:span 3;background:#e6ece3;border-radius:12px;padding:13px 20px;display:flex;align-items:center;gap:23px}.rule-card strong{white-space:nowrap;font-size:18px}.rule-card p{font-size:14px;color:#50655a}.bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:20px}.hint{font-size:13px;color:var(--muted)}.start-controls{display:flex;align-items:center;gap:10px}#game{flex:1;display:flex;flex-direction:column}.game-top{display:flex;justify-content:space-between;align-items:center;padding:22px 0 18px;gap:12px}.counter{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}.stage{display:flex;flex:1;min-height:380px;width:100%;border:0;border-radius:22px;background:var(--ink);color:var(--white);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px 5vw;position:relative;overflow:hidden}.stage::before{content:'';position:absolute;width:290px;height:290px;border:1px solid #ffffff10;border-radius:50%;right:-100px;top:-130px}.stage .eyebrow{color:#b9ccb5;text-transform:uppercase;letter-spacing:3px;font-size:14px;margin-bottom:30px}.big-es{font-size:clamp(44px,7.2vw,112px);font-weight:700;letter-spacing:-2px;line-height:1.08;max-width:1150px}.big-en{font-size:clamp(21px,2.4vw,36px);color:#b9c8bd;margin-top:22px;font-weight:400}.tap{color:#b9c8bd;font-size:14px;margin-top:44px}.bar{height:4px;background:#dbe3d8;margin:18px 0 0;border-radius:10px;overflow:hidden}.bar div{height:100%;background:var(--accent);transition:width .2s}.game-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:15px}.nav{display:flex;gap:10px}#finish{flex:1;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:65vh}#finish h1{font-size:clamp(44px,6vw,80px)}#finish p{color:var(--muted);font-size:20px;margin:10px 0 30px}footer{font-size:11px;color:var(--muted);margin-top:auto;padding-top:20px;letter-spacing:.3px}.status{font-size:12px;color:var(--accent)}.flash{animation:arrive .18s ease-out}@keyframes arrive{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}@media(min-width:1100px) and (max-height:780px){.shell{padding:17px 32px}.intro{margin:16px 0 13px}h1{font-size:38px}.word{padding:11px 15px}.word .es{font-size:21px}.word .en{font-size:14px;margin-top:5px}.bottom{margin-top:14px}footer{padding-top:12px}.stage{min-height:320px}}@media(max-width:850px){.shell{padding:20px}.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.rule-card{grid-column:span 1;display:block;padding:13px}.rule-card strong{font-size:15px}.rule-card p{font-size:12px;margin-top:5px}.brand span{display:none}.intro{align-items:start}.bottom{align-items:start}.big-es{letter-spacing:-1px}}@media(max-width:560px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intro{display:block}.intro>.tag{margin-top:12px}.word{padding:13px 11px}.bottom{flex-direction:column}.controls{gap:5px}.plain{padding:10px;font-size:12px}.stage{min-height:55svh;padding:30px 20px}.stage .eyebrow{font-size:11px}.big-es{font-size:44px}.game-bottom{flex-wrap:wrap}.hint{font-size:11px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#instructions{flex:1;padding:28px 0 10px}.welcome{max-width:1050px}.welcome h1{font-size:clamp(42px,5vw,70px)}.welcome .lead{font-size:20px}.rules{list-style:none;padding:0;margin:26px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;counter-reset:rule}.rules li{counter-increment:rule;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:19px 20px 19px 63px;position:relative;font-size:18px;line-height:1.45}.rules li:before{content:counter(rule);position:absolute;left:20px;top:19px;color:var(--accent);font-weight:bold;font-size:23px}.rules strong{display:block;margin-bottom:4px}.rules span{color:var(--muted);font-size:16px}.win{background:#e6ece3;padding:16px 22px;border-radius:12px;font-size:19px}.timer{display:flex;align-items:center;gap:12px}.timer-label{font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}.dial{--angle:360deg;width:76px;height:76px;display:grid;place-items:center;border-radius:50%;background:conic-gradient(var(--accent) var(--angle),#dce3d8 0);position:relative}.dial:before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--paper)}#seconds{z-index:1;font-size:43px;font-weight:bold;font-variant-numeric:tabular-nums}.tick{animation:tick .22s ease-out}@keyframes tick{from{transform:scale(1.24)}to{transform:scale(1)}}.stage{cursor:default}.tap{margin-top:25px}.game-top{padding:12px 0}.game-bottom .nav{align-items:center}.score{font-size:17px;font-weight:bold}.stage.ready{cursor:pointer}.stage.paused .big-es{font-size:clamp(44px,6vw,80px)}@media(max-width:700px){.rules{grid-template-columns:1fr}.rules li{font-size:17px}.welcome .lead{font-size:17px}.dial{width:62px;height:62px}#seconds{font-size:34px}.timer-label{display:none}.game-top{gap:6px}.counter{font-size:14px}.game-bottom .nav{flex-wrap:wrap}}@media(min-width:1100px) and (max-height:780px){#instructions{padding-top:20px}.welcome h1{font-size:52px}.rules{margin:20px 0;gap:10px}.rules li{padding-top:14px;padding-bottom:14px}.rules li:before{top:14px}.stage{min-height:300px}.big-es{font-size:clamp(44px,6.5vw,100px)}}
+header{flex-wrap:wrap}.controls{flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand">SPAN2001 <span>SPANISH CHARADES</span></div><div class="controls"><button class="plain" id="rulesButton">How to play</button><button class="plain" id="english" aria-pressed="true">English: on</button><button class="plain" id="sound" aria-pressed="true">Sound: on</button><button class="plain" id="fullscreen">Full screen</button></div></header>
+<main id="instructions">
+ <div class="welcome"><div class="tag">Act & guess · Team challenge</div><h1>Spanish Charades</h1><p class="lead">How many Spanish actions can your team guess?</p></div>
+ <ol class="rules">
+ <li><strong>Review the vocabulary.</strong><span>You will see 17 Spanish verbs and verb phrases. Read them together before the game.</span></li>
+ <li><strong>Work in pairs.</strong><span>One student is the actor; the other is the guesser.</span></li>
+ <li><strong>Take your positions.</strong><span>The actor faces the screen. The guesser faces the actor, with their back to the screen.</span></li>
+ <li><strong>Act and guess.</strong><span>The actor acts out the phrase without speaking or writing. The guesser says the phrase in Spanish.</span></li>
+ <li><strong>You have 5 seconds!</strong><span>Watch the countdown: 5, 4, 3, 2, 1, 0. The screen moves to the next phrase automatically.</span></li>
+ <li><strong>Earn points.</strong><span>Each correct phrase guessed before time runs out earns 1 point. The teacher keeps score.</span></li>
+ </ol>
+ <div class="win">Each pair plays one round. <strong>The team with the highest score wins!</strong></div>
+ <div class="bottom"><p class="hint">17 phrases per round · 5 seconds per phrase · Maximum score: 17</p><button class="primary" id="showVocabulary">Review the phrases →</button></div>
+</main>
+<main id="review" hidden>
+ <div class="intro"><div><div class="tag">Before you play · Vocabulary</div><h1>Meet the phrases</h1><p class="lead">Read all 17 phrases before you begin.</p></div><div class="tag">17 phrases · No repeats</div></div>
+ <div class="grid" id="vocabulary"></div>
+ <div class="bottom"><p class="hint">Actor: face the screen. Guesser: turn away.<br>Guess in Spanish. Each phrase stays on screen for 5 seconds.</p><div class="start-controls"><button class="plain" id="newFromReview" hidden>New round</button><button class="primary" id="start">Get ready →</button></div></div>
+</main>
+<main id="game" hidden>
+ <div class="game-top"><button class="plain" id="reviewButton">← All phrases</button><span class="counter" id="counter">Ready?</span><div class="timer"><span class="timer-label">Seconds left</span><div class="dial" id="dial"><span id="seconds" role="timer" aria-label="Seconds remaining">5</span></div></div></div>
+ <div class="stage ready" id="stage">
+  <span class="eyebrow" id="eyebrow">Take your positions</span>
+  <span class="big-es" id="phrase">Ready?</span>
+  <span class="big-en" id="translation">Guesser: turn away from the screen.</span>
+  <span class="tap" id="tap">Click Start round when both players are ready.</span>
+ </div>
+ <div class="bar" role="progressbar" aria-label="Phrases shown" aria-valuemin="0" aria-valuemax="17" aria-valuenow="0" id="progress"><div id="progressFill" style="width:0%"></div></div>
+ <div class="game-bottom"><p class="hint">5 seconds per phrase · Automatic advance<br>Teacher: click +1 for each correct answer, or press C.</p><div class="nav"><span class="score" id="score">Score: 0 / 17</span><button class="plain" id="correct" disabled>Correct +1</button><button class="primary" id="pause">Start round →</button></div></div>
+</main>
+<main id="finish" hidden><div class="tag">Round complete</div><h1>Time’s up!</h1><p id="result">All 17 phrases have appeared.</p><p>The team with the highest score wins!</p><div class="start-controls"><button class="plain" id="finishReview">All phrases</button><button class="primary" id="restart">Next team →</button></div></main>
+<footer>The University of Hong Kong · Spanish <span class="status" id="status" role="status"></span></footer>
+</div>
+<script>
+const phrases = [
+ ['hacer fotos','to take photos'],
+ ['tomar una cerveza','to have a beer'],
+ ['pintar','to paint'],
+ ['practicar yoga','to do yoga'],
+ ['bailar','to dance'],
+ ['tocar el violín','to play the violin'],
+ ['jugar a los bolos','to go bowling'],
+ ['ver un partido de fútbol','to watch a football match'],
+ ['montar a caballo','to ride a horse'],
+ ['ir al gimnasio','to go to the gym'],
+ ['leer','to read'],
+ ['jugar a las cartas','to play cards'],
+ ['tomar un café','to have a coffee'],
+ ['hacer senderismo','to go hiking'],
+ ['participar en una carrera','to take part in a race'],
+ ['ver series','to watch TV series'],
+ ['escuchar música','to listen to music']
+];
+
+const $=id=>document.getElementById(id);
+const duration=5000, zeroDuration=240;
+let soundOn=true,audioContext=null,audioOutput=null;
+function audioUnavailable(){soundOn=false;$('sound').textContent='Sound: unavailable';$('sound').setAttribute('aria-pressed','false');$('sound').disabled=true;}
+function enableAudio(){
+ if(!soundOn)return;
+ try{
+  const Context=window.AudioContext||window.webkitAudioContext;
+  if(!Context){audioUnavailable();return;}
+  if(!audioContext){audioContext=new Context();audioOutput=audioContext.createGain();audioOutput.gain.value=1;audioOutput.connect(audioContext.destination);}
+  if(audioContext.state==='suspended')audioContext.resume().catch(audioUnavailable);
+ }catch(e){audioUnavailable();}
+}
+function countdownSound(){
+ if(!soundOn||!audioContext||!audioOutput)return;
+ try{
+  const now=audioContext.currentTime;
+  // A short, softly struck bell, generated locally without audio downloads.
+  for(const [frequency,volume] of [[660,0.15],[1320,0.035]]){
+   const tone=audioContext.createOscillator(),envelope=audioContext.createGain();
+   tone.type='sine';tone.frequency.setValueAtTime(frequency,now);
+   envelope.gain.setValueAtTime(0.0001,now);envelope.gain.exponentialRampToValueAtTime(volume,now+0.008);envelope.gain.exponentialRampToValueAtTime(0.0001,now+0.24);
+   tone.connect(envelope);envelope.connect(audioOutput);tone.start(now);tone.stop(now+0.25);
+   tone.onended=()=>{tone.disconnect();envelope.disconnect();};
+  }
+ }catch(e){audioUnavailable();}
+}
+$('sound').onclick=()=>{
+ soundOn=!soundOn;$('sound').textContent=`Sound: ${soundOn?'on':'off'}`;$('sound').setAttribute('aria-pressed',soundOn);
+ if(soundOn)enableAudio();
+ if(audioOutput)audioOutput.gain.setValueAtTime(soundOn?1:0,audioContext.currentTime);
+};
+let order=[],position=-1,view='instructions',showEnglish=true,running=false,remaining=duration,deadline=0,frame=0,lastDigit=-1,transition=false,awarded=new Set();
+for(const [es,en] of phrases){const cell=document.createElement('div');cell.className='word';const title=document.createElement('div');title.className='es';title.lang='es';title.textContent=es;const gloss=document.createElement('div');gloss.className='en';gloss.textContent=en;cell.append(title,gloss);$('vocabulary').append(cell);}
+const rule=document.createElement('div');rule.className='rule-card';rule.innerHTML='<strong>One acts.<br>One guesses.</strong><p>5 seconds per phrase.<br>1 point per correct answer.</p>';$('vocabulary').append(rule);
+function switchView(target){view=target;for(const name of ['instructions','review','game','finish'])$(name).hidden=name!==target;}
+function drawTime(ms){const digit=Math.ceil(Math.max(0,ms)/1000);if(digit!==lastDigit){$('seconds').textContent=digit;$('seconds').classList.remove('tick');void $('seconds').offsetWidth;$('seconds').classList.add('tick');lastDigit=digit;if(running&&view==='game'&&!transition&&position>=0&&digit>=1&&digit<=5)countdownSound();}$('dial').style.setProperty('--angle',`${Math.max(0,ms)/duration*360}deg`);}
+function updateScore(){$('score').textContent=`Score: ${awarded.size} / 17`;$('correct').disabled=position<0||!running||transition||awarded.has(position);$('correct').textContent=awarded.has(position)?'Point recorded':'Correct +1';}
+function render(){const ready=position<0;$('counter').textContent=ready?'Ready?':`Phrase ${position+1} / 17`;$('eyebrow').textContent=ready?'Take your positions':running?'Act it out · No speaking':'Round paused';$('phrase').textContent=ready?'Ready?':!running?'Paused':transition?'Next phrase…':phrases[order[position]][0];$('phrase').lang=ready||!running||transition?'en':'es';$('translation').textContent=ready?'Guesser: turn away from the screen.':!running?'Keep your positions. Resume when ready.':transition?'':phrases[order[position]][1];$('translation').hidden=running&&(!showEnglish||transition);$('tap').textContent=ready?'Click Start round when both players are ready.':!running?'The timer is paused.':transition?'':'The next phrase appears automatically.';$('pause').textContent=ready?'Start round →':running?'Pause':'Resume';$('stage').classList.toggle('ready',ready);$('stage').classList.toggle('paused',!ready&&!running);$('progressFill').style.width=`${Math.max(0,position+1)/phrases.length*100}%`;$('progress').setAttribute('aria-valuenow',Math.max(0,position+1));updateScore();}
+function halt(){if(running)remaining=Math.max(0,deadline-performance.now());running=false;cancelAnimationFrame(frame);}
+function leave(target){halt();switchView(target);if(target==='review'){$('start').textContent=order.length&&position<phrases.length?'Continue round →':'Get ready →';$('newFromReview').hidden=!(order.length&&position<phrases.length);}}
+function newRound(){halt();order=phrases.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}position=-1;remaining=duration;transition=false;awarded=new Set();switchView('game');drawTime(duration);render();}
+function showPhrase(){position++;if(position>=phrases.length){running=false;switchView('finish');$('result').textContent=`Score: ${awarded.size} / 17. All 17 phrases have appeared.`;return;}transition=false;remaining=duration;deadline=performance.now()+duration;lastDigit=-1;drawTime(duration);render();$('phrase').classList.remove('flash');void $('phrase').offsetWidth;$('phrase').classList.add('flash');}
+function tick(){if(!running||view!=='game')return;const left=deadline-performance.now();if(left<=0){if(!transition){drawTime(0);transition=true;deadline=performance.now()+zeroDuration;remaining=zeroDuration;render();}else{showPhrase();}}else if(!transition){drawTime(left);}if(running)frame=requestAnimationFrame(tick);}
+function playPause(){if(view!=='game')return;if(running){halt();drawTime(transition?0:remaining);render();return;}enableAudio();running=true;if(position<0)showPhrase();else{deadline=performance.now()+remaining;render();}frame=requestAnimationFrame(tick);}
+function credit(){if(view==='game'&&running&&!transition&&position>=0&&performance.now()<deadline){awarded.add(position);updateScore();}}
+$('showVocabulary').onclick=()=>leave('review');$('rulesButton').onclick=()=>leave('instructions');$('reviewButton').onclick=()=>leave('review');$('finishReview').onclick=()=>leave('review');
+$('start').onclick=()=>{if(order.length&&position<phrases.length){switchView('game');drawTime(transition?0:remaining);render();}else newRound();};
+$('newFromReview').onclick=newRound;$('restart').onclick=newRound;$('pause').onclick=playPause;$('correct').onclick=credit;$('stage').onclick=()=>{if(position<0)playPause();};
+$('english').onclick=()=>{showEnglish=!showEnglish;$('english').textContent=`English: ${showEnglish?'on':'off'}`;$('english').setAttribute('aria-pressed',showEnglish);document.querySelectorAll('.en').forEach(el=>el.hidden=!showEnglish);if(view==='game')render();};
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else $('status').textContent=' · Use your browser’s full-screen command.';}catch(e){$('status').textContent=' · Use your browser’s full-screen command.';}};
+document.addEventListener('fullscreenchange',()=>{$('fullscreen').textContent=document.fullscreenElement?'Exit full screen':'Full screen';});
+document.addEventListener('keydown',e=>{if(view!=='game'||e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;if(e.key.toLowerCase()==='c'){e.preventDefault();credit();}else if(e.code==='Space'&&!(document.activeElement instanceof HTMLButtonElement)){e.preventDefault();playPause();}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){halt();if(view==='game')render();}});
+</script>
+</body>
+</html>
