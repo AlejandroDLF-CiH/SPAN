@@ -289,6 +289,34 @@
     .c3{color:var(--accent-2)}
     .c4{color:#8a6b15}
 
+    .classroom-live{
+      padding:12px 0 20px;
+    }
+
+    .classroom-live .course{
+      display:block;
+      min-height:0;
+      border-left:5px solid var(--accent-4);
+    }
+
+    .classroom-live .course h3{
+      margin-top:14px;
+    }
+
+    .classroom-live .course p{
+      max-width:52rem;
+    }
+
+    .classroom-live .course-link{
+      margin-top:18px;
+    }
+
+    .classroom-live a:focus-visible,
+    .nav-links a:focus-visible{
+      outline:3px solid var(--accent-4);
+      outline-offset:5px;
+    }
+
     .about{
       padding:0 0 72px;
     }
@@ -370,6 +398,7 @@
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#courses">Courses</a>
+        <a href="https://span1001-classroom-live.songyangalejandro.workers.dev/teacher" target="_blank" rel="noopener">Classroom Live ↗</a>
         <a href="#about">About</a>
       </nav>
     </div>
@@ -434,6 +463,18 @@
             </p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="classroom-live" aria-labelledby="classroom-live-title">
+      <div class="wrap">
+        <a class="course c2" href="https://span1001-classroom-live.songyangalejandro.workers.dev/teacher" target="_blank" rel="noopener">
+          <span class="course-number">WRITE · SHARE · DISCUSS</span>
+          <h3 id="classroom-live-title">Classroom Live</h3>
+          <p>Create writing activities and share student responses on the classroom screen. Students join by scanning the activity QR code.</p>
+          <div class="course-link">Open teacher dashboard <span aria-hidden="true">↗</span></div>
+          <p style="margin-top:8px;font-size:.85rem">Teacher sign-in required · Opens in a new tab</p>
+        </a>
       </div>
     </section>
 
