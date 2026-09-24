@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPAN2001 · Unidad 7</title>
+
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --white:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+      --orange:#d96b42;
+      --red:#9c3155;
+      --blue:#526da5;
+      --green:#397779;
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%,rgba(217,107,66,.12),transparent 30%),
+        radial-gradient(circle at 100% 0%,rgba(82,109,165,.10),transparent 28%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    header{
+      background:rgba(255,255,255,.9);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(12px);
+      z-index:20;
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:auto;
+      padding:16px 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      font-size:18px;
+    }
+
+    .brand-logo{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:900;
+      background:linear-gradient(135deg,var(--orange),var(--red));
+    }
+
+    .back-button{
+      padding:9px 15px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--muted);
+      transition:.2s;
+    }
+
+    .back-button:hover{
+      background:var(--blue);
+      color:#fff;
+      border-color:var(--blue);
+    }
+
+    .hero{
+      max-width:1100px;
+      margin:auto;
+      padding:52px 24px 28px;
+    }
+
+    .hero-box{
+      background:linear-gradient(120deg,#526da5,#397779);
+      color:#fff;
+      border-radius:28px;
+      padding:46px 30px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .course{
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      opacity:.88;
+    }
+
+    h1{
+      margin:8px 0 6px;
+      font-size:clamp(40px,7vw,66px);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .subtitle{
+      font-size:20px;
+      opacity:.94;
+    }
+
+    main{
+      max-width:1100px;
+      margin:auto;
+      padding:24px 24px 80px;
+    }
+
+    .section-title{
+      margin-bottom:24px;
+    }
+
+    .section-title span{
+      color:var(--orange);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .section-title h2{
+      margin:5px 0 4px;
+      font-size:32px;
+      letter-spacing:-.03em;
+    }
+
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .materials-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+    }
+
+    .material-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:26px;
+      min-height:205px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 7px 22px rgba(20,30,50,.045);
+      transition:.22s;
+    }
+
+    .material-card:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow);
+    }
+
+    .label{
+      font-size:13px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      color:var(--blue);
+    }
+
+    .material-card.food .label,
+    .material-card.food .enter{
+      color:var(--orange);
+    }
+
+    .material-card.frequency .label,
+    .material-card.frequency .enter{
+      color:var(--green);
+    }
+
+    .material-card h3{
+      margin:10px 0 6px;
+      font-size:27px;
+      letter-spacing:-.03em;
+    }
+
+    .material-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+    }
+
+    .enter{
+      margin-top:24px;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      background:#fff;
+      text-align:center;
+      padding:28px 20px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    @media(max-width:720px){
+      .materials-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:30px;
+      }
+
+      .brand span:last-child{
+        display:none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="../../">
+      <div class="brand-logo">S</div>
+      <span>Spanish Interactive Learning</span>
+    </a>
+
+    <a class="back-button" href="../">← SPAN2001</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-box">
+    <div class="course">SPAN2001 · Spanish II.1</div>
+    <h1>Unidad 7</h1>
+    <div class="subtitle">Interactive learning materials</div>
+  </div>
+</section>
+
+<main>
+
+  <div class="section-title">
+    <span>Unidad 7</span>
+    <h2>Learning Materials</h2>
+    <p>Select an activity below.</p>
+  </div>
+
+  <div class="materials-grid">
+
+    <a class="material-card food" href="span2001_comes_de_todo_pages_revised.html">
+      <div>
+        <div class="label">Food & Eating Habits</div>
+        <h3>¿Comes de todo?</h3>
+        <p>Talking about what you eat, what you do not eat, food intolerance and allergies.</p>
+      </div>
+      <div class="enter">Open Activity →</div>
+    </a>
+
+    <a class="material-card frequency" href="span2001_con_que_frecuencia_pages.html">
+      <div>
+        <div class="label">Frequency</div>
+        <h3>¿Con qué frecuencia?</h3>
+        <p>Words and expressions for talking about how often you do different activities.</p>
+      </div>
+      <div class="enter">Open Activity →</div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <strong>Dr. Song Yang Alejandro</strong><br>
+  Lecturer in Spanish and Global and Area Studies<br>
+  The University of Hong Kong
+</footer>
+
+</body>
+</html>
