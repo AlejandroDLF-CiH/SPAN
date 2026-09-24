@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>¿Comes de todo? · Food habits, intolerance and allergies</title>
+<style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#20242c;
+      --muted:#687386;
+      --border:#e4e8ef;
+      --blue:#3f67a8;
+      --blue2:#6f8fc2;
+      --orange:#d96b42;
+      --green:#3f8f72;
+      --shadow:0 12px 30px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    body{overflow-x:hidden}
+    .deck{min-height:100vh}
+    .slide{
+      display:none;
+      min-height:100vh;
+      padding:38px 24px 110px;
+      align-items:center;
+      justify-content:center;
+    }
+    .slide.active{display:flex}
+    .page{
+      width:min(1120px,100%);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:34px 38px;
+      box-shadow:var(--shadow);
+    }
+    .title-slide .page{
+      background:linear-gradient(135deg,#0f7ea8,#3f67a8);
+      color:#fff;
+      min-height:520px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size:clamp(3rem,8vw,6rem);
+      line-height:1;
+      letter-spacing:-2px;
+    }
+    .subtitle{
+      font-size:1.35rem;
+      opacity:.94;
+      margin:0;
+      max-width:760px;
+    }
+    h2{
+      margin:0 0 22px;
+      font-size:clamp(2rem,4vw,3rem);
+      color:#2d4e82;
+      line-height:1.1;
+    }
+    h3{
+      margin:18px 0 10px;
+      font-size:1.18rem;
+      color:#334f7b;
+    }
+    p{font-size:1.08rem;line-height:1.6;margin:8px 0 12px}
+    .lead{font-size:1.25rem}
+    .note{
+      background:#eef4ff;
+      border-left:5px solid var(--blue);
+      padding:14px 16px;
+      border-radius:12px;
+      color:#314767;
+      margin:18px 0 0;
+      font-size:1.03rem;
+    }
+    .warning{
+      background:#fff4eb;
+      border-left:5px solid var(--orange);
+      padding:14px 16px;
+      border-radius:12px;
+      color:#794229;
+      margin:18px 0 0;
+      font-size:1.03rem;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+    .mini{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      background:#fbfcfe;
+    }
+    .example{
+      margin:9px 0;
+      padding:11px 13px;
+      border-radius:10px;
+      background:#f2f5f9;
+      font-size:1.05rem;
+    }
+    .example strong{color:#2f5188}
+    .tag{
+      display:inline-block;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.2px;
+      padding:4px 8px;
+      border-radius:999px;
+      background:#edf2fb;
+      color:#48658f;
+      margin-bottom:8px;
+    }
+    .formula{
+      background:#f2f6fc;
+      border:1px solid #dce5f2;
+      border-radius:16px;
+      padding:18px;
+      font-size:1.25rem;
+      text-align:center;
+      margin:14px 0;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:12px;
+      font-size:1rem;
+    }
+    th,td{
+      border-bottom:1px solid var(--border);
+      padding:12px 10px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{background:#f2f5fa;color:#3b4f70}
+    tr:last-child td{border-bottom:none}
+    .quiz-card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      margin:14px 0;
+      background:#fff;
+    }
+    .options{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+    .quiz-card button{
+      border:none;
+      border-radius:999px;
+      padding:10px 15px;
+      font-size:.95rem;
+      cursor:pointer;
+      background:#edf2f9;
+      color:#2d4c79;
+      transition:.2s;
+    }
+    .quiz-card button:hover{transform:translateY(-1px);background:#e1eaf7}
+    .quiz-card button.correct{background:#dff4e9;color:#24664d}
+    .quiz-card button.wrong{background:#fde6df;color:#9a4a31}
+    .feedback{
+      margin-top:10px;
+      font-weight:600;
+      min-height:24px;
+    }
+    .prompt-list{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .prompt{
+      padding:15px 16px;
+      border-radius:13px;
+      background:#f6f8fb;
+      border:1px solid var(--border);
+      font-size:1.05rem;
+    }
+    .nav{
+      position:fixed;
+      left:0;right:0;bottom:0;
+      background:rgba(247,248,251,.96);
+      backdrop-filter:blur(10px);
+      border-top:1px solid var(--border);
+      padding:14px 18px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:14px;
+      z-index:10;
+    }
+    .nav button{
+      border:none;
+      border-radius:999px;
+      padding:11px 18px;
+      font-size:.97rem;
+      cursor:pointer;
+      background:#3f67a8;
+      color:#fff;
+      min-width:120px;
+    }
+    .nav button:disabled{opacity:.35;cursor:not-allowed}
+    .counter{
+      min-width:90px;
+      text-align:center;
+      color:var(--muted);
+      font-weight:600;
+    }
+    @media (max-width:820px){
+      .page{padding:26px 22px}
+      .grid2,.grid3,.prompt-list{grid-template-columns:1fr}
+      .slide{padding:20px 14px 105px;align-items:flex-start}
+      .title-slide{align-items:center}
+    }
+  </style>
+</head>
+<body>
+<div class="deck">
+<section class="slide active title-slide">
+<div class="page">
+<h1>¿Comes de todo?</h1>
+<p class="subtitle">Talking about what you eat, what you do not eat, food intolerance and allergies</p>
+</div>
+</section>
+<section class="slide">
+<div class="page">
+<h2>1. Como de todo</h2>
+<p class="lead"><strong>Como de todo</strong> is a very useful way to say that you eat all kinds of food and do not normally exclude particular foods.</p>
+<div class="formula">
+<strong>Como de todo.</strong> = I eat everything / I eat all kinds of food.
+      </div>
+<div class="grid2">
+<div class="mini">
+<span class="tag">SIMPLE ANSWER</span>
+<div class="example">¿Comes de todo?</div>
+<div class="example"><strong>Sí, como de todo.</strong></div>
+</div>
+<div class="mini">
+<span class="tag">WITH EXTRA INFORMATION</span>
+<div class="example">Como de todo, pero no como mucha carne.</div>
+<div class="example">Como de todo, pero no me gustan mucho los dulces.</div>
+</div>
+</div>
+<div class="note"><strong>de todo</strong> is a fixed expression here. It is best learned as one unit.</div>
+</div>
+</section>
+<section class="slide">
+<div class="page">
+<h2>2. Saying what you do not eat or drink</h2>
+<p>To say that you do not eat or drink something, simply use <strong>no</strong> before the verb.</p>
+<div class="grid2">
+<div class="mini">
+<h3>With comer</h3>
+<div class="example">No como carne.</div>
+<div class="example">No como marisco.</div>
+<div class="example">No como frutos secos.</div>
+<div class="example">No como pan.</div>
+</div>
+<div class="mini">
+<h3>With tomar</h3>
+<div class="example">No tomo café.</div>
+<div class="example">No tomo leche.</div>
+<div class="example">No tomo alcohol.</div>
+</div>
+</div>
+<div class="formula">
+<strong>No + verb + food / drink</strong>
+</div>
+</div>
+</section>
+<section class="slide">
+<div class="page">
+<h2>3. comer · tomar · consumir · usar</h2>
+<p>These four verbs are common when talking about food habits. They overlap in some contexts, but they are not used in exactly the same way.</p>
+<div class="grid2">
+<div class="mini">
+<h3>comer</h3>
+<p>Used mainly for solid food.</p>
+<div class="example">Como mucha verdura.</div>
+<div class="example">No como carne.</div>
+</div>
+<div class="mini">
+<h3>tomar</h3>
+<p>Very common with drinks and also with some meals or food items.</p>
+<div class="example">Tomo café.</div>
+<div class="example">No tomo leche.</div>
+</div>
+<div class="mini">
+<h3>consumir</h3>
+<p>A more general verb meaning “to consume”. It is common in more neutral or formal descriptions of habits.</p>
+<div class="example">Consumo poco azúcar.</div>
+<div class="example">No consumo mucha carne.</div>
+</div>
+<div class="mini">
+<h3>usar</h3>
+<p>Used for ingredients or products you use when preparing food.</p>
+<div class="example">Uso poco aceite.</div>
+<div class="example">No uso mucha sal.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="page">
+<h2>4. Food intolerance</h2>
+<p>Use <strong>ser intolerante a</strong> when your body has difficulty processing a particular food or substance.</p>
+<div class="formula">
+<strong>ser intolerante a + food / substance</strong>
+</div>
+<div class="grid2">
+<div class="mini">
+<div class="example">Soy intolerante <strong>al gluten</strong>.</div>
+<div class="example">Soy intolerante <strong>a la lactosa</strong>.</div>
+</div>
+<div class="mini">
+<p><strong>intolerante</strong> does not change for masculine or feminine.</p>
+<div class="example">Él es intolerante a la lactosa.</div>
+<div class="example">Ella es intolerante a la lactosa.</div>
+</div>
+</div>
+<div class="note">Remember: <strong>a + el = al</strong>, so we say <strong>al gluten</strong>.</div>
+</div>
+</section>
+<section class="slide">
+<div class="page"><h2>5. Food allergies</h2><p>Use ser alérgico/a a to say that you are allergic to a food or substance.</p><div class="formula"><strong>ser alérgico/a a + food / substance</strong></div><div class="example">Soy <strong>alérgico/a</strong> al marisco.</div><div class="example">Soy <strong>alérgico/a</strong> a los frutos secos.</div><div class="example">Soy <strong>alérgico/a</strong> a la soja.</div><div class="warning"><strong>Important:</strong> <em>alérgico / alérgica</em> agrees with the person.</div></div>
+</section>
+
+<section class="slide">
+<div class="page">
+<h2>6. Build a complete answer</h2>
+<p>You can combine these expressions to give a more complete description of your food habits.</p>
+<div class="grid2">
+<div class="mini">
+<span class="tag">EXAMPLE 1</span>
+<div class="example">Como de todo.</div>
+<div class="example">Como mucha verdura y bastante fruta.</div>
+<div class="example">No tomo mucha leche.</div>
+</div>
+<div class="mini">
+<span class="tag">EXAMPLE 2</span>
+<div class="example">No como de todo.</div>
+<div class="example">No como marisco.</div>
+<div class="example">Soy alérgico al marisco.</div>
+</div>
+</div>
+<div class="note">The goal is not to use every structure at the same time. Choose the expressions that are true and useful for you.</div>
+</div>
+</section>
+<section class="slide">
+<div class="page">
+<h2>7. Quick check</h2>
+<div class="quiz-card">
+<strong>1. Which sentence is correct?</strong>
+<div class="options">
+<button onclick="check(this,true,'q1')">Soy intolerante a la lactosa.</button>
+<button onclick="check(this,false,'q1')">Soy intoleranto a la lactosa.</button>
+<button onclick="check(this,false,'q1')">Soy intolerante de la lactosa.</button>
+</div>
+<div class="feedback" id="q1"></div>
+</div>
+<div class="quiz-card">
+<strong>2. Complete: Soy alérgico ___ marisco.</strong>
+<div class="options">
+<button onclick="check(this,true,'q2')">al</button>
+<button onclick="check(this,false,'q2')">a el</button>
+<button onclick="check(this,false,'q2')">del</button>
+</div>
+<div class="feedback" id="q2"></div>
+</div>
+<div class="quiz-card"><strong>3. Which sentence means “I am allergic to shellfish”?</strong><div class="options"><button onclick="check(this,true,'q3')">Soy alérgico/a al marisco.</button><button onclick="check(this,false,'q3')">Soy intolerante al marisco.</button><button onclick="check(this,false,'q3')">No tomo marisco.</button></div><div class="feedback" id="q3"></div></div>
+</div>
+</section>
+<section class="slide">
+<div class="page">
+<h2>8. Speaking practice</h2>
+<p>Ask a partner the questions below. Try to give complete answers, not only “yes” or “no”.</p>
+<div class="prompt-list">
+<div class="prompt">¿Comes de todo?</div>
+<div class="prompt">¿Hay algo que no comes?</div>
+<div class="prompt">¿Tomas mucha leche o café?</div>
+<div class="prompt">¿Consumes mucho azúcar?</div>
+<div class="prompt">¿Eres intolerante a algún alimento?</div>
+<div class="prompt">¿Eres alérgico/a a algún alimento?</div>
+</div>
+<div class="note" style="margin-top:20px">
+        Useful answers: <strong>Como de todo.</strong> · <strong>No como...</strong> · <strong>Consumo mucho/a...</strong> · <strong>Soy intolerante a...</strong> · <strong>Soy alérgico/a a...</strong>
+</div>
+</div>
+</section>
+</div>
+<div class="nav">
+<button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+<div class="counter" id="counter">1 / 9</div>
+<button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+
+  function showSlide(index){
+    if(index < 0 || index >= slides.length) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === slides.length - 1;
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function changeSlide(direction){
+    showSlide(current + direction);
+  }
+
+  function check(btn, ok, id){
+    const group = btn.parentElement.querySelectorAll('button');
+    group.forEach(b => b.classList.remove('correct','wrong'));
+    const feedback = document.getElementById(id);
+    if(ok){
+      btn.classList.add('correct');
+      feedback.textContent = 'Correct.';
+      feedback.style.color = '#24664d';
+    }else{
+      btn.classList.add('wrong');
+      feedback.textContent = 'Try again.';
+      feedback.style.color = '#9a4a31';
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown') changeSlide(1);
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp') changeSlide(-1);
+  });
+
+  showSlide(0);
+</script>
+</body>
+</html>
