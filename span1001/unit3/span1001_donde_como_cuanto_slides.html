@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DÓNDE, CÓMO and CUÁNTO | SPAN1001</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+      --red:#9c3155;
+      --orange:#d96b42;
+      --green:#397779;
+      --blue:#526da5;
+      --yellow:#e9b94f;
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(233,185,79,.16), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(57,119,121,.10), transparent 28%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    header{
+      background:rgba(255,255,255,.92);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(10px);
+      padding:14px 22px;
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+    }
+
+    .logo{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:900;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+    }
+
+    .muted{color:var(--muted)}
+
+    .stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:26px 22px 18px;
+    }
+
+    .deck{
+      width:min(1100px,100%);
+    }
+
+    .slide{
+      display:none;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      min-height:620px;
+      padding:42px 48px;
+      animation:fade .18s ease;
+    }
+
+    .slide.active{display:block}
+
+    @keyframes fade{
+      from{opacity:.35; transform:translateY(4px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .slide-number{
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--red);
+      margin-bottom:10px;
+    }
+
+    h1,h2{
+      letter-spacing:-.035em;
+      margin:0;
+    }
+
+    h1{
+      font-size:clamp(44px,7vw,76px);
+      line-height:1;
+      margin-bottom:16px;
+    }
+
+    h2{
+      font-size:clamp(34px,5vw,52px);
+      margin-bottom:20px;
+    }
+
+    h3{
+      font-size:23px;
+      margin:22px 0 10px;
+    }
+
+    p{
+      font-size:20px;
+      line-height:1.6;
+      margin:10px 0;
+    }
+
+    .hero{
+      min-height:620px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      background:linear-gradient(120deg,#526da5,#397779 58%,#d96b42);
+    }
+
+    .hero p{
+      font-size:24px;
+      opacity:.95;
+    }
+
+    .rule{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:14px;
+      background:#f1f3f8;
+      font-weight:800;
+      margin:6px 0 16px;
+      font-size:23px;
+    }
+
+    .note{
+      border-left:5px solid var(--green);
+      background:#f5fbfb;
+      padding:14px 16px;
+      margin:16px 0;
+      border-radius:10px;
+      font-weight:700;
+      font-size:19px;
+    }
+
+    .examples{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .ex{
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      font-size:18px;
+    }
+
+    .translation{
+      color:var(--muted);
+      font-size:14px;
+      margin-top:2px;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:16px;
+      font-size:18px;
+    }
+
+    th,td{
+      border:1px solid var(--border);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{background:#f4f6fa}
+
+    .practice ol{
+      padding-left:28px;
+      columns:2;
+      column-gap:34px;
+    }
+
+    .practice li{
+      break-inside:avoid;
+      margin:10px 0;
+      padding:10px 12px;
+      background:#fafbfe;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font-size:18px;
+    }
+
+    details{
+      margin-top:20px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px 14px;
+      background:#fff;
+      font-size:17px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      color:var(--blue);
+    }
+
+    .controls{
+      max-width:1100px;
+      width:calc(100% - 44px);
+      margin:0 auto 26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:12px 20px;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      background:white;
+      border:1px solid var(--border);
+      color:var(--text);
+      box-shadow:0 5px 16px rgba(20,30,50,.04);
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn:disabled{opacity:.35; cursor:not-allowed; transform:none}
+
+    .btn.primary{
+      background:var(--red);
+      color:white;
+      border-color:var(--red);
+    }
+
+    .progress-wrap{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+    }
+
+    .progress{
+      width:min(380px,100%);
+      height:8px;
+      background:#e8ebf1;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0;
+      background:linear-gradient(90deg,var(--red),var(--orange));
+      transition:width .2s ease;
+    }
+
+    .page-indicator{
+      color:var(--muted);
+      font-size:14px;
+      font-weight:700;
+    }
+
+    @media(max-width:800px){
+      .slide{min-height:0;padding:28px 24px}
+      .hero{min-height:560px}
+      .two-col{grid-template-columns:1fr}
+      .practice ol{columns:1}
+      p{font-size:18px}
+      .controls{width:calc(100% - 28px)}
+      .nav .right{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <div>SPAN1001</div>
+        <div class="muted" style="font-size:13px;font-weight:600;">Spanish Interactive Learning</div>
+      </div>
+    </div>
+    <div class="right muted">The University of Hong Kong</div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="deck">
+
+    <section class="slide active hero">
+      <div class="slide-number" style="color:white;opacity:.9;">Page 1</div>
+      <h1>DÓNDE, CÓMO and CUÁNTO</h1>
+      <p>Three useful question words in Spanish</p>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 2</div>
+      <h2>DÓNDE = where</h2>
+
+      <div class="note">We use <strong>dónde</strong> to ask about a place or location.</div>
+
+      <div class="rule">¿DÓNDE ...?</div>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>¿Dónde está Oaxaca?</strong>
+          <div class="translation">Where is Oaxaca?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Dónde está Madrid?</strong>
+          <div class="translation">Where is Madrid?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Dónde están Barcelona y Madrid?</strong>
+          <div class="translation">Where are Barcelona and Madrid?</div>
+        </div>
+      </div>
+
+      <h3>With other verbs</h3>
+      <div class="examples">
+        <div class="ex"><strong>¿Dónde vives?</strong><div class="translation">Where do you live?</div></div>
+        <div class="ex"><strong>¿Dónde estudias?</strong><div class="translation">Where do you study?</div></div>
+        <div class="ex"><strong>¿Dónde trabajas?</strong><div class="translation">Where do you work?</div></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 3</div>
+      <h2>CÓMO = how</h2>
+
+      <div class="note">We use <strong>cómo</strong> to ask how something is or happens.</div>
+
+      <div class="rule">¿CÓMO ...?</div>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>¿Cómo es el clima en la costa atlántica?</strong>
+          <div class="translation">What is the climate like on the Atlantic coast?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cómo es Hong Kong?</strong>
+          <div class="translation">What is Hong Kong like?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cómo estás?</strong>
+          <div class="translation">How are you?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cómo estudias español?</strong>
+          <div class="translation">How do you study Spanish?</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>¿Cómo es ...?</strong> often corresponds to English
+        <strong>“What is ... like?”</strong>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 4</div>
+      <h2>CUÁNTO / CUÁNTA / CUÁNTOS / CUÁNTAS</h2>
+
+      <p><strong>= how much / how many</strong></p>
+
+      <div class="note">We use these forms to ask about quantity.</div>
+
+      <div class="rule">CUÁNTO / CUÁNTA / CUÁNTOS / CUÁNTAS + noun</div>
+
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Singular</th>
+            <th>Plural</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Masculine</th>
+            <td><strong>cuánto</strong></td>
+            <td><strong>cuántos</strong></td>
+          </tr>
+          <tr>
+            <th>Feminine</th>
+            <td><strong>cuánta</strong></td>
+            <td><strong>cuántas</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">The form agrees with the noun in gender and number.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 5</div>
+      <h2>Examples with CUÁNTO</h2>
+
+      <div class="two-col">
+        <div class="examples">
+          <div class="ex">
+            <strong>¿Cuánto dinero tienes?</strong>
+            <div class="translation">How much money do you have?</div>
+          </div>
+          <div class="ex">
+            <strong>¿Cuánta agua bebes?</strong>
+            <div class="translation">How much water do you drink?</div>
+          </div>
+        </div>
+
+        <div class="examples">
+          <div class="ex">
+            <strong>¿Cuántos estudiantes hay?</strong>
+            <div class="translation">How many students are there?</div>
+          </div>
+          <div class="ex">
+            <strong>¿Cuántas lenguas hablas?</strong>
+            <div class="translation">How many languages do you speak?</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>With HAY</h3>
+      <div class="examples">
+        <div class="ex">
+          <strong>¿Cuántos restaurantes hay?</strong>
+          <div class="translation">Hay muchos restaurantes.</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cuántas universidades hay?</strong>
+          <div class="translation">Hay muchas universidades.</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cuánta gente hay?</strong>
+          <div class="translation">Hay mucha gente.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 6</div>
+      <h2>Summary</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Question word</th>
+            <th>Meaning</th>
+            <th>Use</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>dónde</strong></td>
+            <td>where</td>
+            <td>place / location</td>
+            <td>¿Dónde está Oaxaca?</td>
+          </tr>
+          <tr>
+            <td><strong>cómo</strong></td>
+            <td>how</td>
+            <td>manner / description</td>
+            <td>¿Cómo es el clima?</td>
+          </tr>
+          <tr>
+            <td><strong>cuánto/a/os/as</strong></td>
+            <td>how much / how many</td>
+            <td>quantity</td>
+            <td>¿Cuántas lenguas hablas?</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide practice">
+      <div class="slide-number">Page 7</div>
+      <h2>Practice</h2>
+      <p>Complete with <strong>dónde</strong>, <strong>cómo</strong>, <strong>cuánto</strong>, <strong>cuánta</strong>, <strong>cuántos</strong> or <strong>cuántas</strong>.</p>
+
+      <ol>
+        <li>¿______ está Oaxaca?</li>
+        <li>¿______ es el clima en verano?</li>
+        <li>¿______ estudiantes hay en la clase?</li>
+        <li>¿______ agua bebes cada día?</li>
+        <li>¿______ lenguas hablas?</li>
+        <li>¿______ trabajas?</li>
+        <li>¿______ dinero necesitas?</li>
+        <li>¿______ es tu ciudad?</li>
+      </ol>
+
+      <details>
+        <summary>Show answers</summary>
+        <p>
+          1. dónde · 2. cómo · 3. cuántos · 4. cuánta ·
+          5. cuántas · 6. dónde · 7. cuánto · 8. cómo
+        </p>
+      </details>
+    </section>
+
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+
+  <div class="progress-wrap">
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="page-indicator" id="pageIndicator">1 / 7</div>
+  </div>
+
+  <button class="btn primary" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+
+  function showSlide(index){
+    current = Math.max(0, Math.min(index, slides.length - 1));
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+    });
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === slides.length - 1;
+
+    document.getElementById('pageIndicator').textContent =
+      `${current + 1} / ${slides.length}`;
+
+    document.getElementById('progressBar').style.width =
+      `${((current + 1) / slides.length) * 100}%`;
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function changeSlide(step){
+    showSlide(current + step);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+      e.preventDefault();
+      changeSlide(1);
+    }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){
+      e.preventDefault();
+      changeSlide(-1);
+    }
+    if(e.key === 'Home'){
+      e.preventDefault();
+      showSlide(0);
+    }
+    if(e.key === 'End'){
+      e.preventDefault();
+      showSlide(slides.length - 1);
+    }
+  });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>

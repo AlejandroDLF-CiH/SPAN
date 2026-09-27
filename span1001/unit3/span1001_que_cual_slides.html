@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Words | QUÉ and CUÁL | SPAN1001</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+      --red:#9c3155;
+      --orange:#d96b42;
+      --green:#397779;
+      --blue:#526da5;
+      --yellow:#e9b94f;
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(233,185,79,.16), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(57,119,121,.10), transparent 28%),
+        var(--bg);
+      color:var(--text);
+    }
+    body{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      background:rgba(255,255,255,.92);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(10px);
+      padding:14px 22px;
+    }
+    .nav{
+      max-width:1180px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+    }
+    .logo{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:900;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+    }
+    .muted{color:var(--muted)}
+    .stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:26px 22px 18px;
+    }
+    .deck{
+      width:min(1100px,100%);
+    }
+    .slide{
+      display:none;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      min-height:620px;
+      padding:42px 48px;
+      animation:fade .18s ease;
+    }
+    .slide.active{display:block}
+    @keyframes fade{
+      from{opacity:.35; transform:translateY(4px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+    .slide-number{
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--red);
+      margin-bottom:10px;
+    }
+    h1,h2{
+      letter-spacing:-.035em;
+      margin:0;
+    }
+    h1{
+      font-size:clamp(44px,7vw,76px);
+      line-height:1;
+      margin-bottom:16px;
+    }
+    h2{
+      font-size:clamp(34px,5vw,52px);
+      margin-bottom:20px;
+    }
+    h3{
+      font-size:23px;
+      margin:22px 0 10px;
+    }
+    p{
+      font-size:20px;
+      line-height:1.6;
+      margin:10px 0;
+    }
+    .hero{
+      min-height:620px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      background:linear-gradient(120deg,#8f2d56,#d55f43 58%,#e5ae3f);
+    }
+    .hero p{
+      font-size:24px;
+      opacity:.95;
+    }
+    .rule{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:14px;
+      background:#f1f3f8;
+      font-weight:800;
+      margin:6px 0 16px;
+      font-size:23px;
+    }
+    .note{
+      border-left:5px solid var(--green);
+      background:#f5fbfb;
+      padding:14px 16px;
+      margin:16px 0;
+      border-radius:10px;
+      font-weight:700;
+      font-size:19px;
+    }
+    .contrast{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .box{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      background:#fff;
+    }
+    .box h3{
+      margin-top:0;
+      color:var(--blue);
+    }
+    .examples{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+    .ex{
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      font-size:18px;
+    }
+    .translation{
+      color:var(--muted);
+      font-size:14px;
+      margin-top:2px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:16px;
+      font-size:18px;
+    }
+    th,td{
+      border:1px solid var(--border);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+    th{background:#f4f6fa}
+    .practice ol{
+      padding-left:28px;
+      columns:2;
+      column-gap:34px;
+    }
+    .practice li{
+      break-inside:avoid;
+      margin:10px 0;
+      padding:10px 12px;
+      background:#fafbfe;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font-size:18px;
+    }
+    details{
+      margin-top:20px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px 14px;
+      background:#fff;
+      font-size:17px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      color:var(--blue);
+    }
+    .controls{
+      max-width:1100px;
+      width:calc(100% - 44px);
+      margin:0 auto 26px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:12px 20px;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      background:white;
+      border:1px solid var(--border);
+      color:var(--text);
+      box-shadow:0 5px 16px rgba(20,30,50,.04);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:disabled{opacity:.35; cursor:not-allowed; transform:none}
+    .btn.primary{
+      background:var(--red);
+      color:white;
+      border-color:var(--red);
+    }
+    .progress-wrap{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+    }
+    .progress{
+      width:min(380px,100%);
+      height:8px;
+      background:#e8ebf1;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress-bar{
+      height:100%;
+      width:0;
+      background:linear-gradient(90deg,var(--red),var(--orange));
+      transition:width .2s ease;
+    }
+    .page-indicator{
+      color:var(--muted);
+      font-size:14px;
+      font-weight:700;
+    }
+    @media(max-width:800px){
+      .slide{min-height:0;padding:28px 24px}
+      .hero{min-height:560px}
+      .contrast{grid-template-columns:1fr}
+      .practice ol{columns:1}
+      p{font-size:18px}
+      .controls{width:calc(100% - 28px)}
+      .nav .right{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <div>SPAN1001</div>
+        <div class="muted" style="font-size:13px;font-weight:600;">Spanish Interactive Learning</div>
+      </div>
+    </div>
+    <div class="right muted">The University of Hong Kong</div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="deck">
+
+    <section class="slide active hero">
+      <div class="slide-number" style="color:white;opacity:.9;">Page 1</div>
+      <h1>QUÉ and CUÁL</h1>
+      <p>Both can correspond to English “what” or “which” — but Spanish makes a distinction.</p>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 2</div>
+      <h2>QUÉ: “What is it?”</h2>
+
+      <div class="note">QUÉ asks about the meaning, definition, type or nature of something.</div>
+
+      <div class="rule">¿QUÉ ES ...?</div>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>¿Qué es el tequila?</strong>
+          <div class="translation">What is tequila?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Qué es una paella?</strong>
+          <div class="translation">What is a paella?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Qué es un volcán?</strong>
+          <div class="translation">What is a volcano?</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;"><strong>Think:</strong> definition / type / nature</p>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 3</div>
+      <h2>CUÁL / CUÁLES: “Which one is it?”</h2>
+
+      <div class="note">CUÁL asks you to identify a specific answer, item or piece of information.</div>
+
+      <div class="rule">¿CUÁL ES ...? / ¿CUÁLES SON ...?</div>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>¿Cuál es la moneda de México?</strong>
+          <div class="translation">What is Mexico’s currency? → El peso.</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cuál es tu ciudad favorita?</strong>
+          <div class="translation">What is your favourite city?</div>
+        </div>
+        <div class="ex">
+          <strong>¿Cuáles son las dos ciudades más pobladas?</strong>
+          <div class="translation">Which are the two most populated cities?</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px;"><strong>Think:</strong> identification / specific answer</p>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 4</div>
+      <h2>English “what” vs Spanish QUÉ / CUÁL</h2>
+
+      <p>English often uses <strong>what</strong> in both cases. Spanish usually distinguishes between them.</p>
+
+      <div class="contrast">
+        <div class="box">
+          <h3>QUÉ = definition</h3>
+          <div class="ex">
+            <strong>¿Qué es un número de teléfono?</strong>
+            <div class="translation">What is a phone number?</div>
+          </div>
+          <p>You are asking what this thing <strong>is</strong>.</p>
+        </div>
+
+        <div class="box">
+          <h3>CUÁL = specific answer</h3>
+          <div class="ex">
+            <strong>¿Cuál es tu número de teléfono?</strong>
+            <div class="translation">What is your phone number?</div>
+          </div>
+          <p>You are asking for <strong>your specific number</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 5</div>
+      <h2>More contrasts</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>QUÉ: What is it?</th>
+            <th>CUÁL: Which specific one?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>¿Qué es una profesión?</strong><br>
+              <span class="translation">What is a profession?</span>
+            </td>
+            <td>
+              <strong>¿Cuál es tu profesión?</strong><br>
+              <span class="translation">What is your profession?</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>¿Qué es una dirección?</strong><br>
+              <span class="translation">What is an address?</span>
+            </td>
+            <td>
+              <strong>¿Cuál es tu dirección?</strong><br>
+              <span class="translation">What is your address?</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>¿Qué es una capital?</strong><br>
+              <span class="translation">What is a capital?</span>
+            </td>
+            <td>
+              <strong>¿Cuál es la capital de México?</strong><br>
+              <span class="translation">What is the capital of Mexico?</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 6</div>
+      <h2>QUÉ + noun / CUÁL without a noun</h2>
+
+      <div class="contrast">
+        <div class="box">
+          <h3>QUÉ + noun</h3>
+          <div class="examples">
+            <div class="ex"><strong>¿Qué ciudad prefieres?</strong><div class="translation">Which city do you prefer?</div></div>
+            <div class="ex"><strong>¿Qué libro quieres?</strong><div class="translation">Which book do you want?</div></div>
+            <div class="ex"><strong>¿Qué idiomas hablas?</strong><div class="translation">What languages do you speak?</div></div>
+          </div>
+        </div>
+
+        <div class="box">
+          <h3>CUÁL / CUÁLES</h3>
+          <div class="examples">
+            <div class="ex"><strong>¿Cuál prefieres?</strong><div class="translation">Which one do you prefer?</div></div>
+            <div class="ex"><strong>¿Cuál es tu favorito?</strong><div class="translation">Which one is your favourite?</div></div>
+            <div class="ex"><strong>¿Cuáles quieres?</strong><div class="translation">Which ones do you want?</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">For beginners: use QUÉ directly before a noun; use CUÁL / CUÁLES to identify “which one / which ones”.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 7</div>
+      <h2>Quick summary</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Question word</th>
+            <th>Main idea</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>QUÉ</strong></td>
+            <td>definition / type / nature</td>
+            <td>¿Qué es el tequila?</td>
+          </tr>
+          <tr>
+            <td><strong>QUÉ + noun</strong></td>
+            <td>what / which + noun</td>
+            <td>¿Qué ciudad prefieres?</td>
+          </tr>
+          <tr>
+            <td><strong>CUÁL / CUÁLES</strong></td>
+            <td>specific identification</td>
+            <td>¿Cuál es tu número de teléfono?</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        English often uses <strong>WHAT</strong> for both. Spanish makes a distinction:
+        <strong>QUÉ</strong> asks what something is; <strong>CUÁL</strong> asks which specific one it is.
+      </div>
+    </section>
+
+    <section class="slide practice">
+      <div class="slide-number">Page 8</div>
+      <h2>Practice: QUÉ or CUÁL?</h2>
+
+      <ol>
+        <li>¿______ es el tequila?</li>
+        <li>¿______ es tu número de teléfono?</li>
+        <li>¿______ ciudad prefieres?</li>
+        <li>¿______ es la capital de España?</li>
+        <li>¿______ es una paella?</li>
+        <li>¿______ es tu profesión?</li>
+        <li>¿______ idiomas hablas?</li>
+        <li>¿______ prefieres?</li>
+      </ol>
+
+      <details>
+        <summary>Show answers</summary>
+        <p>
+          1. qué · 2. cuál · 3. qué · 4. cuál ·
+          5. qué · 6. cuál · 7. qué · 8. cuál
+        </p>
+      </details>
+    </section>
+
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+
+  <div class="progress-wrap">
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="page-indicator" id="pageIndicator">1 / 8</div>
+  </div>
+
+  <button class="btn primary" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+
+  function showSlide(index){
+    current = Math.max(0, Math.min(index, slides.length - 1));
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+    });
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === slides.length - 1;
+
+    document.getElementById('pageIndicator').textContent =
+      `${current + 1} / ${slides.length}`;
+
+    document.getElementById('progressBar').style.width =
+      `${((current + 1) / slides.length) * 100}%`;
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function changeSlide(step){
+    showSlide(current + step);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+      e.preventDefault();
+      changeSlide(1);
+    }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){
+      e.preventDefault();
+      changeSlide(-1);
+    }
+    if(e.key === 'Home'){
+      e.preventDefault();
+      showSlide(0);
+    }
+    if(e.key === 'End'){
+      e.preventDefault();
+      showSlide(slides.length - 1);
+    }
+  });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>

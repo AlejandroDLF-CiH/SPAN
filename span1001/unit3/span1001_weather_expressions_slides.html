@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Expressions | SPAN1001</title>
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --card:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+      --red:#9c3155;
+      --orange:#d96b42;
+      --green:#397779;
+      --blue:#526da5;
+      --yellow:#e9b94f;
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(233,185,79,.16), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(57,119,121,.10), transparent 28%),
+        var(--bg);
+      color:var(--text);
+    }
+
+    body{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      font-size:20px;
+      line-height:1.55;
+    }
+
+    header{
+      background:rgba(255,255,255,.94);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(10px);
+      padding:16px 24px;
+    }
+
+    .nav{
+      max-width:1180px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      font-size:20px;
+    }
+
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:900;
+      font-size:20px;
+      background:linear-gradient(135deg,var(--red),var(--orange));
+    }
+
+    .subbrand{
+      color:var(--muted);
+      font-size:16px;
+      font-weight:600;
+      margin-top:2px;
+    }
+
+    .right{
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px 24px 20px;
+    }
+
+    .deck{
+      width:min(1120px,100%);
+    }
+
+    .slide{
+      display:none;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      min-height:640px;
+      padding:44px 50px;
+      animation:fade .18s ease;
+    }
+
+    .slide.active{display:block}
+
+    @keyframes fade{
+      from{opacity:.35; transform:translateY(4px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .slide-number{
+      font-size:16px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--red);
+      margin-bottom:12px;
+    }
+
+    h1,h2{
+      letter-spacing:-.035em;
+      margin:0;
+    }
+
+    h1{
+      font-size:clamp(48px,7vw,78px);
+      line-height:1;
+      margin-bottom:18px;
+    }
+
+    h2{
+      font-size:clamp(38px,5vw,54px);
+      line-height:1.08;
+      margin-bottom:24px;
+    }
+
+    h3{
+      font-size:27px;
+      margin:24px 0 12px;
+    }
+
+    p{
+      font-size:21px;
+      line-height:1.6;
+      margin:12px 0;
+    }
+
+    .hero{
+      min-height:640px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      background:linear-gradient(120deg,#526da5,#397779 58%,#d96b42);
+    }
+
+    .hero p{
+      font-size:26px;
+      opacity:.96;
+      max-width:850px;
+    }
+
+    .rule{
+      display:inline-block;
+      padding:14px 18px;
+      border-radius:14px;
+      background:#f1f3f8;
+      font-weight:800;
+      margin:8px 0 18px;
+      font-size:25px;
+    }
+
+    .note{
+      border-left:5px solid var(--green);
+      background:#f5fbfb;
+      padding:16px 18px;
+      margin:18px 0;
+      border-radius:10px;
+      font-weight:700;
+      font-size:21px;
+      line-height:1.5;
+    }
+
+    .examples{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .ex{
+      padding:14px 16px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:#fff;
+      font-size:20px;
+      line-height:1.45;
+    }
+
+    .translation{
+      color:var(--muted);
+      font-size:17px;
+      margin-top:4px;
+      line-height:1.4;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:18px;
+      font-size:20px;
+    }
+
+    th,td{
+      border:1px solid var(--border);
+      padding:14px 16px;
+      text-align:left;
+      vertical-align:top;
+      line-height:1.4;
+    }
+
+    th{background:#f4f6fa}
+
+    .practice ol{
+      padding-left:30px;
+      columns:2;
+      column-gap:38px;
+      margin-top:18px;
+    }
+
+    .practice li{
+      break-inside:avoid;
+      margin:12px 0;
+      padding:12px 14px;
+      background:#fafbfe;
+      border-radius:10px;
+      border:1px solid var(--border);
+      font-size:20px;
+      line-height:1.45;
+    }
+
+    details{
+      margin-top:22px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px 16px;
+      background:#fff;
+      font-size:19px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      color:var(--blue);
+      font-size:20px;
+    }
+
+    .controls{
+      max-width:1120px;
+      width:calc(100% - 48px);
+      margin:0 auto 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:13px 22px;
+      font-size:18px;
+      font-weight:800;
+      cursor:pointer;
+      background:white;
+      border:1px solid var(--border);
+      color:var(--text);
+      box-shadow:0 5px 16px rgba(20,30,50,.04);
+    }
+
+    .btn:hover{transform:translateY(-1px)}
+    .btn:disabled{opacity:.35; cursor:not-allowed; transform:none}
+
+    .btn.primary{
+      background:var(--red);
+      color:white;
+      border-color:var(--red);
+    }
+
+    .progress-wrap{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+    }
+
+    .progress{
+      width:min(420px,100%);
+      height:10px;
+      background:#e8ebf1;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0;
+      background:linear-gradient(90deg,var(--red),var(--orange));
+      transition:width .2s ease;
+    }
+
+    .page-indicator{
+      color:var(--muted);
+      font-size:17px;
+      font-weight:700;
+    }
+
+    @media(max-width:820px){
+      body{font-size:18px}
+      .slide{min-height:0;padding:30px 24px}
+      .hero{min-height:560px}
+      .two-col{grid-template-columns:1fr}
+      .practice ol{columns:1}
+      p{font-size:19px}
+      .ex{font-size:19px}
+      .translation{font-size:16px}
+      table{font-size:18px}
+      .controls{width:calc(100% - 28px)}
+      .right{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <div>SPAN1001</div>
+        <div class="subbrand">Spanish Interactive Learning</div>
+      </div>
+    </div>
+    <div class="right">The University of Hong Kong</div>
+  </div>
+</header>
+
+<div class="stage">
+  <div class="deck">
+
+    <section class="slide active hero">
+      <div class="slide-number" style="color:white;opacity:.92;">Page 1</div>
+      <h1>Talking about the weather</h1>
+      <p>Spanish uses several different structures to describe weather and natural phenomena.</p>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 2</div>
+      <h2>Four ways to talk about the weather</h2>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>1. ESTAR + adjective</strong><br>
+          Está nublado.
+        </div>
+        <div class="ex">
+          <strong>2. Weather verbs</strong><br>
+          Llueve. / Nieva.
+        </div>
+        <div class="ex">
+          <strong>3. HAY + noun</strong><br>
+          Hay nubes. / Hay niebla.
+        </div>
+        <div class="ex">
+          <strong>4. HACE + weather expression</strong><br>
+          Hace frío. / Hace calor. / Hace sol. / Hace viento.
+        </div>
+      </div>
+
+      <div class="note">Spanish does not use just one structure for all weather expressions.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 3</div>
+      <h2>1. ESTAR + adjective</h2>
+
+      <div class="rule">ESTAR + adjective</div>
+
+      <p>We can use <strong>estar + adjective</strong> to describe the current state of the weather.</p>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>Está nublado.</strong>
+          <div class="translation">It is cloudy.</div>
+        </div>
+        <div class="ex">
+          <strong>Está despejado.</strong>
+          <div class="translation">It is clear.</div>
+        </div>
+        <div class="ex">
+          <strong>Está soleado.</strong>
+          <div class="translation">It is sunny.</div>
+        </div>
+      </div>
+
+      <div class="note">This structure should already look familiar: <strong>ESTAR + adjective</strong>.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 4</div>
+      <h2>2. Weather verbs</h2>
+
+      <p>Some natural phenomena are expressed directly with a verb.</p>
+
+      <div class="two-col">
+        <div class="ex">
+          <strong>llover = to rain</strong><br><br>
+          <strong>Llueve.</strong>
+          <div class="translation">It rains. / It is raining.</div>
+        </div>
+
+        <div class="ex">
+          <strong>nevar = to snow</strong><br><br>
+          <strong>Nieva.</strong>
+          <div class="translation">It snows. / It is snowing.</div>
+        </div>
+      </div>
+
+      <div class="note">When used for the weather, these verbs are normally in the <strong>third person singular</strong>.</div>
+
+      <div class="examples">
+        <div class="ex"><strong>En otoño llueve mucho.</strong></div>
+        <div class="ex"><strong>En invierno nieva.</strong></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 5</div>
+      <h2>3. HAY + noun</h2>
+
+      <div class="rule">HAY + noun</div>
+
+      <p>We use <strong>hay</strong> to say that something is present.</p>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>Hay nubes.</strong>
+          <div class="translation">There are clouds.</div>
+        </div>
+        <div class="ex">
+          <strong>Hay muchas nubes.</strong>
+          <div class="translation">There are many clouds.</div>
+        </div>
+        <div class="ex">
+          <strong>Hay niebla.</strong>
+          <div class="translation">There is fog.</div>
+        </div>
+        <div class="ex">
+          <strong>Hay una tormenta.</strong>
+          <div class="translation">There is a storm.</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>HAY does not change:</strong><br>
+        Hay una nube. / Hay muchas nubes.
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 6</div>
+      <h2>4. HACE + weather expression</h2>
+
+      <p>This is the main new structure in this lesson.</p>
+
+      <div class="rule">HACE + weather expression</div>
+
+      <div class="examples">
+        <div class="ex"><strong>Hace frío.</strong><div class="translation">It is cold.</div></div>
+        <div class="ex"><strong>Hace calor.</strong><div class="translation">It is hot.</div></div>
+        <div class="ex"><strong>Hace sol.</strong><div class="translation">It is sunny.</div></div>
+        <div class="ex"><strong>Hace viento.</strong><div class="translation">It is windy.</div></div>
+      </div>
+
+      <div class="note">In weather expressions, <strong>hace</strong> describes a general weather condition.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 7</div>
+      <h2>HACE does not change</h2>
+
+      <p><strong>Hace</strong> comes from the verb <strong>hacer</strong>, but in weather expressions we use the <strong>third person singular</strong>.</p>
+
+      <div class="examples">
+        <div class="ex"><strong>En Madrid hace calor.</strong></div>
+        <div class="ex"><strong>En Barcelona hace calor.</strong></div>
+        <div class="ex"><strong>En Madrid y Barcelona hace calor.</strong></div>
+      </div>
+
+      <div class="note">
+        Always use <strong>hace</strong> in these weather expressions.<br>
+        <strong>Not:</strong> ❌ hacen calor
+      </div>
+
+      <h3>Compare with normal hacer</h3>
+      <div class="two-col">
+        <div class="ex">
+          Yo <strong>hago</strong> ejercicio.<br>
+          Tú <strong>haces</strong> ejercicio.<br>
+          Ella <strong>hace</strong> ejercicio.
+        </div>
+        <div class="ex">
+          <strong>Hace</strong> frío.<br>
+          <strong>Hace</strong> calor.<br>
+          <strong>Hace</strong> viento.
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 8</div>
+      <h2>Common expressions with HACE</h2>
+
+      <div class="two-col">
+        <div>
+          <h3>Temperature</h3>
+          <div class="examples">
+            <div class="ex"><strong>hace frío</strong></div>
+            <div class="ex"><strong>hace calor</strong></div>
+          </div>
+        </div>
+
+        <div>
+          <h3>General weather</h3>
+          <div class="examples">
+            <div class="ex"><strong>hace sol</strong></div>
+            <div class="ex"><strong>hace viento</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Other useful expressions</h3>
+      <div class="examples">
+        <div class="ex"><strong>hace buen tiempo</strong><div class="translation">the weather is good</div></div>
+        <div class="ex"><strong>hace mal tiempo</strong><div class="translation">the weather is bad</div></div>
+        <div class="ex"><strong>hace mucho frío</strong></div>
+        <div class="ex"><strong>hace mucho calor</strong></div>
+        <div class="ex"><strong>hace mucho viento</strong></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 9</div>
+      <h2>HACE vs HAY</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>HACE</th>
+            <th>HAY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>describes a general weather condition</td>
+            <td>says what is present</td>
+          </tr>
+          <tr>
+            <td><strong>Hace frío.</strong></td>
+            <td><strong>Hay nubes.</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Hace calor.</strong></td>
+            <td><strong>Hay niebla.</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Hace sol.</strong></td>
+            <td><strong>Hay una tormenta.</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Hace viento.</strong></td>
+            <td><strong>Hay muchas nubes.</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>HACE = weather condition</strong><br>
+        <strong>HAY = something is present</strong>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 10</div>
+      <h2>English vs Spanish</h2>
+
+      <p>English often uses <strong>“it is”</strong>, but Spanish uses different structures.</p>
+
+      <div class="examples">
+        <div class="ex">
+          <strong>It is cloudy.</strong> → <strong>Está nublado.</strong>
+        </div>
+        <div class="ex">
+          <strong>It is raining.</strong> → <strong>Llueve.</strong>
+        </div>
+        <div class="ex">
+          <strong>There are many clouds.</strong> → <strong>Hay muchas nubes.</strong>
+        </div>
+        <div class="ex">
+          <strong>It is cold.</strong> → <strong>Hace frío.</strong>
+        </div>
+        <div class="ex">
+          <strong>It is windy.</strong> → <strong>Hace viento.</strong>
+        </div>
+      </div>
+
+      <div class="note">Do not translate English <strong>“it is”</strong> word by word.</div>
+    </section>
+
+    <section class="slide">
+      <div class="slide-number">Page 11</div>
+      <h2>Summary</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Structure</th>
+            <th>Use</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ESTAR + adjective</strong></td>
+            <td>state / condition</td>
+            <td>Está nublado.</td>
+          </tr>
+          <tr>
+            <td><strong>weather verb</strong></td>
+            <td>natural phenomenon</td>
+            <td>Llueve. / Nieva.</td>
+          </tr>
+          <tr>
+            <td><strong>HAY + noun</strong></td>
+            <td>something is present</td>
+            <td>Hay nubes.</td>
+          </tr>
+          <tr>
+            <td><strong>HACE + expression</strong></td>
+            <td>general weather condition</td>
+            <td>Hace frío.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <strong>HACE + frío / calor / sol / viento</strong><br>
+        HACE is always third-person singular in these weather expressions.
+      </div>
+    </section>
+
+    <section class="slide practice">
+      <div class="slide-number">Page 12</div>
+      <h2>Practice</h2>
+
+      <p>Complete with <strong>está</strong>, <strong>llueve</strong>, <strong>nieva</strong>, <strong>hay</strong> or <strong>hace</strong>.</p>
+
+      <ol>
+        <li>Hoy ______ nublado.</li>
+        <li>En Santander ______ mucho.</li>
+        <li>En invierno ______ en las montañas.</li>
+        <li>Hoy ______ muchas nubes.</li>
+        <li>En Hong Kong ______ mucho calor en verano.</li>
+        <li>Esta mañana ______ niebla.</li>
+        <li>Hoy ______ viento.</li>
+        <li>En invierno ______ mucho frío.</li>
+      </ol>
+
+      <details>
+        <summary>Show answers</summary>
+        <p>
+          1. está · 2. llueve · 3. nieva · 4. hay ·
+          5. hace · 6. hay · 7. hace · 8. hace
+        </p>
+      </details>
+    </section>
+
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+
+  <div class="progress-wrap">
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="page-indicator" id="pageIndicator">1 / 12</div>
+  </div>
+
+  <button class="btn primary" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+
+  function showSlide(index){
+    current = Math.max(0, Math.min(index, slides.length - 1));
+
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === current);
+    });
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === slides.length - 1;
+
+    document.getElementById('pageIndicator').textContent =
+      `${current + 1} / ${slides.length}`;
+
+    document.getElementById('progressBar').style.width =
+      `${((current + 1) / slides.length) * 100}%`;
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function changeSlide(step){
+    showSlide(current + step);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){
+      e.preventDefault();
+      changeSlide(1);
+    }
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp'){
+      e.preventDefault();
+      changeSlide(-1);
+    }
+    if(e.key === 'Home'){
+      e.preventDefault();
+      showSlide(0);
+    }
+    if(e.key === 'End'){
+      e.preventDefault();
+      showSlide(slides.length - 1);
+    }
+  });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>
