@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN2001 · Cocina fácil</title>
+<style>
+:root{
+  --bg:#f7f8fb;--card:#fff;--text:#20242c;--muted:#667085;--border:#e4e7ec;
+  --red:#a61e3c;--green:#397779;--blue:#526da5;--shadow:0 14px 38px rgba(25,35,55,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.slide{display:none;width:100vw;height:100vh;padding:3.8vh 5.5vw 10vh;flex-direction:column}
+.slide.active{display:flex}
+.header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2vh}
+.eyebrow{font-size:clamp(17px,1.3vw,22px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
+h1{font-size:clamp(42px,4.8vw,72px);line-height:1;margin:.15em 0;color:var(--red);letter-spacing:-.035em}
+.meta{font-size:clamp(18px,1.35vw,23px);color:var(--muted);font-weight:700}
+.content{display:grid;grid-template-columns:1.05fr .95fr;gap:2.4vw;flex:1;min-height:0}
+.textcol{display:flex;flex-direction:column;gap:1.6vh;min-height:0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:1.7vw 2vw;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(24px,2vw,33px);margin:0 0 .55em;color:var(--red)}
+.card p{font-size:clamp(19px,1.42vw,24px);line-height:1.48;margin:0}
+.prep{flex:1}
+.video{background:#111;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);min-height:0;display:flex;flex-direction:column}
+.video iframe{width:100%;flex:1;min-height:0;border:0}
+.video-fallback{background:#fff;padding:10px 14px;text-align:center;border-top:1px solid var(--border)}
+.video-fallback a{color:var(--blue);font-size:clamp(16px,1.05vw,19px);font-weight:800;text-decoration:none}
+.video-fallback a:hover{text-decoration:underline}
+.gloss{
+  position:relative;display:inline-block;border-bottom:2px dotted var(--blue);color:#243b6b;
+  font-weight:750;cursor:help;
+}
+.gloss .tip{
+  visibility:hidden;opacity:0;position:absolute;z-index:50;left:50%;bottom:135%;
+  transform:translateX(-50%);width:max-content;max-width:280px;background:#20242c;color:white;
+  padding:9px 12px;border-radius:10px;font-size:17px;line-height:1.25;font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);transition:.12s;pointer-events:none
+}
+.gloss .tip:after{content:"";position:absolute;top:100%;left:50%;margin-left:-6px;border:6px solid transparent;border-top-color:#20242c}
+.gloss:hover .tip,.gloss:focus .tip{visibility:visible;opacity:1}
+.note{font-size:clamp(16px,1.15vw,20px);color:var(--muted)}
+.footer{position:fixed;bottom:0;left:0;right:0;height:5.5vh;background:rgba(247,248,251,.94);
+border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 3vw;z-index:100}
+.footer span{font-size:clamp(14px,1vw,18px);font-weight:700;color:var(--muted)}
+button{border:1px solid var(--border);background:white;border-radius:12px;padding:.5em .9em;font-size:18px;font-weight:800;cursor:pointer}
+.nav{display:flex;gap:8px}
+@media(max-width:900px){
+ html,body{overflow:auto}.slide{height:auto;min-height:100vh;padding-bottom:9vh}.content{grid-template-columns:1fr}.video{height:52vw;min-height:300px}
+}
+</style>
+</head>
+<body>
+
+<section class="slide active">
+ <div class="header">
+   <div>
+     <div class="eyebrow">Cocina fácil · Recipe 1</div>
+     <h1>Guacamole con nachos</h1>
+     <div class="meta">FÁCIL &nbsp; | &nbsp; 20 MINUTOS &nbsp; | &nbsp; 6 PERSONAS</div>
+   </div>
+ </div>
+ <div class="content">
+   <div class="textcol">
+     <div class="card">
+       <h2>Ingredientes</h2>
+       <p>Dos <span class="gloss" tabindex="0">aguacates<span class="tip">avocados</span></span>, un tomate, dos cucharadas de <span class="gloss" tabindex="0">cebolla picada<span class="tip">chopped onion</span></span>, una cucharadita de <span class="gloss" tabindex="0">ajo picado<span class="tip">chopped garlic</span></span>, uno o dos <span class="gloss" tabindex="0">chiles<span class="tip">chili peppers</span></span> picados, un poco de <span class="gloss" tabindex="0">zumo de limón<span class="tip">lemon / lime juice</span></span>, sal, <span class="gloss" tabindex="0">cilantro<span class="tip">coriander / cilantro</span></span> y una bolsa de nachos.</p>
+     </div>
+     <div class="card prep">
+       <h2>Preparación</h2>
+       <p>Se <span class="gloss" tabindex="0">pelan<span class="tip">are peeled</span></span> los aguacates, se <span class="gloss" tabindex="0">colocan<span class="tip">are placed / put</span></span> en un <span class="gloss" tabindex="0">recipiente<span class="tip">container / bowl</span></span> y, con un <span class="gloss" tabindex="0">tenedor<span class="tip">fork</span></span>, se <span class="gloss" tabindex="0">aplastan<span class="tip">are mashed / crushed</span></span> hasta obtener un <span class="gloss" tabindex="0">puré<span class="tip">purée / mash</span></span>. Se pela el tomate, se <span class="gloss" tabindex="0">quitan las semillas<span class="tip">the seeds are removed</span></span>, se corta en <span class="gloss" tabindex="0">trocitos<span class="tip">small pieces</span></span> pequeños y se añade al puré. Luego, se añaden la cebolla, el ajo, los chiles, el cilantro, el zumo de limón y la sal. Se <span class="gloss" tabindex="0">acompaña<span class="tip">is served / accompanied</span></span> con nachos.</p>
+     </div>
+     <div class="note">Move the cursor over the underlined words for English meanings.</div>
+   </div>
+   <div class="video">
+     <iframe src="https://www.youtube-nocookie.com/embed/WTvmmZCnqNs?rel=0" title="Guacamole con nachos" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+     <div class="video-fallback"><a href="https://www.youtube.com/watch?v=WTvmmZCnqNs" target="_blank" rel="noopener">If the embedded player is unavailable, open the video on YouTube ↗</a></div>
+   </div>
+ </div>
+</section>
+
+<section class="slide">
+ <div class="header">
+   <div>
+     <div class="eyebrow">Cocina fácil · Recipe 2</div>
+     <h1>Ensaladilla rusa</h1>
+     <div class="meta">FÁCIL &nbsp; | &nbsp; 45 MINUTOS &nbsp; | &nbsp; 6 PERSONAS</div>
+   </div>
+ </div>
+ <div class="content">
+   <div class="textcol">
+     <div class="card">
+       <h2>Ingredientes</h2>
+       <p>Cinco <span class="gloss" tabindex="0">patatas<span class="tip">potatoes</span></span> medianas, cuatro <span class="gloss" tabindex="0">zanahorias<span class="tip">carrots</span></span>, <span class="gloss" tabindex="0">aceitunas rellenas<span class="tip">stuffed olives</span></span>, dos huevos, cuatro cucharadas de <span class="gloss" tabindex="0">guisantes<span class="tip">peas</span></span>, tres latas de <span class="gloss" tabindex="0">atún en conserva<span class="tip">canned tuna</span></span> (300 gramos), <span class="gloss" tabindex="0">mayonesa<span class="tip">mayonnaise</span></span> y sal.</p>
+     </div>
+     <div class="card prep">
+       <h2>Preparación</h2>
+       <p>Se lavan las patatas y las zanahorias, y se <span class="gloss" tabindex="0">hierven<span class="tip">are boiled</span></span> durante unos 25 minutos. Después, se <span class="gloss" tabindex="0">echan<span class="tip">are added / put in</span></span> los huevos y se deja todo unos 10 minutos más. Se <span class="gloss" tabindex="0">saca<span class="tip">is taken out / removed</span></span> todo y se deja <span class="gloss" tabindex="0">enfriar<span class="tip">to cool</span></span>. Cuando las patatas y las zanahorias están frías, se pelan y se cortan en <span class="gloss" tabindex="0">dados<span class="tip">cubes / dice</span></span>. Se pelan los huevos y se cortan en dados también. Luego, se ponen todos esos ingredientes en un bol y se añaden las aceitunas picadas, el atún y los guisantes. A continuación, se añade la mayonesa y se <span class="gloss" tabindex="0">mezcla<span class="tip">is mixed</span></span> todo poco a poco. Finalmente, se pone una <span class="gloss" tabindex="0">pizca de sal<span class="tip">a pinch of salt</span></span> al gusto. Se puede <span class="gloss" tabindex="0">decorar<span class="tip">to garnish / decorate</span></span> con un poco de perejil.</p>
+     </div>
+     <div class="note">Move the cursor over the underlined words for English meanings.</div>
+   </div>
+   <div class="video">
+     <iframe src="https://www.youtube-nocookie.com/embed/onQ3oGQXjOE?rel=0" title="Ensaladilla rusa" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+     <div class="video-fallback"><a href="https://www.youtube.com/watch?v=onQ3oGQXjOE" target="_blank" rel="noopener">If the embedded player is unavailable, open the video on YouTube ↗</a></div>
+   </div>
+ </div>
+</section>
+
+<div class="footer">
+ <span id="counter">1 / 2</span>
+ <span>← / → to navigate · Hover over underlined vocabulary</span>
+ <div class="nav"><button onclick="prev()">←</button><button onclick="next()">→</button></div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')]; let i=0;
+function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,j)=>s.classList.toggle('active',j===i));document.getElementById('counter').textContent=(i+1)+' / '+slides.length}
+function next(){show(i+1)} function prev(){show(i-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){next()}if(e.key==='ArrowLeft'||e.key==='PageUp'){prev()}});
+</script>
+</body>
+</html>

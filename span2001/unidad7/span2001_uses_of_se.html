@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN2001 · The Uses of SE</title>
+<style>
+:root{
+  --bg:#f6f7fb; --card:#fff; --text:#20242c; --muted:#5e6878; --border:#e3e7ef;
+  --red:#9c3155; --orange:#d96b42; --yellow:#dcae3d; --green:#397779; --blue:#526da5;
+  --shadow:0 16px 42px rgba(25,35,55,.10); --radius:24px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.deck{width:100vw;height:100vh;position:relative}
+.slide{display:none;width:100%;height:100%;padding:5.5vh 6.5vw 7.5vh;flex-direction:column;justify-content:center}
+.slide.active{display:flex}
+.kicker{font-size:clamp(18px,1.6vw,27px);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:1.3vh}
+h1{font-size:clamp(50px,6.2vw,92px);line-height:1.03;margin:0 0 2vh;font-weight:850;letter-spacing:-.04em}
+h2{font-size:clamp(36px,4.2vw,64px);line-height:1.08;margin:0 0 2.6vh;letter-spacing:-.03em}
+h3{font-size:clamp(25px,2.5vw,38px);margin:.2em 0 .45em}
+p,.body{font-size:clamp(22px,2vw,32px);line-height:1.45;margin:.4em 0}
+.small{font-size:clamp(19px,1.55vw,26px);line-height:1.45;color:var(--muted)}
+.big-example{font-size:clamp(34px,3.7vw,58px);font-weight:800;line-height:1.22;margin:2vh 0}
+.em{color:var(--red);font-weight:850}
+.blue{color:var(--blue);font-weight:800}.green{color:var(--green);font-weight:800}.orange{color:var(--orange);font-weight:800}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2vw;width:100%;align-items:stretch}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5vw;width:100%}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:2.1vw;box-shadow:var(--shadow)}
+.card p{font-size:clamp(20px,1.7vw,28px)}
+.tag{display:inline-block;padding:.35em .7em;border-radius:999px;background:#eef1f7;font-size:clamp(17px,1.3vw,22px);font-weight:800;margin-bottom:1vh}
+.arrow{font-size:clamp(36px,4vw,64px);font-weight:900;text-align:center;margin:1vh}
+.formula{background:#fff;border:2px solid var(--border);border-radius:22px;padding:1.5vh 2vw;text-align:center;
+ font-size:clamp(28px,3vw,48px);font-weight:850;margin:1.4vh 0}
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5vw;align-items:center}
+.vs{font-size:clamp(22px,2vw,32px);font-weight:900;color:var(--muted)}
+ul{margin:.6em 0;padding-left:1.3em;font-size:clamp(21px,1.8vw,29px);line-height:1.55}
+li{margin:.25em 0}
+table{width:100%;border-collapse:separate;border-spacing:0;background:white;border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+th,td{padding:1.5vh 1.3vw;border-bottom:1px solid var(--border);font-size:clamp(18px,1.45vw,25px);text-align:left;vertical-align:top}
+th{background:#f0f2f7;font-weight:850} tr:last-child td{border-bottom:0}
+.answer{display:none;margin-top:1vh;padding:1.2vh 1.3vw;border-radius:16px;background:#eef5f4;font-size:clamp(20px,1.6vw,27px);font-weight:750}
+.reveal{cursor:pointer;user-select:none}.reveal.open .answer{display:block}
+.hint{font-size:clamp(17px,1.25vw,22px);color:var(--muted);margin-top:.6vh}
+.footer{position:fixed;left:0;right:0;bottom:0;height:5.5vh;display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+ background:rgba(246,247,251,.92);backdrop-filter:blur(8px);border-top:1px solid var(--border);z-index:10}
+.footer span{font-size:clamp(14px,1.05vw,18px);color:var(--muted);font-weight:700}
+.nav{display:flex;gap:.7vw}
+button{border:1px solid var(--border);background:white;border-radius:12px;padding:.55em .9em;font-size:clamp(15px,1.1vw,19px);font-weight:800;cursor:pointer}
+button:hover{box-shadow:var(--shadow)}
+.center{text-align:center}.muted{color:var(--muted)}
+.flow{display:flex;align-items:center;justify-content:center;gap:1vw;flex-wrap:wrap;margin:1.5vh 0}
+.pill{background:white;border:1px solid var(--border);border-radius:18px;padding:1.1vh 1.2vw;font-size:clamp(19px,1.55vw,26px);font-weight:800}
+@media(max-width:800px){
+ .slide{padding:4vh 5vw 8vh}.grid2,.grid3{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.vs{display:none}
+ h1{font-size:12vw}h2{font-size:9vw}.card{padding:4vw}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide active">
+  <div class="kicker">SPAN2001 · Grammar</div>
+  <h1>The many uses of <span class="em">SE</span></h1>
+  <p class="body">One small word, several different functions.</p>
+  <div class="formula">When you see <span class="em">se</span>, do not translate it immediately.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Starting point</div>
+  <h2>Does <span class="em">SE</span> mean the same thing here?</h2>
+  <div class="grid2">
+    <div class="card"><div class="big-example">Juan <span class="em">se</span> levanta a las ocho.</div></div>
+    <div class="card"><div class="big-example">Ana y Juan <span class="em">se</span> abrazan.</div></div>
+    <div class="card"><div class="big-example"><span class="em">Se</span> lo doy.</div></div>
+    <div class="card"><div class="big-example"><span class="em">Se</span> venden pisos.</div></div>
+  </div>
+  <div class="center body"><strong>No.</strong> The form is the same, but the function changes.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">The map</div>
+  <h2>Five core uses + one common case</h2>
+  <table>
+    <tr><th>Type</th><th>Example</th><th>Simple idea</th></tr>
+    <tr><td><strong>1. Reflexive</strong></td><td>Juan <b>se</b> lava.</td><td>himself / herself</td></tr>
+    <tr><td><strong>2. Reciprocal</strong></td><td>Ana y Juan <b>se</b> abrazan.</td><td>each other</td></tr>
+    <tr><td><strong>3. LE / LES → SE</strong></td><td><b>Se lo</b> doy.</td><td>replacement before lo/la/los/las</td></tr>
+    <tr><td><strong>4. Passive</strong></td><td><b>Se venden</b> pisos.</td><td>something is done</td></tr>
+    <tr><td><strong>5. Impersonal</strong></td><td>Aquí <b>se vive</b> bien.</td><td>people / one in general</td></tr>
+    <tr><td><strong>+ Pronominal verb</strong></td><td>Juan <b>se va</b>.</td><td>SE is part of the verb</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <div class="kicker">1 · Reflexive SE</div>
+  <h2>The action returns to the subject</h2>
+  <div class="formula">JUAN &nbsp; → &nbsp; JUAN</div>
+  <div class="big-example center">Juan <span class="em">se</span> lava.</div>
+  <p class="center body">The subject performs the action on <strong>himself / herself</strong>.</p>
+  <div class="grid3">
+    <div class="card center"><h3>lavarse</h3><p>Juan se lava.</p></div>
+    <div class="card center"><h3>mirarse</h3><p>María se mira en el espejo.</p></div>
+    <div class="card center"><h3>vestirse</h3><p>Pedro se viste.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Reflexive pronouns</div>
+  <h2>Remember: it is not always <span class="em">se</span></h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="big-example">me levanto<br>te levantas<br><span class="em">se</span> levanta</div>
+    </div>
+    <div class="card">
+      <div class="big-example">nos levantamos<br>os levantáis<br><span class="em">se</span> levantan</div>
+    </div>
+  </div>
+  <p class="center body"><span class="em">SE</span> is the third-person reflexive form.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">2 · Reciprocal SE</div>
+  <h2>The action goes both ways</h2>
+  <div class="formula">ANA &nbsp; ↔ &nbsp; JUAN</div>
+  <div class="big-example center">Ana y Juan <span class="em">se</span> abrazan.</div>
+  <p class="center body">Two or more people perform the same action <strong>on each other</strong>.</p>
+  <div class="flow">
+    <div class="pill">se saludan</div><div class="pill">se miran</div><div class="pill">se ayudan</div><div class="pill">se escriben</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Reflexive or reciprocal?</div>
+  <h2>Same form, different relationship</h2>
+  <div class="compare">
+    <div class="card center">
+      <div class="tag">REFLEXIVE</div>
+      <div class="big-example">Juan → Juan</div>
+      <p>Juan <span class="em">se</span> lava.</p>
+      <p class="small">himself</p>
+    </div>
+    <div class="vs">VS.</div>
+    <div class="card center">
+      <div class="tag">RECIPROCAL</div>
+      <div class="big-example">Ana ↔ Juan</div>
+      <p>Ana y Juan <span class="em">se</span> miran.</p>
+      <p class="small">each other</p>
+    </div>
+  </div>
+  <div class="formula">Useful test: Can we add <span class="blue">el uno al otro</span>?</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">3 · LE / LES → SE</div>
+  <h2>A familiar <span class="em">SE</span> from CD + CI</h2>
+  <div class="big-example center">Doy <span class="blue">el libro</span> <span class="orange">a María</span>.</div>
+  <div class="flow">
+    <div class="pill"><span class="orange">a María → le</span></div>
+    <div class="pill"><span class="blue">el libro → lo</span></div>
+  </div>
+  <div class="formula">❌ Le lo doy. &nbsp;&nbsp; → &nbsp;&nbsp; ✅ <span class="em">Se lo doy.</span></div>
+  <p class="center body">Here, <span class="em">se</span> does <strong>not</strong> mean “himself” or “each other”.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">LE / LES → SE</div>
+  <h2>The rule</h2>
+  <div class="formula"><span class="orange">le / les</span> + <span class="blue">lo / la / los / las</span> → <span class="em">se</span> + <span class="blue">lo / la / los / las</span></div>
+  <div class="grid2">
+    <div class="card"><p><b>le + lo</b> → <span class="em">se lo</span></p><p><b>le + la</b> → <span class="em">se la</span></p></div>
+    <div class="card"><p><b>les + los</b> → <span class="em">se los</span></p><p><b>les + las</b> → <span class="em">se las</span></p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">4 · Passive SE</div>
+  <h2>Focus on what receives the action</h2>
+  <div class="compare">
+    <div class="card">
+      <div class="tag">ACTIVE IDEA</div>
+      <div class="big-example">Construyeron este edificio en 1990.</div>
+      <p class="small">Someone built this building.</p>
+    </div>
+    <div class="vs">→</div>
+    <div class="card">
+      <div class="tag">PASSIVE SE</div>
+      <div class="big-example">Este edificio <span class="em">se construyó</span> en 1990.</div>
+      <p class="small">This building was built in 1990.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Passive SE</div>
+  <h2>The verb agrees with the subject</h2>
+  <div class="grid2">
+    <div class="card center">
+      <div class="big-example"><span class="em">Se vende</span> un piso.</div>
+      <p>one apartment → singular verb</p>
+    </div>
+    <div class="card center">
+      <div class="big-example"><span class="em">Se venden</span> pisos.</div>
+      <p>apartments → plural verb</p>
+    </div>
+    <div class="card center">
+      <div class="big-example"><span class="em">Se alquila</span> una habitación.</div>
+    </div>
+    <div class="card center">
+      <div class="big-example"><span class="em">Se alquilan</span> bicicletas.</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">5 · Impersonal SE</div>
+  <h2>People in general — without saying who</h2>
+  <div class="big-example center">En España <span class="em">se cena</span> tarde.</div>
+  <div class="formula">≈ People eat dinner late in Spain.</div>
+  <div class="grid3">
+    <div class="card center"><p>Aquí <b>se vive</b> bien.</p></div>
+    <div class="card center"><p>En España <b>se come</b> tarde.</p></div>
+    <div class="card center"><p><b>Se habla</b> mucho de este problema.</p></div>
+  </div>
+  <p class="center body">The verb is in the <strong>third-person singular</strong>.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Passive vs. impersonal</div>
+  <h2>These two uses look similar — but they are not the same</h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="tag">PASSIVE</div>
+      <div class="big-example"><span class="em">Se venden</span> casas.</div>
+      <p><b>casas</b> is the subject.</p>
+      <p>The verb agrees with it:</p>
+      <p><b>Se vende una casa.</b><br><b>Se venden tres casas.</b></p>
+    </div>
+    <div class="card">
+      <div class="tag">IMPERSONAL</div>
+      <div class="big-example">Aquí <span class="em">se vive</span> bien.</div>
+      <p>No specific person is the subject.</p>
+      <p>Meaning: <b>people in general</b>.</p>
+      <p><b>SE + 3rd-person singular</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">+ Pronominal verbs</div>
+  <h2>Sometimes <span class="em">SE</span> is simply part of the verb</h2>
+  <div class="grid2">
+    <div class="card">
+      <div class="big-example">Juan <span class="em">se va</span> a casa.</div>
+      <p><b>irse</b> = to leave / go away</p>
+    </div>
+    <div class="card">
+      <div class="big-example">María <span class="em">se queda</span> en casa.</div>
+      <p><b>quedarse</b> = to stay</p>
+    </div>
+    <div class="card">
+      <div class="big-example">Pedro <span class="em">se arrepiente</span>.</div>
+      <p><b>arrepentirse</b> = to regret</p>
+    </div>
+    <div class="card">
+      <div class="big-example">Ana <span class="em">se queja</span> mucho.</div>
+      <p><b>quejarse</b> = to complain</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pronominal verbs</div>
+  <h2>Do not force a translation for <span class="em">SE</span></h2>
+  <div class="formula"><span class="blue">irse</span> · <span class="blue">quedarse</span> · <span class="blue">quejarse</span> · <span class="blue">arrepentirse</span></div>
+  <p class="center body">Learn the verb <strong>together with SE</strong>.</p>
+  <div class="compare">
+    <div class="card center"><div class="big-example">ir</div><p>to go</p></div>
+    <div class="vs">≠</div>
+    <div class="card center"><div class="big-example">irse</div><p>to leave / go away</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Summary</div>
+  <h2>One form, different functions</h2>
+  <table>
+    <tr><th>Ask yourself...</th><th>Type</th><th>Example</th></tr>
+    <tr><td>Does the action return to the subject?</td><td><b>Reflexive</b></td><td>Juan <b>se</b> lava.</td></tr>
+    <tr><td>Do two or more people act on each other?</td><td><b>Reciprocal</b></td><td>Ellos <b>se</b> abrazan.</td></tr>
+    <tr><td>Is SE before lo/la/los/las?</td><td><b>LE/LES → SE</b></td><td><b>Se lo</b> doy.</td></tr>
+    <tr><td>Does a thing receive the action and agree with the verb?</td><td><b>Passive</b></td><td><b>Se venden</b> casas.</td></tr>
+    <tr><td>Are we talking about people in general?</td><td><b>Impersonal</b></td><td>Aquí <b>se vive</b> bien.</td></tr>
+    <tr><td>None of these?</td><td><b>Check the verb</b></td><td>Juan <b>se va</b>.</td></tr>
+  </table>
+</section>
+
+<section class="slide">
+  <div class="kicker">Practice 1 · Identify</div>
+  <h2>What type of <span class="em">SE</span> is it?</h2>
+  <div class="grid2">
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>1.</b> Los estudiantes <span class="em">se</span> ayudan.</p><div class="answer">Reciprocal SE</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>2.</b> María <span class="em">se</span> mira en el espejo.</p><div class="answer">Reflexive SE</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>3.</b> <span class="em">Se</span> venden libros usados.</p><div class="answer">Passive SE</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>4.</b> En Hong Kong <span class="em">se</span> come muy bien.</p><div class="answer">Impersonal SE</div></div>
+  </div>
+  <div class="hint center">Click a sentence to reveal the answer.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Practice 2 · Identify</div>
+  <h2>Same <span class="em">SE</span>, different function</h2>
+  <div class="grid2">
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>1.</b> ¿El libro? <span class="em">Se lo</span> doy mañana.</p><div class="answer">LE / LES → SE</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>2.</b> Pablo <span class="em">se</span> va a las nueve.</p><div class="answer">Pronominal verb: irse</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>3.</b> Los dos amigos <span class="em">se</span> saludan.</p><div class="answer">Reciprocal SE</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>4.</b> La puerta <span class="em">se</span> cerró.</p><div class="answer">Here SE marks a change/state event; for this course, treat cerrar / cerrarse as a pronominal contrast rather than forcing it into the five basic labels.</div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Practice 3 · Passive or impersonal?</div>
+  <h2>Look for agreement</h2>
+  <div class="grid2">
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>1.</b> <span class="em">Se alquilan</span> apartamentos.</p><div class="answer">Passive — apartamentos is the subject; the verb is plural.</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>2.</b> Aquí <span class="em">se trabaja</span> mucho.</p><div class="answer">Impersonal — people in general; 3rd-person singular.</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>3.</b> <span class="em">Se venden</span> dos entradas.</p><div class="answer">Passive — dos entradas is the subject; the verb agrees.</div></div>
+    <div class="card reveal" onclick="this.classList.toggle('open')"><p><b>4.</b> En esta ciudad <span class="em">se vive</span> muy bien.</p><div class="answer">Impersonal — people in general.</div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Final strategy</div>
+  <h2>When you see <span class="em">SE</span>...</h2>
+  <div class="grid3">
+    <div class="card center"><h3>1</h3><p>Do <strong>not</strong> translate it immediately.</p></div>
+    <div class="card center"><h3>2</h3><p>Look at the <strong>verb</strong> and the other elements in the sentence.</p></div>
+    <div class="card center"><h3>3</h3><p>Ask: <strong>What function is SE performing here?</strong></p></div>
+  </div>
+  <div class="formula">Meaning comes from the <span class="em">structure</span>, not from SE alone.</div>
+</section>
+
+</div>
+
+<div class="footer">
+  <span id="counter">1 / 20</span>
+  <span>← / → to navigate · Click practice cards to reveal answers</span>
+  <div class="nav"><button onclick="prev()">←</button><button onclick="next()">→</button></div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,j)=>s.classList.toggle('active',j===i));
+  document.getElementById('counter').textContent=(i+1)+' / '+slides.length;
+}
+function next(){show(i+1)} function prev(){show(i-1)}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();next()}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev()}
+});
+show(0);
+</script>
+</body>
+</html>
