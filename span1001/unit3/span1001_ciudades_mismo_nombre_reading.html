@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciudades con el mismo nombre · SPAN1001</title>
+<style>
+:root{
+  --bg:#fff8ef; --paper:#fffdf9; --text:#20242c; --muted:#667085;
+  --blue:#087da9; --orange:#d98218; --green:#397779; --brown:#7d3d24;
+  --border:#e8dfd3; --shadow:0 14px 38px rgba(50,38,25,.09);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--text); overflow:hidden;
+}
+header{
+  height:60px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 30px; background:#fff; border-bottom:1px solid var(--border);
+}
+.brand{font-weight:800}.course{font-size:14px;color:var(--muted)}
+.slide{
+  display:none; height:calc(100vh - 60px); overflow:auto;
+  padding:34px 7vw 90px;
+}
+.slide.active{display:block}
+.topline{display:flex;align-items:flex-start;justify-content:space-between;gap:25px;max-width:1120px}
+.kicker{color:var(--blue);font-weight:850;text-transform:uppercase;letter-spacing:1.4px;font-size:14px}
+h1{font-size:clamp(39px,5vw,66px);line-height:1.06;margin:8px 0 12px}
+h2{font-size:clamp(32px,4vw,50px);line-height:1.08;margin:8px 0 18px;color:var(--orange)}
+.instruction{color:var(--muted);font-size:16px;line-height:1.45;max-width:760px;margin-bottom:20px}
+.reader{
+  max-width:1120px;background:var(--paper);border:1px solid var(--border);
+  border-radius:22px;padding:28px 34px;box-shadow:var(--shadow);
+}
+.para{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(21px,2.15vw,29px);line-height:1.72;margin:0 0 22px;
+}
+.para:last-child{margin-bottom:0}
+.vocab{
+  position:relative;display:inline;border-bottom:2px dotted var(--blue);
+  cursor:help;background:linear-gradient(transparent 72%,rgba(8,125,169,.10) 72%);
+}
+.vocab .tip{
+  visibility:hidden;opacity:0;position:absolute;z-index:20;left:50%;bottom:calc(100% + 10px);
+  transform:translateX(-50%);white-space:nowrap;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.25;font-weight:650;color:#fff;background:#27313c;
+  padding:8px 11px;border-radius:9px;box-shadow:0 8px 22px rgba(0,0,0,.2);
+  transition:.12s;pointer-events:none;
+}
+.vocab:hover .tip,.vocab.open .tip{visibility:visible;opacity:1}
+.grammar-hay{color:var(--green);font-weight:750}
+.grammar-estar{color:#526da5;font-weight:750}
+.grammar-super{color:var(--brown);font-weight:750}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}
+.action{
+  border:1px solid var(--border);background:#fff;border-radius:999px;padding:9px 14px;
+  font-size:14px;cursor:pointer;
+}
+.action:hover{background:#f5f1eb}
+.all-vocab .vocab::after{
+  content:"  " attr(data-meaning);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:.62em;font-weight:650;color:var(--blue);white-space:nowrap;
+}
+.legend{margin-top:16px;font-size:14px;color:var(--muted)}
+.legend b:nth-child(1){color:var(--green)}.legend b:nth-child(2){color:#526da5}.legend b:nth-child(3){color:var(--brown)}
+.controls{
+  position:fixed;bottom:17px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;z-index:30
+}
+.controls button{
+  border:1px solid var(--border);background:#fff;padding:10px 18px;border-radius:999px;
+  font-size:16px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.06)
+}
+.counter{min-width:70px;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:760px){
+ header{padding:0 18px}.slide{padding:25px 18px 86px}.reader{padding:22px 20px}
+ .para{font-size:21px}.vocab .tip{white-space:normal;min-width:150px;text-align:center}
+ .all-vocab .vocab::after{white-space:normal}
+}
+</style>
+</head>
+<body>
+<header><div class="brand">Spanish Programme</div><div class="course">SPAN1001 · Reading</div></header>
+
+<main>
+
+<section class="slide active">
+  <div class="kicker">Ciudades con el mismo nombre</div>
+  <h1>Ciudades con el mismo nombre</h1>
+  <p class="instruction">Read the text aloud. Move your cursor over the underlined words to see their meaning in English. You can also click a word. Use “Show all vocabulary” during review.</p>
+  <div class="actions"><button class="action vocab-toggle">Show all vocabulary</button></div>
+  <div class="reader">
+    <p class="para">
+      <span class="grammar-hay">Hay</span> cuatro ciudades en el mundo que
+      <span class="vocab" data-meaning="are called">se llaman<span class="tip">are called</span></span>
+      Mérida, seis que se llaman Granada, más de diez que se llaman Madrid...
+      También
+      <span class="vocab" data-meaning="there are / exist">existen<span class="tip">there are / exist</span></span>
+      <span class="vocab" data-meaning="several">varias<span class="tip">several</span></span>
+      ciudades llamadas Santiago en países
+      <span class="vocab" data-meaning="Spanish-speaking">de habla hispana<span class="tip">Spanish-speaking</span></span>.
+      Aquí tenemos tres de ellas.
+    </p>
+  </div>
+  <div class="legend"><b>HAY</b> · <b>ESTAR</b> · <b>SUPERLATIVE</b> are lightly highlighted for review.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Santiago 1</div>
+  <h2>Santiago de Chile</h2>
+  <p class="instruction">Read one paragraph aloud. Use the vocabulary help only when you need it.</p>
+  <div class="actions"><button class="action vocab-toggle">Show all vocabulary</button></div>
+  <div class="reader">
+    <p class="para">
+      Es la capital de Chile y <span class="grammar-estar">está</span> en el centro del país.
+      <span class="vocab" data-meaning="founded">Fundada<span class="tip">founded</span></span>
+      en el <span class="vocab" data-meaning="16th century">siglo XVI<span class="tip">16th century</span></span>,
+      Santiago tiene casi 7 millones de
+      <span class="vocab" data-meaning="inhabitants">habitantes<span class="tip">inhabitants</span></span>
+      y es una de las ciudades
+      <span class="grammar-super">más seguras</span>
+      y con mayor
+      <span class="vocab" data-meaning="quality of life">calidad de vida<span class="tip">quality of life</span></span>
+      de Latinoamérica.
+    </p>
+    <p class="para">
+      La ciudad tiene muchos
+      <span class="vocab" data-meaning="places of tourist interest">lugares de interés turístico<span class="tip">places of tourist interest</span></span>:
+      la plaza de Armas, el palacio de La Moneda, la iglesia de Santo Domingo, el mercado central, el Museo Histórico Nacional...
+      Su <span class="vocab" data-meaning="location">ubicación<span class="tip">location</span></span>
+      <span class="vocab" data-meaning="allows">permite<span class="tip">allows</span></span>
+      al <span class="vocab" data-meaning="traveller">viajero<span class="tip">traveller</span></span>
+      llegar, en poco tiempo, al
+      <span class="vocab" data-meaning="countryside">campo<span class="tip">countryside</span></span>,
+      a la <span class="vocab" data-meaning="mountain">montaña<span class="tip">mountain</span></span>
+      y a la playa.
+    </p>
+    <p class="para">
+      Además, en los
+      <span class="vocab" data-meaning="surrounding area">alrededores<span class="tip">surrounding area</span></span>
+      de Santiago <span class="grammar-estar">están</span> algunas de las zonas de
+      <span class="vocab" data-meaning="wine production">producción de vino<span class="tip">wine production</span></span>
+      <span class="grammar-super">más conocidas y visitadas</span> del país, como el valle de Colchagua.
+    </p>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Santiago 2</div>
+  <h2>Santiago de Cuba</h2>
+  <p class="instruction">Read one paragraph aloud. Hover over or click the underlined words for English help.</p>
+  <div class="actions"><button class="action vocab-toggle">Show all vocabulary</button></div>
+  <div class="reader">
+    <p class="para">
+      <span class="vocab" data-meaning="founded">Fundada<span class="tip">founded</span></span>
+      en 1515 y capital de Cuba hasta 1556, es la segunda ciudad
+      <span class="grammar-super">más importante</span> del país,
+      <span class="vocab" data-meaning="after">después de<span class="tip">after</span></span>
+      La Habana, la capital actual.
+      <span class="grammar-estar">Está situada</span> en el
+      <span class="vocab" data-meaning="southeast">sureste<span class="tip">southeast</span></span>
+      de la <span class="vocab" data-meaning="island">isla<span class="tip">island</span></span>
+      y tiene casi medio millón de
+      <span class="vocab" data-meaning="inhabitants">habitantes<span class="tip">inhabitants</span></span>.
+    </p>
+    <p class="para">
+      Santiago de Cuba tiene importantes
+      <span class="vocab" data-meaning="buildings / constructions">construcciones<span class="tip">buildings / constructions</span></span>
+      de interés turístico e histórico, como el
+      <span class="vocab" data-meaning="castle">castillo<span class="tip">castle</span></span>
+      de San Pedro de la Roca, la primera
+      <span class="vocab" data-meaning="cathedral">catedral<span class="tip">cathedral</span></span>
+      de Cuba o los
+      <span class="vocab" data-meaning="remains">restos<span class="tip">remains</span></span>
+      de las primeras
+      <span class="vocab" data-meaning="coffee plantations">plantaciones de café<span class="tip">coffee plantations</span></span>
+      en el sureste de la isla.
+      Además, en la ciudad <span class="grammar-hay">hay</span> muchos edificios de arquitectura colonial.
+    </p>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Santiago 3</div>
+  <h2>Santiago de Compostela</h2>
+  <p class="instruction">Read one paragraph aloud. Hover over or click the underlined words for English help.</p>
+  <div class="actions"><button class="action vocab-toggle">Show all vocabulary</button></div>
+  <div class="reader">
+    <p class="para">
+      Tiene una <span class="vocab" data-meaning="population">población<span class="tip">population</span></span>
+      de aproximadamente 97 000 habitantes y más de diez
+      <span class="vocab" data-meaning="centuries">siglos<span class="tip">centuries</span></span>
+      de historia. Esta ciudad,
+      <span class="grammar-estar">situada</span> en el
+      <span class="vocab" data-meaning="northwest">noroeste<span class="tip">northwest</span></span>
+      de la <span class="vocab" data-meaning="Iberian Peninsula">península ibérica<span class="tip">Iberian Peninsula</span></span>,
+      es la capital de Galicia, una de las
+      <span class="vocab" data-meaning="autonomous communities">comunidades autónomas<span class="tip">autonomous communities</span></span>
+      de España.
+    </p>
+    <p class="para">
+      El <span class="vocab" data-meaning="old town / historic centre">casco antiguo<span class="tip">old town / historic centre</span></span>
+      es Patrimonio de la Humanidad desde 1985. Tiene muchos monumentos y edificios históricos, además de la Universidad de Santiago de Compostela, una de las
+      <span class="grammar-super">más antiguas</span> del mundo.
+    </p>
+    <p class="para">
+      Miles de
+      <span class="vocab" data-meaning="pilgrims">peregrinos<span class="tip">pilgrims</span></span>
+      <span class="vocab" data-meaning="coming from">procedentes de<span class="tip">coming from</span></span>
+      todas partes del mundo visitan
+      <span class="vocab" data-meaning="every year">cada año<span class="tip">every year</span></span>
+      la ciudad,
+      <span class="vocab" data-meaning="final point / destination">punto final<span class="tip">final point / destination</span></span>
+      del famoso Camino de Santiago.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<div class="controls">
+  <button id="prev">← Previous</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Next →</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+function show(n){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,j)=>s.classList.toggle('active',j===i));
+  counter.textContent=`${i+1} / ${slides.length}`;
+  prev.disabled=i===0; next.disabled=i===slides.length-1;
+}
+prev.onclick=()=>show(i-1);
+next.onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') show(i+1);
+  if(e.key==='ArrowLeft') show(i-1);
+});
+document.querySelectorAll('.vocab').forEach(v=>{
+  v.addEventListener('click',e=>{
+    e.stopPropagation();
+    document.querySelectorAll('.vocab.open').forEach(x=>{if(x!==v)x.classList.remove('open')});
+    v.classList.toggle('open');
+  });
+});
+document.addEventListener('click',()=>document.querySelectorAll('.vocab.open').forEach(x=>x.classList.remove('open')));
+document.querySelectorAll('.vocab-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const slide=btn.closest('.slide');
+    slide.classList.toggle('all-vocab');
+    btn.textContent=slide.classList.contains('all-vocab')?'Hide vocabulary':'Show all vocabulary';
+  });
+});
+show(0);
+</script>
+</body>
+</html>

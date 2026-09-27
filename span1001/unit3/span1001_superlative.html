@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Superlative · SPAN1001</title>
+<style>
+:root{
+ --bg:#f7f6f3;--card:#fff;--text:#20242c;--muted:#68707d;--border:#e2e4e8;
+ --brown:#7d3d24;--green:#397779;--green2:#e8f2f0;--blue:#526da5;--blue2:#edf1f8;
+ --orange:#c56f3e;--orange2:#fbefe8;--shadow:0 14px 38px rgba(30,35,45,.09)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+header{height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+.brand{font-weight:800}.course{color:var(--muted);font-size:14px}
+.slide{display:none;height:calc(100vh - 60px);padding:38px 7vw 82px;overflow:auto}.slide.active{display:block}
+.kicker{color:var(--brown);font-weight:800;text-transform:uppercase;letter-spacing:1.4px;font-size:14px}
+h1{font-size:clamp(42px,6vw,72px);line-height:1.05;margin:10px 0 20px}
+h2{font-size:clamp(31px,4vw,50px);margin:8px 0 22px}
+.lead{font-size:clamp(20px,2vw,26px);line-height:1.5;color:var(--muted);max-width:1050px}
+.source{max-width:1050px;background:#fff;border-radius:20px;padding:24px 28px;box-shadow:var(--shadow);font-size:clamp(23px,2.5vw,32px);line-height:1.75;margin:18px 0}
+.hl{color:var(--green);font-weight:850}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1080px}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:22px 25px;box-shadow:var(--shadow)}
+.en{font-size:21px;color:var(--muted);margin-bottom:8px}.es{font-size:27px;font-weight:800}
+.rule{max-width:1080px;background:#fff;border-left:7px solid var(--green);border-radius:18px;padding:20px 24px;margin:20px 0;box-shadow:var(--shadow);font-size:22px;line-height:1.55}
+.formula{max-width:1120px;background:var(--green2);border-radius:20px;padding:22px 26px;margin:18px 0;font-size:clamp(22px,2.8vw,35px);font-weight:850;color:#285d5f;white-space:normal}
+.optional{color:var(--orange)}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px}
+.part{background:#fff;border-radius:18px;padding:20px;box-shadow:var(--shadow);font-size:19px;line-height:1.5}
+.part b{font-size:23px}
+.compare{font-size:25px;line-height:1.85}
+.note{font-size:17px;color:var(--muted);line-height:1.5;max-width:1050px}
+.bigexample{font-size:clamp(27px,3vw,40px);line-height:1.6;background:#fff;padding:20px 25px;border-radius:18px;box-shadow:var(--shadow);max-width:1000px;margin:14px 0}
+.practice{font-size:clamp(22px,2.5vw,32px);line-height:1.75}
+.reveal{cursor:pointer;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px 20px;margin:10px 0;max-width:900px}
+.answer{display:none;color:var(--green);font-weight:800;margin-top:7px}.reveal.open .answer{display:block}
+.controls{position:fixed;bottom:17px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;z-index:5}
+button{background:#fff;border:1px solid var(--border);border-radius:999px;padding:10px 18px;font-size:16px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.06)}
+.counter{min-width:70px;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:760px){.grid,.parts{grid-template-columns:1fr}.slide{padding:27px 22px 82px}header{padding:0 20px}}
+</style>
+</head>
+<body>
+<header><div class="brand">Spanish Programme</div><div class="course">SPAN1001 · The Superlative</div></header>
+<main>
+
+<section class="slide active">
+<div class="kicker">From the textbook</div>
+<h1>El superlativo</h1>
+<div class="source">
+2. Es <span class="hl">la ciudad más poblada de las tres</span>.<br>
+7. Es <span class="hl">la ciudad más antigua de las tres</span>.
+</div>
+<p class="lead">These two sentences use the <b>superlative</b>: a form we use to say that someone or something has the highest degree of a quality in a group.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">Connect with English</div>
+<h2>The superlative in English</h2>
+<div class="grid">
+<div class="card"><div class="en">big → bigger →</div><div class="es">the <span class="hl">biggest</span></div></div>
+<div class="card"><div class="en">old → older →</div><div class="es">the <span class="hl">oldest</span></div></div>
+<div class="card"><div class="en">interesting → more interesting →</div><div class="es">the <span class="hl">most interesting</span></div></div>
+<div class="card"><div class="en">populated → more populated →</div><div class="es">the <span class="hl">most populated</span></div></div>
+</div>
+<div class="rule">English can use <b>-est</b> or <b>the most + adjective</b>. Spanish normally uses <b>más + adjective</b>.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">The pattern</div>
+<h2>How do we form the superlative?</h2>
+<div class="formula">el / la / los / las + <span class="optional">(noun)</span> + más + adjective + <span class="optional">(de + group)</span></div>
+<div class="parts">
+<div class="part"><b>el / la / los / las</b><br><br>The definite article agrees with the noun.</div>
+<div class="part"><b class="optional">(noun)</b><br><br>The noun can be omitted when it is clear from the context.</div>
+<div class="part"><b class="optional">(de + group)</b><br><br>Shows the group or range of comparison. It can be omitted when the group is already clear.</div>
+</div>
+<p class="note">The parts in parentheses are optional when the information is already clear from the context.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">Look at the textbook sentence</div>
+<h2>Building the structure</h2>
+<div class="bigexample">
+<span style="color:var(--blue);font-weight:800">la</span> +
+<span style="font-weight:800">ciudad</span> +
+<span class="hl">más</span> +
+<span class="hl">poblada</span> +
+<span class="optional" style="font-weight:800">de las tres</span>
+</div>
+<div class="compare">
+<b>la ciudad más poblada de las tres</b><br>
+<span style="color:var(--muted)">the most populated city of the three</span>
+</div>
+<div class="rule"><b>de las tres</b> tells us the group being compared: <b>the three cities</b>.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">The noun can disappear</div>
+<h2>When the noun is clear</h2>
+<div class="bigexample">
+Madrid es <b>la ciudad más grande</b>.<br>
+Madrid es <b class="hl">la más grande</b>.
+</div>
+<p class="lead">Both sentences are possible. In the second sentence, <b>ciudad</b> is omitted because we already know that we are talking about cities.</p>
+<div class="rule">The article remains: <b>la más grande</b>. The article still agrees with the omitted noun: <b>la ciudad</b>.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">The comparison group can disappear</div>
+<h2>When the group is already clear</h2>
+<div class="bigexample">
+<b>¿Cuál es la ciudad más grande de España?</b><br><br>
+Madrid es <span class="hl">la más grande</span>.
+</div>
+<p class="lead">We do not need to repeat <b>de España</b>, because the comparison group is already clear from the question.</p>
+<div class="rule"><b>de + group</b> gives the group or range of comparison, but it does not always need to be stated.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Adjective agreement</div>
+<h2>The adjective still agrees with the noun</h2>
+<div class="grid">
+<div class="card"><div class="es">el país más <span class="hl">poblado</span></div></div>
+<div class="card"><div class="es">la ciudad más <span class="hl">poblada</span></div></div>
+<div class="card"><div class="es">los países más <span class="hl">poblados</span></div></div>
+<div class="card"><div class="es">las ciudades más <span class="hl">pobladas</span></div></div>
+</div>
+<div class="rule"><b>MÁS never changes.</b> The adjective agrees with the noun in gender and number.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">More examples</div>
+<h2>One pattern, many adjectives</h2>
+<div class="grid">
+<div class="card"><div class="en">the biggest city</div><div class="es">la ciudad <span class="hl">más grande</span></div></div>
+<div class="card"><div class="en">the smallest country</div><div class="es">el país <span class="hl">más pequeño</span></div></div>
+<div class="card"><div class="en">the oldest city</div><div class="es">la ciudad <span class="hl">más antigua</span></div></div>
+<div class="card"><div class="en">the most populated city</div><div class="es">la ciudad <span class="hl">más poblada</span></div></div>
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Practice</div>
+<h2>Build the superlative</h2>
+<p class="lead">Click each item to check the answer.</p>
+<div class="reveal" onclick="this.classList.toggle('open')">1. the biggest city → ciudad / grande<div class="answer">la ciudad más grande</div></div>
+<div class="reveal" onclick="this.classList.toggle('open')">2. the oldest city → ciudad / antigua<div class="answer">la ciudad más antigua</div></div>
+<div class="reveal" onclick="this.classList.toggle('open')">3. the most populated country → país / poblado<div class="answer">el país más poblado</div></div>
+<div class="reveal" onclick="this.classList.toggle('open')">4. the smallest cities → ciudades / pequeñas<div class="answer">las ciudades más pequeñas</div></div>
+</section>
+
+<section class="slide">
+<div class="kicker">Summary</div>
+<h1>The superlative</h1>
+<div class="formula">el / la / los / las + <span class="optional">(noun)</span> + más + adjective + <span class="optional">(de + group)</span></div>
+<div class="rule"><b>(noun)</b> → can be omitted when it is clear.</div>
+<div class="rule"><b>(de + group)</b> → gives the group or range of comparison; it can be omitted when the group is already clear.</div>
+<div class="rule"><b>más</b> never changes; the <b>adjective agrees with the noun</b>.</div>
+</section>
+
+</main>
+<div class="controls"><button id="prev">← Previous</button><span class="counter" id="counter"></span><button id="next">Next →</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,j)=>s.classList.toggle('active',j===i));counter.textContent=`${i+1} / ${slides.length}`;prev.disabled=i===0;next.disabled=i===slides.length-1}
+prev.onclick=()=>show(i-1);next.onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+show(0);
+</script>
+</body></html>

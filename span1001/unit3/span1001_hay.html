@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAY · SPAN1001</title>
+<style>
+:root{
+ --bg:#f7f6f3;--card:#fff;--text:#20242c;--muted:#68707d;--border:#e2e4e8;
+ --brown:#7d3d24;--green:#397779;--green2:#e8f2f0;--blue:#526da5;--blue2:#edf1f8;
+ --red:#a44949;--red2:#faecec;--orange:#c56f3e;--shadow:0 14px 38px rgba(30,35,45,.09)
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+header{height:60px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+.brand{font-weight:800}.course{color:var(--muted);font-size:14px}
+.slide{display:none;height:calc(100vh - 60px);padding:38px 7vw 82px;overflow:auto}.slide.active{display:block}
+.kicker{color:var(--brown);font-weight:800;text-transform:uppercase;letter-spacing:1.4px;font-size:14px}
+h1{font-size:clamp(44px,6vw,76px);line-height:1.05;margin:10px 0 20px}
+h2{font-size:clamp(31px,4vw,52px);margin:8px 0 22px}
+.lead{font-size:clamp(20px,2vw,26px);line-height:1.5;color:var(--muted);max-width:1050px}
+.source,.card,.rule,.formula,.warning{background:#fff;border-radius:20px;padding:22px 26px;box-shadow:var(--shadow)}
+.source{max-width:1050px;font-size:clamp(27px,3vw,40px);line-height:1.55;margin:18px 0}
+.hay{color:var(--green);font-weight:850}.estar{color:var(--blue);font-weight:850}
+.translation{font-size:22px;color:var(--muted);margin-top:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1080px}
+.card{border:1px solid var(--border);font-size:21px;line-height:1.5}
+.card .big{font-size:29px;font-weight:800;margin-bottom:8px}
+.rule{max-width:1050px;border-left:7px solid var(--green);font-size:23px;line-height:1.55;margin:20px 0}
+.formula{max-width:1000px;background:var(--green2);color:#285d5f;font-size:clamp(25px,3vw,38px);font-weight:850;margin:18px 0}
+.warning{max-width:1050px;background:var(--red2);border-left:7px solid var(--red);font-size:22px;line-height:1.6;margin:20px 0}
+.examples{font-size:clamp(23px,2.5vw,32px);line-height:1.8}
+.small{font-size:17px;color:var(--muted);line-height:1.5;max-width:1050px}
+.compare{width:min(1050px,100%);border-collapse:separate;border-spacing:0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.compare th,.compare td{padding:17px 20px;border-bottom:1px solid var(--border);text-align:left;font-size:20px;vertical-align:top}
+.compare th{background:#eef2f1}.compare tr:last-child td{border-bottom:0}
+.arrow{font-size:34px;color:var(--muted);text-align:center;margin:10px}
+.controls{position:fixed;bottom:17px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;z-index:5}
+button{background:#fff;border:1px solid var(--border);border-radius:999px;padding:10px 18px;font-size:16px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.06)}
+.counter{min-width:70px;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.slide{padding:27px 22px 82px}header{padding:0 20px}.compare th,.compare td{font-size:16px;padding:12px}}
+</style>
+</head>
+<body>
+<header><div class="brand">Spanish Programme</div><div class="course">SPAN1001 · HAY</div></header>
+<main>
+
+<section class="slide active">
+<div class="kicker">From the textbook</div>
+<h1>HAY</h1>
+<div class="source">
+<span class="hay">Hay</span> cafetales antiguos cerca.
+<div class="translation">There are old coffee plantations nearby.</div>
+</div>
+<div class="rule"><b>HAY</b> means <b>there is</b> or <b>there are</b>.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">One form in Spanish</div>
+<h2>HAY = there is / there are</h2>
+<div class="grid">
+<div class="card">
+<div class="big"><span class="hay">Hay</span> un museo.</div>
+<div>There <b>is</b> a museum.</div>
+</div>
+<div class="card">
+<div class="big"><span class="hay">Hay</span> tres museos.</div>
+<div>There <b>are</b> three museums.</div>
+</div>
+</div>
+<div class="rule">English changes: <b>there is / there are</b>.<br>Spanish uses the same form: <b>HAY</b>.</div>
+<div class="examples">
+Hay <b>un</b> restaurante.<br>
+Hay <b>dos</b> restaurantes.<br>
+Hay <b>muchos</b> restaurantes.
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Where does HAY come from?</div>
+<h2>HAY ← HABER</h2>
+<div class="formula">HABER → HAY</div>
+<p class="lead"><b>Hay</b> is a form of the verb <b>haber</b>.</p>
+<div class="rule">For now, you only need to remember:<br><b>HAY = there is / there are</b>.</div>
+<p class="small">We do not need the other forms of <i>haber</i> yet.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">What comes after HAY?</div>
+<h2>HAY introduces something new</h2>
+<p class="lead"><b>Hay</b> normally introduces a person or thing that is <b>not specific or not identified yet</b>.</p>
+<div class="grid">
+<div class="card">
+<div class="big">HAY + un / una + singular noun</div>
+<span class="hay">Hay</span> <b>un museo</b>.<br>
+<span class="hay">Hay</span> <b>una universidad</b>.
+</div>
+<div class="card">
+<div class="big">HAY + plural noun</div>
+<span class="hay">Hay</span> <b>museos</b>.<br>
+<span class="hay">Hay</span> <b>restaurantes</b>.
+</div>
+<div class="card">
+<div class="big">HAY + number + noun</div>
+<span class="hay">Hay</span> <b>tres museos</b>.<br>
+<span class="hay">Hay</span> <b>dos universidades</b>.
+</div>
+<div class="card">
+<div class="big">HAY + quantity + noun</div>
+<span class="hay">Hay</span> <b>muchos restaurantes</b>.<br>
+<span class="hay">Hay</span> <b>muchas cafeterías</b>.
+</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Important</div>
+<h2>HAY and definite articles</h2>
+<div class="warning">
+<b>After HAY, we normally do NOT use <i>el, la, los, las</i>.</b>
+</div>
+<div class="grid">
+<div class="card">
+<div style="font-size:27px;color:var(--red);font-weight:800">✗ Hay el museo en el centro.</div>
+<p class="small">Here, <b>el museo</b> refers to a specific, identified museum.</p>
+</div>
+<div class="card">
+<div style="font-size:27px;color:var(--green);font-weight:800">✓ Hay un museo en el centro.</div>
+<p class="small"><b>un museo</b> introduces a museum that has not been identified yet.</p>
+</div>
+</div>
+<div class="rule"><b>HAY</b> normally introduces something <b>new or unidentified</b>.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">HAY vs. ESTAR</div>
+<h2>Existence or location?</h2>
+<table class="compare">
+<tr><th></th><th><span class="hay">HAY</span></th><th><span class="estar">ESTAR</span></th></tr>
+<tr><td><b>Main idea</b></td><td>What is there?</td><td>Where is it?</td></tr>
+<tr><td><b>Example</b></td><td><b>Hay un museo</b> en el centro.</td><td><b>El museo está</b> en el centro.</td></tr>
+<tr><td><b>English</b></td><td>There is <b>a museum</b> in the city centre.</td><td><b>The museum</b> is in the city centre.</td></tr>
+</table>
+<div class="rule"><span class="hay"><b>HAY introduces it.</b></span> &nbsp;&nbsp; <span class="estar"><b>ESTAR locates it.</b></span></div>
+<p class="small">A useful first rule: <b>hay</b> often introduces something new; <b>estar</b> often gives the location of something already identified.</p>
+</section>
+
+<section class="slide">
+<div class="kicker">Summary</div>
+<h1>What do we remember?</h1>
+<div class="rule"><b>HAY = there is / there are</b></div>
+<div class="rule"><b>HAY</b> is the same with singular and plural nouns.</div>
+<div class="rule"><b>HAY</b> normally introduces something new or unidentified: <b>un/una + singular noun</b>, a <b>plural noun</b>, or a noun with a <b>number/quantity</b>.</div>
+<div class="rule"><b>HAY</b> normally does not introduce a specific noun with <b>el / la / los / las</b>.</div>
+<div class="rule"><span class="hay"><b>HAY introduces it.</b></span> &nbsp; <span class="estar"><b>ESTAR locates it.</b></span></div>
+</section>
+
+</main>
+<div class="controls"><button id="prev">← Previous</button><span class="counter" id="counter"></span><button id="next">Next →</button></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,j)=>s.classList.toggle('active',j===i));counter.textContent=`${i+1} / ${slides.length}`;prev.disabled=i===0;next.disabled=i===slides.length-1}
+prev.onclick=()=>show(i-1);next.onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+show(0);
+</script>
+</body>
+</html>
