@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPAN1001 Unit 3 | Spanish Interactive Learning</title>
+
+  <style>
+    :root {
+      --background: #f7f8fb;
+      --white: #ffffff;
+      --text: #20242c;
+      --muted: #697386;
+      --border: #e5e8ef;
+
+      --red: #9c3155;
+      --orange: #d96b42;
+      --yellow: #e9b94f;
+      --green: #397779;
+      --blue: #526da5;
+
+      --shadow: 0 12px 35px rgba(25, 35, 55, 0.08);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at 0% 0%,
+          rgba(233,185,79,.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(57,119,121,.12),
+          transparent 28%
+        ),
+        var(--background);
+
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- HEADER ---------- */
+
+    header {
+      background: rgba(255,255,255,.88);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(12px);
+      z-index: 20;
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 900;
+      background:
+        linear-gradient(
+          135deg,
+          var(--red),
+          var(--orange)
+        );
+    }
+
+    .back-button {
+      padding: 9px 15px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: .2s;
+    }
+
+    .back-button:hover {
+      background: var(--red);
+      color: white;
+      border-color: var(--red);
+    }
+
+    /* ---------- HERO ---------- */
+
+    .hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 56px 24px 34px;
+    }
+
+    .hero-box {
+      background:
+        linear-gradient(
+          120deg,
+          #526da5,
+          #397779 58%,
+          #d96b42
+        );
+
+      border-radius: 30px;
+      padding: 52px 30px;
+      text-align: center;
+      color: white;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-box::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      top: -100px;
+      left: -80px;
+    }
+
+    .hero-box::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.10);
+      bottom: -100px;
+      right: -60px;
+    }
+
+    .course-code {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      opacity: .88;
+    }
+
+    h1 {
+      margin: 10px 0 8px;
+      font-size: clamp(42px, 7vw, 68px);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .hero-subtitle {
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .hero-university {
+      margin-top: 18px;
+      opacity: .88;
+      font-size: 15px;
+    }
+
+    /* ---------- MATERIALS ---------- */
+
+    main {
+      max-width: 1180px;
+      margin: auto;
+      padding: 25px 24px 80px;
+    }
+
+    .section-title {
+      margin-bottom: 26px;
+    }
+
+    .section-title span {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .section-title h2 {
+      margin: 5px 0 4px;
+      font-size: 34px;
+      letter-spacing: -.03em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .materials-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          2,
+          minmax(0,1fr)
+        );
+      gap: 20px;
+    }
+
+    .material-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      min-height: 195px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      box-shadow:
+        0 7px 22px
+        rgba(20,30,50,.045);
+
+      transition: .22s;
+    }
+
+    .material-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .material-type {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--blue);
+    }
+
+    .material-card h3 {
+      margin: 10px 0 6px;
+      font-size: 26px;
+      letter-spacing: -.03em;
+    }
+
+    .material-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .enter {
+      margin-top: 22px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .card-2 .material-type,
+    .card-2 .enter {
+      color: var(--green);
+    }
+
+    .card-3 .material-type,
+    .card-3 .enter {
+      color: var(--orange);
+    }
+
+    .card-4 .material-type,
+    .card-4 .enter {
+      color: var(--red);
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: white;
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 700px) {
+      .materials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .hero-box {
+        padding: 45px 20px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+
+    <a class="brand" href="../">
+      <div class="brand-logo">
+        S
+      </div>
+
+      <span>
+        Spanish Interactive Learning
+      </span>
+    </a>
+
+    <a
+      class="back-button"
+      href="../"
+    >
+      ← SPAN1001
+    </a>
+
+  </div>
+</header>
+
+
+<section class="hero">
+  <div class="hero-box">
+
+    <div class="course-code">
+      SPAN1001 · Spanish I
+    </div>
+
+    <h1>
+      Unit 3
+    </h1>
+
+    <div class="hero-subtitle">
+      Interactive Learning Materials
+    </div>
+
+    <div class="hero-university">
+      The University of Hong Kong
+    </div>
+
+  </div>
+</section>
+
+
+<main>
+
+  <div class="section-title">
+
+    <span>
+      Unit 3
+    </span>
+
+    <h2>
+      Learning Materials
+    </h2>
+
+    <p>
+      Select an activity to start.
+    </p>
+
+  </div>
+
+
+  <div class="materials-grid">
+
+
+    <!-- SUPERLATIVE -->
+
+    <a
+      class="material-card"
+      href="span1001_superlative.html"
+    >
+
+      <div>
+
+        <div class="material-type">
+          Grammar
+        </div>
+
+        <h3>
+          Superlatives
+        </h3>
+
+        <p>
+          Learn and practise how to express superlative forms in Spanish.
+        </p>
+
+      </div>
+
+      <div class="enter">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- HAY -->
+
+    <a
+      class="material-card card-2"
+      href="span1001_hay.html"
+    >
+
+      <div>
+
+        <div class="material-type">
+          Grammar
+        </div>
+
+        <h3>
+          Hay
+        </h3>
+
+        <p>
+          Learn how to use <strong>hay</strong> to talk about the existence of people, places and things.
+        </p>
+
+      </div>
+
+      <div class="enter">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- DÓNDE ESTÁ SANTIAGO -->
+
+    <a
+      class="material-card card-3"
+      href="span1001_donde_esta_santiago.html"
+    >
+
+      <div>
+
+        <div class="material-type">
+          Cities & Location
+        </div>
+
+        <h3>
+          ¿Dónde está Santiago?
+        </h3>
+
+        <p>
+          Practise talking about cities, countries and geographical location.
+        </p>
+
+      </div>
+
+      <div class="enter">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- CIUDADES CON EL MISMO NOMBRE -->
+
+    <a
+      class="material-card card-4"
+      href="span1001_ciudades_mismo_nombre_reading.html"
+    >
+
+      <div>
+
+        <div class="material-type">
+          Reading
+        </div>
+
+        <h3>
+          Ciudades con el mismo nombre
+        </h3>
+
+        <p>
+          Read about cities that share the same name and practise reading comprehension.
+        </p>
+
+      </div>
+
+      <div class="enter">
+        Open activity →
+      </div>
+
+    </a>
+
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <strong>
+    Dr. Song Yang Alejandro
+  </strong>
+
+  <br>
+
+  Lecturer in Spanish and Global and Area Studies
+
+  <br>
+
+  The University of Hong Kong
+
+</footer>
+
+</body>
+</html>
