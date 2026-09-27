@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IR & SALIR · Spanish Programme</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --text:#20242c; --muted:#667085;
+  --green:#4f8b72; --green2:#e8f2ed; --blue:#526da5; --blue2:#edf1f8;
+  --orange:#c87545; --orange2:#fbf0e9; --purple:#765b91; --purple2:#f1edf5;
+  --border:#e4e7ec; --shadow:0 18px 45px rgba(25,35,55,.10);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:linear-gradient(135deg,#f5f3ef,#f7f8fb); color:var(--text);
+  min-height:100vh; overflow:hidden;
+}
+.deck{height:100vh; display:flex; flex-direction:column}
+.topbar{
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 34px; background:rgba(255,255,255,.86); border-bottom:1px solid var(--border);
+}
+.brand{font-weight:750; letter-spacing:.2px}.course{color:var(--muted); font-size:14px}
+.slides{flex:1; position:relative}
+.slide{
+  position:absolute; inset:0; padding:42px 7vw 76px; overflow:auto;
+  opacity:0; transform:translateX(35px); pointer-events:none; transition:.28s ease;
+}
+.slide.active{opacity:1; transform:none; pointer-events:auto}
+.kicker{font-size:15px; font-weight:750; color:var(--green); text-transform:uppercase; letter-spacing:1.5px}
+h1{font-size:clamp(38px,5vw,68px); line-height:1.05; margin:12px 0 18px}
+h2{font-size:clamp(32px,4vw,54px); margin:8px 0 24px}
+.lead{font-size:clamp(20px,2vw,28px); color:var(--muted); line-height:1.45; max-width:980px}
+.rule{
+  display:inline-block; margin:15px 0 24px; padding:14px 20px; border-radius:15px;
+  background:var(--green2); color:#285a47; font-size:clamp(21px,2.3vw,31px); font-weight:800;
+}
+.grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; max-width:1050px}
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:20px;
+  padding:22px 24px; box-shadow:var(--shadow); font-size:20px; line-height:1.45;
+}
+.card strong{font-size:24px}
+.es{font-weight:800; font-size:24px}.en{color:var(--muted); margin-top:5px}
+.a{color:var(--green)} .de{color:var(--blue)} .con{color:var(--purple)}
+.question{
+  margin-top:24px; max-width:1000px; padding:20px 24px; border-radius:18px;
+  background:#fff; border-left:7px solid var(--orange); font-size:23px;
+}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1050px}
+.panel{border-radius:22px;padding:25px;background:white;box-shadow:var(--shadow)}
+.panel.aPanel{border-top:7px solid var(--green)} .panel.dePanel{border-top:7px solid var(--blue)}
+.big{font-size:34px;font-weight:850;margin-bottom:12px}
+ul{font-size:21px;line-height:1.65;margin:10px 0;padding-left:25px}
+.note{color:var(--muted);font-size:18px;line-height:1.5;max-width:1000px}
+.formula{
+  max-width:900px; background:#fff; border:1px solid var(--border); border-radius:20px;
+  padding:22px 26px; margin:14px 0; box-shadow:var(--shadow); font-size:25px;
+}
+.formula span{font-weight:850}
+.summary{max-width:1100px;border-collapse:separate;border-spacing:0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.summary th,.summary td{padding:15px 18px;border-bottom:1px solid var(--border);text-align:left;font-size:18px}
+.summary th{background:#eef3f0;font-size:18px}.summary tr:last-child td{border-bottom:0}
+.practice{font-size:clamp(25px,3vw,39px);line-height:1.8}
+.blank{display:inline-block;min-width:85px;border-bottom:3px solid #8c96a5;text-align:center;color:transparent;cursor:pointer}
+.blank.show{color:var(--green);border-bottom-color:var(--green);font-weight:850}
+.hint{font-size:16px;color:var(--muted)}
+.controls{
+  position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; align-items:center; gap:14px; z-index:10;
+}
+button{
+  border:1px solid var(--border); background:#fff; padding:10px 18px; border-radius:999px;
+  font-size:16px; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,.06)
+}
+button:hover{background:#f3f5f7}.counter{min-width:70px;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:760px){
+ .grid,.compare{grid-template-columns:1fr}.slide{padding:28px 22px 80px}.topbar{padding:0 20px}
+ h1{font-size:40px}.summary th,.summary td{font-size:14px;padding:10px}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<header class="topbar">
+  <div class="brand">Spanish Programme</div>
+  <div class="course">SPAN1001 · IR & SALIR</div>
+</header>
+<main class="slides">
+
+<section class="slide active">
+  <div class="kicker">Quick review</div>
+  <h1>IR and SALIR:<br>Which preposition?</h1>
+  <p class="lead">We have seen expressions such as <b>ir al cine</b>, <b>ir de compras</b>, <b>salir a cenar</b> and <b>salir con amigos</b>. Why do we use <b>a</b>, <b>de</b> or <b>con</b>?</p>
+  <div class="question"><b>Good news:</b> for the expressions we are learning now, there are a few simple patterns that can help you.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 1</div>
+  <h2><span class="a">IR A</span> + place / event</h2>
+  <div class="rule">IR A tells us where you go or what event you go to.</div>
+  <div class="grid">
+    <div class="card"><div class="es">ir <span class="a">a la playa</span></div><div class="en">to go to the beach</div></div>
+    <div class="card"><div class="es">ir <span class="a">al museo</span></div><div class="en">to go to the museum</div></div>
+    <div class="card"><div class="es">ir <span class="a">a un concierto</span></div><div class="en">to go to a concert</div></div>
+    <div class="card"><div class="es">ir <span class="a">a una exposición</span></div><div class="en">to go to an exhibition</div></div>
+    <div class="card"><div class="es">ir <span class="a">al cine</span></div><div class="en">to go to the cinema</div></div>
+    <div class="card"><div class="es">ir <span class="a">al teatro</span></div><div class="en">to go to the theatre</div></div>
+  </div>
+  <p class="note"><b>Remember:</b> a + el = <b>al</b>. For example: <i>a + el museo → al museo</i>.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 2</div>
+  <h2><span class="de">IR DE</span> + activity</h2>
+  <div class="rule" style="background:var(--blue2);color:#3d5689">IR DE tells us what kind of activity you go out to do.</div>
+  <div class="grid">
+    <div class="card"><div class="es">ir <span class="de">de compras</span></div><div class="en">to go shopping</div></div>
+    <div class="card"><div class="es">ir <span class="de">de excursión</span></div><div class="en">to go on an excursion / trip</div></div>
+  </div>
+  <div class="question"><b>Think:</b> What activity are you doing?</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Compare</div>
+  <h2><span class="a">IR A</span> or <span class="de">IR DE</span>?</h2>
+  <div class="compare">
+    <div class="panel aPanel">
+      <div class="big a">IR A</div>
+      <p class="lead" style="font-size:22px"><b>Destination or event</b></p>
+      <ul>
+        <li>ir <b>al museo</b></li>
+        <li>ir <b>a la playa</b></li>
+        <li>ir <b>a un concierto</b></li>
+      </ul>
+      <p><b>Where are you going?<br>What are you going to?</b></p>
+    </div>
+    <div class="panel dePanel">
+      <div class="big de">IR DE</div>
+      <p class="lead" style="font-size:22px"><b>Activity</b></p>
+      <ul>
+        <li>ir <b>de compras</b></li>
+        <li>ir <b>de excursión</b></li>
+      </ul>
+      <p><b>What activity are you doing?</b></p>
+    </div>
+  </div>
+  <p class="note">Do not think simply “a = concrete” and “de = abstract”. It is more useful to remember these expressions as patterns.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 3</div>
+  <h2><span class="a">SALIR A</span> + infinitive</h2>
+  <div class="rule">SALIR A + verb = to go out to do something</div>
+  <div class="grid">
+    <div class="card"><div class="es">salir <span class="a">a cenar</span></div><div class="en">to go out for dinner / to go out to have dinner</div></div>
+    <div class="card"><div class="es">salir <span class="a">a bailar</span></div><div class="en">to go out dancing</div></div>
+  </div>
+  <div class="question"><b>Easy clue:</b> after <span class="a"><b>a</b></span>, we have an <b>infinitive</b>: cenar, bailar…<br><b>Question:</b> What do you go out to do?</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">A useful expression</div>
+  <h2><span class="de">SALIR DE NOCHE</span></h2>
+  <div class="formula"><span>salir de noche</span> = to go out at night</div>
+  <p class="lead">For now, learn <b>salir de noche</b> as one useful expression.</p>
+  <p class="note">You will also see <b>salir de + place</b> with the meaning “to leave / come out of a place”: <i>salir de casa</i> (leave home), <i>salir del trabajo</i> (leave work). So we do not need one general “de = abstract” rule.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 4</div>
+  <h2><span class="con">SALIR CON</span> + person / people</h2>
+  <div class="rule" style="background:var(--purple2);color:#654c7d">SALIR CON tells us who you go out with.</div>
+  <div class="grid">
+    <div class="card"><div class="es">salir <span class="con">con amigos/as</span></div><div class="en">to go out with friends</div></div>
+    <div class="card"><div class="es">salir <span class="con">con mis compañeros/as</span></div><div class="en">to go out with my classmates</div></div>
+  </div>
+  <div class="question"><b>Question:</b> Who do you go out with?</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Summary</div>
+  <h2>Four simple patterns</h2>
+  <table class="summary">
+    <tr><th>Expression</th><th>What comes next?</th><th>Basic idea</th><th>Example</th></tr>
+    <tr><td><b class="a">IR A</b></td><td>place / event</td><td>where / what event</td><td>Voy <b>al cine</b>.</td></tr>
+    <tr><td><b class="de">IR DE</b></td><td>activity</td><td>what activity</td><td>Voy <b>de compras</b>.</td></tr>
+    <tr><td><b class="a">SALIR A</b></td><td>infinitive</td><td>to do what</td><td>Salgo <b>a cenar</b>.</td></tr>
+    <tr><td><b class="con">SALIR CON</b></td><td>person / people</td><td>with whom</td><td>Salgo <b>con mis amigos</b>.</td></tr>
+  </table>
+  <div class="formula" style="margin-top:22px;font-size:20px">
+    <b>Also remember:</b> <span class="de">salir de noche</span> = to go out at night
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Quick practice</div>
+  <h2>A, DE or CON?</h2>
+  <div class="practice">
+    1. Voy <span class="blank" onclick="this.classList.toggle('show')">al</span> cine.<br>
+    2. Vamos <span class="blank" onclick="this.classList.toggle('show')">de</span> compras.<br>
+    3. Salgo <span class="blank" onclick="this.classList.toggle('show')">a</span> cenar.<br>
+    4. Salgo <span class="blank" onclick="this.classList.toggle('show')">con</span> mis amigos.<br>
+    5. Vamos <span class="blank" onclick="this.classList.toggle('show')">a</span> una exposición.<br>
+    6. Salimos <span class="blank" onclick="this.classList.toggle('show')">de</span> noche.
+  </div>
+  <p class="hint">Click each blank to reveal the answer.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Remember</div>
+  <h1>Ask the right question.</h1>
+  <div class="formula"><span class="a">IR A</span> → Where? / What event?</div>
+  <div class="formula"><span class="de">IR DE</span> → What activity?</div>
+  <div class="formula"><span class="a">SALIR A + infinitive</span> → To do what?</div>
+  <div class="formula"><span class="con">SALIR CON</span> → With whom?</div>
+  <p class="lead">And learn <b>salir de noche</b> as a useful expression.</p>
+</section>
+
+</main>
+<div class="controls">
+  <button id="prev">← Previous</button>
+  <div class="counter" id="counter"></div>
+  <button id="next">Next →</button>
+</div>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+function show(n){
+ i=Math.max(0,Math.min(slides.length-1,n));
+ slides.forEach((s,j)=>s.classList.toggle('active',j===i));
+ document.getElementById('counter').textContent=(i+1)+' / '+slides.length;
+ document.getElementById('prev').disabled=i===0;
+ document.getElementById('next').disabled=i===slides.length-1;
+}
+document.getElementById('prev').onclick=()=>show(i-1);
+document.getElementById('next').onclick=()=>show(i+1);
+document.addEventListener('keydown',e=>{
+ if(e.key==='ArrowRight'||e.key===' ') show(i+1);
+ if(e.key==='ArrowLeft') show(i-1);
+});
+show(0);
+</script>
+</body>
+</html>
