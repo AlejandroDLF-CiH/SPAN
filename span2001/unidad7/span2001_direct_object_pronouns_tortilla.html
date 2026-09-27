@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN2001 · Pronombres de objeto directo</title>
+<style>
+:root{
+  --bg:#f6f8fb;
+  --white:#fff;
+  --text:#20242c;
+  --muted:#657083;
+  --border:#e3e7ef;
+  --blue:#526da5;
+  --red:#9c3155;
+  --green:#397779;
+  --orange:#d96b42;
+  --purple:#7b5aa6;
+  --shadow:0 14px 34px rgba(25,35,55,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{
+  background:
+    radial-gradient(circle at 0 0, rgba(82,109,165,.09), transparent 28%),
+    radial-gradient(circle at 100% 0, rgba(156,49,85,.08), transparent 26%),
+    var(--bg);
+}
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.93);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.topbar{
+  max-width:1180px;margin:auto;padding:15px 24px;
+  display:flex;justify-content:space-between;align-items:center;gap:18px;
+}
+.brand{font-size:18px;font-weight:850}
+.hint{font-size:15px;color:var(--muted);font-weight:650}
+main{max-width:1180px;margin:auto;padding:38px 24px 70px}
+.hero{
+  background:linear-gradient(120deg,#526da5,#397779);
+  color:white;border-radius:28px;padding:34px 38px;
+  box-shadow:var(--shadow);margin-bottom:24px;
+}
+.eyebrow{font-size:13px;font-weight:850;letter-spacing:.13em;text-transform:uppercase;opacity:.88}
+h1{font-size:clamp(34px,4.4vw,58px);line-height:1.02;margin:7px 0 12px;letter-spacing:-.035em}
+.instructions{font-size:clamp(20px,1.8vw,27px);line-height:1.4;margin:0;max-width:980px}
+.legend{
+  display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 26px;
+}
+.legend span{
+  background:white;border:1px solid var(--border);border-radius:999px;
+  padding:8px 13px;font-size:15px;font-weight:800;
+}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
+.dialogue{
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+.turn{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:0 6px 18px rgba(25,35,55,.04);
+  padding:18px 22px;
+  font-size:clamp(20px,1.65vw,26px);
+  line-height:1.62;
+}
+.turn.son{border-left:7px solid var(--blue)}
+.turn.father{border-left:7px solid var(--green)}
+.speaker{
+  display:inline-block;
+  font-size:14px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;
+  margin-right:10px;vertical-align:middle;
+}
+.son .speaker{color:var(--blue)}
+.father .speaker{color:var(--green)}
+
+.pron{
+  position:relative;
+  display:inline-block;
+  font-weight:900;
+  padding:0 .18em;
+  border-radius:.28em;
+  cursor:help;
+  outline:none;
+  transition:.15s;
+}
+.pron.la{color:#8f2449;background:#f9eaf0;border-bottom:3px solid #c95a82}
+.pron.lo{color:#2f4d89;background:#eaf0fb;border-bottom:3px solid #6f8bc3}
+.pron.los{color:#2f6a68;background:#e8f3f1;border-bottom:3px solid #5f9a96}
+.pron.las{color:#a24d2f;background:#fbede7;border-bottom:3px solid #dc8768}
+.pron:hover,.pron:focus,.pron.active{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.tip{
+  visibility:hidden;opacity:0;pointer-events:none;
+  position:absolute;z-index:200;
+  left:50%;bottom:145%;transform:translateX(-50%);
+  width:max-content;max-width:min(360px,80vw);
+  background:#20242c;color:#fff;
+  border-radius:13px;padding:10px 13px;
+  font-size:16px;line-height:1.35;font-weight:700;
+  box-shadow:0 10px 28px rgba(0,0,0,.2);
+  transition:.12s;
+}
+.tip strong{display:block;font-size:14px;color:#cbd5e1;margin-bottom:2px;text-transform:uppercase;letter-spacing:.06em}
+.tip::after{
+  content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);
+  border:7px solid transparent;border-top-color:#20242c;
+}
+.pron:hover .tip,.pron:focus .tip,.pron.active .tip{visibility:visible;opacity:1}
+.note{
+  margin-top:26px;background:#fff;border:1px solid var(--border);border-radius:20px;
+  padding:18px 22px;color:var(--muted);font-size:17px;line-height:1.55
+}
+.note b{color:var(--text)}
+@media(max-width:720px){
+  main{padding:24px 14px 50px}
+  .hero{padding:26px 22px}
+  .turn{padding:16px 17px}
+  .topbar{padding:13px 15px}
+  .hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="brand">SPAN2001 · Objeto directo</div>
+    <div class="hint">Hover over a highlighted pronoun to see its referent</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Actividad · Pronombres de objeto directo</div>
+    <h1>¿A qué se refieren <em>lo, la, los, las</em>?</h1>
+    <p class="instructions">
+      Lee la conversación. Pasa el ratón sobre cada pronombre de objeto directo destacado
+      para ver a qué palabra, grupo de palabras o idea se refiere.
+    </p>
+  </section>
+
+  <div class="legend">
+    <span><i class="dot" style="background:#c95a82"></i><b>la</b></span>
+    <span><i class="dot" style="background:#6f8bc3"></i><b>lo</b></span>
+    <span><i class="dot" style="background:#5f9a96"></i><b>los</b></span>
+    <span><i class="dot" style="background:#dc8768"></i><b>las</b></span>
+  </div>
+
+  <section class="dialogue">
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Hola, papá.
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Hola, hijo.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Oye, papá, vienen unos amigos a cenar y quiero hacer tu supertortilla de patatas,
+      que está buenísima. ¿Tú cómo
+      <span class="pron la" tabindex="0">la
+        <span class="tip"><strong>LA refers to</strong>la supertortilla de patatas</span>
+      </span>
+      haces?
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Pues mira, es muy fácil. Pones mucho aceite en una sartén y
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>el aceite</span>
+      </span>
+      calientas. Yo tengo un truco: siempre echo un diente de ajo. Cuando el ajo está dorado,
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>el ajo / un diente de ajo</span>
+      </span>
+      saco y entonces añado la cebolla y las patatas. Unas cuatro o cinco patatas grandes.
+      Las patatas tienen que ser de las amarillas, no las rojas por fuera y blancas por dentro, ¿eh?
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      ¿Cuánta cebolla? ¿Y
+      <span class="pron la" tabindex="0">la
+        <span class="tip"><strong>LA refers to</strong>la cebolla</span>
+      </span>
+      corto en trozos pequeños o cómo?
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      La cebolla hay que cortar<span class="pron la" tabindex="0">la
+        <span class="tip"><strong>-LA refers to</strong>la cebolla</span>
+      </span>
+      en trozos finos, sí. Y yo echo una cebolla entera.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Una cebolla entera, vale.
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Sí, así la tortilla está menos seca. Además, me gusta el sabor de la cebolla.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Sí, a mí también. Vale. ¿Y entonces echo la patata y la cebolla cortada en la sartén, ¿no?
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Sí,
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>todo: la patata y la cebolla cortada</span>
+      </span>
+      fríes todo muy bien a fuego medio, hasta que la cebolla y las patatas estén blanditas.
+      Y luego bates bien los huevos. Tienen que ser huevos ecológicos, que son mejores.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Vale, espera, que me
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>lo que me estás diciendo / esta información</span>
+      </span>
+      apunto. ¿Cuántos huevos?
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Yo suelo echar unos cinco o seis.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Vale.
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Y eso, los huevos
+      <span class="pron los" tabindex="0">los
+        <span class="tip"><strong>LOS refers to</strong>los huevos</span>
+      </span>
+      bates en un bol y luego añades en ese bol las patatas y la cebolla. Todo eso
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>todo eso: los huevos, las patatas y la cebolla</span>
+      </span>
+      mezclas muy bien y luego
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>todo eso / la mezcla</span>
+      </span>
+      echas en la sartén.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Okay, a fuego alto, ¿no?
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Sí, medio alto. Así se tuesta por fuera más rápidamente. Esperas un poco, no mucho si quieres
+      la tortilla poco hecha por dentro, y luego
+      <span class="pron lo" tabindex="0">lo
+        <span class="tip"><strong>LO refers to</strong>todo eso / el contenido de la sartén</span>
+      </span>
+      giras con la ayuda de un plato. En fin, ya sabes cómo.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Vale. Bueno, pues a ver si me sale bien.
+    </div>
+
+    <div class="turn father">
+      <span class="speaker">Papá</span>
+      Claro que te va a salir bien, es muy fácil.
+      <span class="pron lo" tabindex="0">Lo
+        <span class="tip"><strong>LO refers to</strong>hacer la tortilla / todo el proceso</span>
+      </span>
+      vas a hacer estupendamente. Solo una cosa: tienes que usar una buena sartén.
+      Si está vieja o rayada no sirve para la tortilla, porque se pega.
+    </div>
+
+    <div class="turn son">
+      <span class="speaker">Hijo</span>
+      Okay, gracias, papá.
+    </div>
+
+  </section>
+
+  <div class="note">
+    <b>Note:</b> Some uses of <em>lo</em> do not refer to one specific masculine noun.
+    In expressions such as <em>me lo apunto</em> or <em>lo vas a hacer estupendamente</em>,
+    <em>lo</em> can refer to a whole idea, action or piece of information.
+  </div>
+</main>
+
+<script>
+document.querySelectorAll('.pron').forEach(el=>{
+  el.addEventListener('click', e=>{
+    e.stopPropagation();
+    document.querySelectorAll('.pron.active').forEach(x=>{if(x!==el)x.classList.remove('active')});
+    el.classList.toggle('active');
+  });
+});
+document.addEventListener('click',()=>document.querySelectorAll('.pron.active').forEach(x=>x.classList.remove('active')));
+</script>
+</body>
+</html>
