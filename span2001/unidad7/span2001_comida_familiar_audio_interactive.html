@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPAN2001 · Comidas familiares</title>
+<style>
+:root{--bg:#f6f7fb;--paper:#fff;--text:#20242c;--muted:#697386;--border:#e4e8ef;--accent:#9c3155;--blue:#526da5;--soft:#f5edf1;--shadow:0 14px 38px rgba(25,35,55,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--text);font-size:18px}
+header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.head{max-width:1120px;margin:auto;padding:14px 24px;display:flex;align-items:center;gap:18px}
+.brand{font-weight:800} .brand span{color:var(--accent)}
+.tools{margin-left:auto} .tools label{font-size:15px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:7px}
+main{max-width:1120px;margin:0 auto;padding:34px 24px 70px}
+.eyebrow{color:var(--accent);font-size:14px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.06;margin:7px 0 10px}
+.lead{font-size:20px;line-height:1.55;color:var(--muted);max-width:860px}
+.player{margin-top:26px;background:#fff;border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+audio{width:100%}
+.current{margin-top:18px;background:#181b20;color:#fff;border-radius:18px;padding:20px 24px;min-height:135px;display:flex;flex-direction:column;justify-content:center}
+.currentSpeaker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#d7afbe;margin-bottom:7px}
+#cue{font-size:clamp(22px,3vw,31px);line-height:1.5;font-weight:650}
+.current .vocab{color:#ffd5e3;border-bottom-color:#ffd5e3}
+.help{margin-top:10px;color:var(--muted);font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;margin-top:22px;align-items:start}
+.panel{background:#fff;border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.panelhead{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.panelhead h2{font-size:19px;margin:0} .panelhead span{margin-left:auto;color:var(--muted);font-size:13px}
+.lines{max-height:650px;overflow:auto;padding:8px}
+.line{width:100%;border:0;background:transparent;text-align:left;padding:13px 12px;border-radius:13px;display:grid;grid-template-columns:52px 1fr;gap:12px;cursor:pointer;color:var(--text);font:inherit}
+.line:hover{background:#f6f7fb} .line.active{background:var(--soft);box-shadow:inset 4px 0 0 var(--accent)}
+.time{font-size:13px;color:#9aa2ae;font-weight:800;padding-top:5px}
+.dialogue{display:block} .speaker{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;margin-bottom:4px}
+.speaker.q{color:var(--blue)} .speaker.a{color:var(--accent)}
+.txt{line-height:1.55}
+.vocab{border-bottom:2px dotted var(--accent);color:#7d2445;font-weight:700;cursor:help;position:relative}
+.vocab::after{content:attr(data-gloss);position:absolute;left:0;bottom:calc(100% + 8px);width:max-content;max-width:270px;padding:8px 10px;background:#20242c;color:#fff;font-size:14px;font-weight:500;line-height:1.3;border-radius:9px;opacity:0;pointer-events:none;transform:translateY(4px);transition:.15s;z-index:50}
+.vocab:hover::after,.vocab:focus::after{opacity:1;transform:translateY(0)}
+.glossary{padding:14px} .gitem{padding:11px 10px;border-bottom:1px solid #edf0f4} .gitem:last-child{border-bottom:0}
+.gitem b{display:block;color:#7d2445;font-size:15px;margin-bottom:3px} .gitem span{display:block;color:var(--muted);font-size:14px;line-height:1.35}
+.hiddenGloss .vocab{color:inherit;border-bottom:0;font-weight:inherit;cursor:inherit} .hiddenGloss .vocab::after{display:none}
+.note{margin-top:18px;padding:15px 17px;background:#fff;border:1px solid var(--border);border-radius:15px;color:var(--muted);font-size:14px;line-height:1.5}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+@media(max-width:600px){body{font-size:16px}main{padding:24px 14px 50px}.head{padding:10px 14px}.brand{font-size:14px}.tools label{font-size:13px}.line{grid-template-columns:44px 1fr}.current{padding:17px}}
+</style>
+</head>
+<body>
+<header><div class="head">
+<div class="brand"><span>SPAN2001</span> · Listening</div>
+<div class="tools"><label><input id="glossToggle" type="checkbox" checked> English vocabulary help</label></div>
+</div></header>
+
+<main>
+<div class="eyebrow">Audio comprehension</div>
+<h1>Una comida familiar</h1>
+<p class="lead">Listen to Antonio describing a typical family meal. Follow the synchronized Spanish transcript and use the English vocabulary notes when needed. Click any line to play the audio from that point.</p>
+
+<div class="player">
+<audio id="audio" controls preload="metadata">
+<source src="auint_plus_2_35.mp3" type="audio/mpeg">
+</audio>
+<div class="current">
+<div id="currentSpeaker" class="currentSpeaker">Audio</div>
+<div id="cue">Press play to begin.</div>
+</div>
+<div class="help">Tip: hover over or tap the underlined Spanish words and expressions to see an English gloss.</div>
+</div>
+
+<div class="layout">
+<section class="panel">
+<div class="panelhead"><h2>Synchronized transcript</h2><span>click a line to play</span></div>
+<div id="lines" class="lines"><button class="line" data-i="0" data-start="0.00">
+      <span class="time">00:00</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Oye, Antonio, ¿cómo es una <span class="vocab" tabindex="0" data-gloss="family meal / family gathering">comida familiar</span> normalmente en tu casa?</span></span>
+    </button>
+<button class="line" data-i="1" data-start="3.66">
+      <span class="time">00:03</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Un <span class="vocab" tabindex="0" data-gloss="public holiday / festive day">día festivo</span>, así como… como en Navidad, por ejemplo.</span></span>
+    </button>
+<button class="line" data-i="2" data-start="9.41">
+      <span class="time">00:09</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Pues bueno, en Navidad se come mucho, se bebe, se canta, se baila, <span class="vocab" tabindex="0" data-gloss="people do all kinds of things">se hace de todo</span>…</span></span>
+    </button>
+<button class="line" data-i="3" data-start="17.96">
+      <span class="time">00:17</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Pero bueno, también hacemos comidas familiares en verano, por ejemplo. También es muy típico.</span></span>
+    </button>
+<button class="line" data-i="4" data-start="23.86">
+      <span class="time">00:23</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">¿<span class="vocab" tabindex="0" data-gloss="outdoors">Al aire libre</span>?</span></span>
+    </button>
+<button class="line" data-i="5" data-start="25.43">
+      <span class="time">00:25</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Sí, porque hay un <span class="vocab" tabindex="0" data-gloss="patio / courtyard">patio</span>, mis padres tienen un <span class="vocab" tabindex="0" data-gloss="patio / courtyard">patio</span> muy grande,</span></span>
+    </button>
+<button class="line" data-i="6" data-start="27.06">
+      <span class="time">00:27</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">y entonces <span class="vocab" tabindex="0" data-gloss="usually comes">suele venir</span> mi familia, <span class="vocab" tabindex="0" data-gloss="we get together">nos reunimos</span> todos y, bueno, pues, tenemos un pequeño <span class="vocab" tabindex="0" data-gloss="routine / set order here">protocolo</span>.</span></span>
+    </button>
+<button class="line" data-i="7" data-start="35.13">
+      <span class="time">00:35</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Primero <span class="vocab" tabindex="0" data-gloss="the appetizers are brought out">se saca el <span class="vocab" tabindex="0" data-gloss="appetizer / pre-meal snack">aperitivo</span></span>, después comemos y después tomamos el <span class="vocab" tabindex="0" data-gloss="dessert">postre</span>.</span></span>
+    </button>
+<button class="line" data-i="8" data-start="40.31">
+      <span class="time">00:40</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Y después se toma algo, <span class="vocab" tabindex="0" data-gloss="depends on">depende de</span>l calor que hace.</span></span>
+    </button>
+<button class="line" data-i="9" data-start="43.37">
+      <span class="time">00:43</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">¿Y qué coméis normalmente?</span></span>
+    </button>
+<button class="line" data-i="10" data-start="46.17">
+      <span class="time">00:46</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Pues mira, <span class="vocab" tabindex="0" data-gloss="at the beginning">al principio</span>, ponemos el <span class="vocab" tabindex="0" data-gloss="appetizer / pre-meal snack">aperitivo</span>,</span></span>
+    </button>
+<button class="line" data-i="11" data-start="49.29">
+      <span class="time">00:49</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">es como <span class="vocab" tabindex="0" data-gloss="cold cuts / cured meats">embutidos</span>, <span class="vocab" tabindex="0" data-gloss="olives">aceitunas</span>, un poco de patatas chips, <span class="vocab" tabindex="0" data-gloss="while">mientras</span> esperamos la comida</span></span>
+    </button>
+<button class="line" data-i="12" data-start="53.99">
+      <span class="time">00:53</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">y en verano normalmente comemos carne, <span class="vocab" tabindex="0" data-gloss="grilled meat / meat cooked over coals">carne a la brasa</span>.</span></span>
+    </button>
+<button class="line" data-i="13" data-start="58.72">
+      <span class="time">00:58</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Y después, el <span class="vocab" tabindex="0" data-gloss="dessert">postre</span>, bueno, pues si hace calor, pues un poco de <span class="vocab" tabindex="0" data-gloss="ice cream">helado</span>, normalmente.</span></span>
+    </button>
+<button class="line" data-i="14" data-start="66.17">
+      <span class="time">01:06</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Y, bueno, y después el café.</span></span>
+    </button>
+<button class="line" data-i="15" data-start="68.25">
+      <span class="time">01:08</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Bueno, veo que coméis mucho. ¿Quién cocina todo eso?</span></span>
+    </button>
+<button class="line" data-i="16" data-start="72.46">
+      <span class="time">01:12</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Mi madre. A ella <span class="vocab" tabindex="0" data-gloss="she loves">le encanta</span> cocinar.</span></span>
+    </button>
+<button class="line" data-i="17" data-start="76.43">
+      <span class="time">01:16</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt"><span class="vocab" tabindex="0" data-gloss="the thing is that…">Lo que pasa es que</span> nosotros no ayudamos, es difícil.</span></span>
+    </button>
+<button class="line" data-i="18" data-start="78.89">
+      <span class="time">01:18</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Uy, qué mal, ¿no?</span></span>
+    </button>
+<button class="line" data-i="19" data-start="81.86">
+      <span class="time">01:21</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Pues sí, es que <span class="vocab" tabindex="0" data-gloss="she doesn&#x27;t let us go in">no nos deja entrar</span> en la cocina.</span></span>
+    </button>
+<button class="line" data-i="20" data-start="85.33">
+      <span class="time">01:25</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Sí, sí, ya.</span></span>
+    </button>
+<button class="line" data-i="21" data-start="86.68">
+      <span class="time">01:26</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Que sí, mujer, pero luego <span class="vocab" tabindex="0" data-gloss="we clear up / tidy up">recogemos</span> nosotros.</span></span>
+    </button>
+<button class="line" data-i="22" data-start="91.15">
+      <span class="time">01:31</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">Bueno, <span class="vocab" tabindex="0" data-gloss="at least">por lo menos</span>…</span></span>
+    </button>
+<button class="line" data-i="23" data-start="92.10">
+      <span class="time">01:32</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Ya, ya.</span></span>
+    </button>
+<button class="line" data-i="24" data-start="94.78">
+      <span class="time">01:34</span>
+      <span class="dialogue"><span class="speaker q">Entrevistadora</span>
+      <span class="txt">¿Y <span class="vocab" tabindex="0" data-gloss="last (for a period of time)">duran</span> mucho esas comidas?</span></span>
+    </button>
+<button class="line" data-i="25" data-start="95.94">
+      <span class="time">01:35</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">Pues sí, <span class="vocab" tabindex="0" data-gloss="the truth is / actually">la verdad es que</span> sí,</span></span>
+    </button>
+<button class="line" data-i="26" data-start="98.88">
+      <span class="time">01:38</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">normalmente empezamos <span class="vocab" tabindex="0" data-gloss="around one o&#x27;clock">sobre la una</span>, <span class="vocab" tabindex="0" data-gloss="more or less / approximately">más o menos</span>,</span></span>
+    </button>
+<button class="line" data-i="27" data-start="101.90">
+      <span class="time">01:41</span>
+      <span class="dialogue"><span class="speaker a">Antonio</span>
+      <span class="txt">y terminamos a las ocho de la tarde, <span class="vocab" tabindex="0" data-gloss="more or less / approximately">más o menos</span>.</span></span>
+    </button></div>
+</section>
+
+<aside class="panel">
+<div class="panelhead"><h2>Vocabulary</h2></div>
+<div class="glossary"><div class="gitem"><b>comida familiar</b><span>family meal / family gathering</span></div>
+<div class="gitem"><b>día festivo</b><span>public holiday / festive day</span></div>
+<div class="gitem"><b>se hace de todo</b><span>people do all kinds of things</span></div>
+<div class="gitem"><b>al aire libre</b><span>outdoors</span></div>
+<div class="gitem"><b>patio</b><span>patio / courtyard</span></div>
+<div class="gitem"><b>suele venir</b><span>usually comes</span></div>
+<div class="gitem"><b>nos reunimos</b><span>we get together</span></div>
+<div class="gitem"><b>protocolo</b><span>routine / set order here</span></div>
+<div class="gitem"><b>se saca el aperitivo</b><span>the appetizers are brought out</span></div>
+<div class="gitem"><b>aperitivo</b><span>appetizer / pre-meal snack</span></div>
+<div class="gitem"><b>postre</b><span>dessert</span></div>
+<div class="gitem"><b>depende de</b><span>depends on</span></div>
+<div class="gitem"><b>al principio</b><span>at the beginning</span></div>
+<div class="gitem"><b>embutidos</b><span>cold cuts / cured meats</span></div>
+<div class="gitem"><b>aceitunas</b><span>olives</span></div>
+<div class="gitem"><b>mientras</b><span>while</span></div>
+<div class="gitem"><b>carne a la brasa</b><span>grilled meat / meat cooked over coals</span></div>
+<div class="gitem"><b>helado</b><span>ice cream</span></div>
+<div class="gitem"><b>le encanta</b><span>she loves</span></div>
+<div class="gitem"><b>lo que pasa es que</b><span>the thing is that…</span></div>
+<div class="gitem"><b>no nos deja entrar</b><span>she doesn&#x27;t let us go in</span></div>
+<div class="gitem"><b>recogemos</b><span>we clear up / tidy up</span></div>
+<div class="gitem"><b>por lo menos</b><span>at least</span></div>
+<div class="gitem"><b>duran</b><span>last (for a period of time)</span></div>
+<div class="gitem"><b>la verdad es que</b><span>the truth is / actually</span></div>
+<div class="gitem"><b>sobre la una</b><span>around one o&#x27;clock</span></div>
+<div class="gitem"><b>más o menos</b><span>more or less / approximately</span></div></div>
+</aside>
+</div>
+
+<div class="note"><b>Teacher note:</b> the synchronization follows the supplied transcript and uses pauses in the recording to refine sentence boundaries.</div>
+</main>
+
+<script>
+const cues=[{"speaker": "Entrevistadora", "text": "Oye, Antonio, ¿cómo es una comida familiar normalmente en tu casa?", "start": 0.0, "end": 3.66}, {"speaker": "Entrevistadora", "text": "Un día festivo, así como… como en Navidad, por ejemplo.", "start": 3.66, "end": 9.41}, {"speaker": "Antonio", "text": "Pues bueno, en Navidad se come mucho, se bebe, se canta, se baila, se hace de todo…", "start": 9.41, "end": 17.96}, {"speaker": "Antonio", "text": "Pero bueno, también hacemos comidas familiares en verano, por ejemplo. También es muy típico.", "start": 17.96, "end": 23.86}, {"speaker": "Entrevistadora", "text": "¿Al aire libre?", "start": 23.86, "end": 25.43}, {"speaker": "Antonio", "text": "Sí, porque hay un patio, mis padres tienen un patio muy grande,", "start": 25.43, "end": 27.06}, {"speaker": "Antonio", "text": "y entonces suele venir mi familia, nos reunimos todos y, bueno, pues, tenemos un pequeño protocolo.", "start": 27.06, "end": 35.13}, {"speaker": "Antonio", "text": "Primero se saca el aperitivo, después comemos y después tomamos el postre.", "start": 35.13, "end": 40.31}, {"speaker": "Antonio", "text": "Y después se toma algo, depende del calor que hace.", "start": 40.31, "end": 43.37}, {"speaker": "Entrevistadora", "text": "¿Y qué coméis normalmente?", "start": 43.37, "end": 46.17}, {"speaker": "Antonio", "text": "Pues mira, al principio, ponemos el aperitivo,", "start": 46.17, "end": 49.29}, {"speaker": "Antonio", "text": "es como embutidos, aceitunas, un poco de patatas chips, mientras esperamos la comida", "start": 49.29, "end": 53.99}, {"speaker": "Antonio", "text": "y en verano normalmente comemos carne, carne a la brasa.", "start": 53.99, "end": 58.72}, {"speaker": "Antonio", "text": "Y después, el postre, bueno, pues si hace calor, pues un poco de helado, normalmente.", "start": 58.72, "end": 66.17}, {"speaker": "Antonio", "text": "Y, bueno, y después el café.", "start": 66.17, "end": 68.25}, {"speaker": "Entrevistadora", "text": "Bueno, veo que coméis mucho. ¿Quién cocina todo eso?", "start": 68.25, "end": 72.46}, {"speaker": "Antonio", "text": "Mi madre. A ella le encanta cocinar.", "start": 72.46, "end": 76.43}, {"speaker": "Antonio", "text": "Lo que pasa es que nosotros no ayudamos, es difícil.", "start": 76.43, "end": 78.89}, {"speaker": "Entrevistadora", "text": "Uy, qué mal, ¿no?", "start": 78.89, "end": 81.86}, {"speaker": "Antonio", "text": "Pues sí, es que no nos deja entrar en la cocina.", "start": 81.86, "end": 85.33}, {"speaker": "Entrevistadora", "text": "Sí, sí, ya.", "start": 85.33, "end": 86.68}, {"speaker": "Antonio", "text": "Que sí, mujer, pero luego recogemos nosotros.", "start": 86.68, "end": 91.15}, {"speaker": "Entrevistadora", "text": "Bueno, por lo menos…", "start": 91.15, "end": 92.1}, {"speaker": "Antonio", "text": "Ya, ya.", "start": 92.1, "end": 94.78}, {"speaker": "Entrevistadora", "text": "¿Y duran mucho esas comidas?", "start": 94.78, "end": 95.94}, {"speaker": "Antonio", "text": "Pues sí, la verdad es que sí,", "start": 95.94, "end": 98.88}, {"speaker": "Antonio", "text": "normalmente empezamos sobre la una, más o menos,", "start": 98.88, "end": 101.9}, {"speaker": "Antonio", "text": "y terminamos a las ocho de la tarde, más o menos.", "start": 101.9, "end": 105.14}];
+const audio=document.getElementById('audio');
+const cue=document.getElementById('cue');
+const currentSpeaker=document.getElementById('currentSpeaker');
+const lines=[...document.querySelectorAll('.line')];
+const linesBox=document.getElementById('lines');
+let active=-1;
+
+function update(){
+ const t=audio.currentTime;
+ let i=cues.findIndex(c=>t>=c.start && t<c.end);
+ if(i<0) i=(t>=cues[cues.length-1].start?cues.length-1:0);
+ if(i!==active){
+   active=i;
+   currentSpeaker.textContent=cues[i].speaker;
+   cue.innerHTML=lines[i].querySelector('.txt').innerHTML;
+   lines.forEach((el,j)=>el.classList.toggle('active',j===i));
+   const el=lines[i];
+   if(el){
+     const top=el.offsetTop, bottom=top+el.offsetHeight;
+     if(top<linesBox.scrollTop || bottom>linesBox.scrollTop+linesBox.clientHeight){
+       linesBox.scrollTo({top:Math.max(0,top-linesBox.clientHeight/3),behavior:'smooth'});
+     }
+   }
+ }
+}
+audio.addEventListener('timeupdate',update);
+audio.addEventListener('seeked',update);
+lines.forEach(el=>el.addEventListener('click',()=>{
+ audio.currentTime=parseFloat(el.dataset.start);
+ audio.play();
+}));
+document.getElementById('glossToggle').addEventListener('change',e=>{
+ document.body.classList.toggle('hiddenGloss',!e.target.checked);
+});
+</script>
+</body>
+</html>
