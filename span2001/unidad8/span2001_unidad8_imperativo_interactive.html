@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPAN2001 · Unidad 8 · El imperativo afirmativo</title>
+<style>
+  :root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#20242c;
+    --muted:#697386;
+    --border:#e5e8ef;
+    --blue:#3c6fb6;
+    --blue2:#eaf1fb;
+    --green:#397779;
+    --green2:#e8f4f1;
+    --orange:#d96b42;
+    --orange2:#fff0ea;
+    --red:#9c3155;
+    --red2:#faeaf0;
+    --yellow:#e9b94f;
+    --yellow2:#fff8e4;
+    --shadow:0 18px 45px rgba(25,35,55,.10);
+    --radius:26px;
+  }
+
+  *{box-sizing:border-box}
+
+  html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+
+  body{overflow:hidden}
+
+  .app{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  header{
+    height:78px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 4vw;
+  }
+
+  .brand{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:.2px;
+  }
+
+  .counter{
+    font-size:18px;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  .viewport{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+  }
+
+  .track{
+    height:100%;
+    display:flex;
+    transition:transform .42s ease;
+  }
+
+  .slide{
+    min-width:100%;
+    height:100%;
+    padding:28px 4vw 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .card{
+    width:min(1220px,94vw);
+    max-height:calc(100vh - 190px);
+    overflow:auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:34px 42px;
+  }
+
+  h1,h2,h3,p,ul{margin-top:0}
+  h1{font-size:48px; line-height:1.08; margin-bottom:18px}
+  h2{font-size:38px; line-height:1.15; margin-bottom:22px}
+  h3{font-size:28px; line-height:1.2; margin-bottom:12px}
+  p,li,td,th{font-size:24px; line-height:1.5}
+  .small{font-size:20px}
+  .muted{color:var(--muted)}
+  .lead{font-size:29px; line-height:1.45}
+  .key{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:10px;
+    font-weight:800;
+    background:var(--blue2);
+    color:var(--blue);
+  }
+  .formula{
+    font-size:34px;
+    font-weight:900;
+    text-align:center;
+    padding:18px 22px;
+    border-radius:18px;
+    background:var(--blue2);
+    color:#244d82;
+    margin:20px 0;
+  }
+  .note{
+    border-left:6px solid var(--orange);
+    background:var(--orange2);
+    padding:16px 20px;
+    border-radius:14px;
+    margin-top:18px;
+  }
+  .good{
+    border-left:6px solid var(--green);
+    background:var(--green2);
+    padding:16px 20px;
+    border-radius:14px;
+    margin-top:18px;
+  }
+  .warn{
+    border-left:6px solid var(--red);
+    background:var(--red2);
+    padding:16px 20px;
+    border-radius:14px;
+    margin-top:18px;
+  }
+  .two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  .three{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .box{
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    background:#fff;
+  }
+  .box.blue{background:var(--blue2)}
+  .box.green{background:var(--green2)}
+  .box.yellow{background:var(--yellow2)}
+  .box.red{background:var(--red2)}
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow:hidden;
+    border:1px solid var(--border);
+    border-radius:16px;
+  }
+  th,td{
+    padding:13px 15px;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  th{
+    background:#f0f3f8;
+    font-weight:800;
+  }
+  tr:last-child td{border-bottom:none}
+  th:last-child,td:last-child{border-right:none}
+
+  .arrow{
+    font-weight:900;
+    color:var(--blue);
+    padding:0 8px;
+  }
+
+  .examples{
+    display:grid;
+    gap:10px;
+    margin-top:12px;
+  }
+  .example{
+    padding:12px 16px;
+    border-radius:13px;
+    background:#f8f9fc;
+    border:1px solid var(--border);
+    font-size:24px;
+  }
+
+  .bigword{
+    font-size:42px;
+    font-weight:900;
+    color:var(--red);
+  }
+
+  .controls{
+    height:92px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:0 24px;
+    background:#fff;
+    border-top:1px solid var(--border);
+  }
+
+  button{
+    border:none;
+    border-radius:14px;
+    padding:13px 22px;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
+  }
+
+  .nav{
+    background:#20242c;
+    color:#fff;
+  }
+
+  .nav:disabled{
+    opacity:.28;
+    cursor:default;
+  }
+
+  .dots{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:520px;
+  }
+
+  .dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:#cfd5df;
+    cursor:pointer;
+  }
+
+  .dot.active{
+    background:var(--blue);
+    transform:scale(1.25);
+  }
+
+  .practice-q{
+    font-size:30px;
+    font-weight:800;
+    margin-bottom:14px;
+  }
+
+  .answer{
+    opacity:.08;
+    transition:opacity .2s ease;
+    font-size:30px;
+    font-weight:900;
+    color:var(--green);
+    padding:12px 0;
+  }
+
+  .answer.show{opacity:1}
+
+  .reveal{
+    background:var(--blue);
+    color:white;
+    margin-top:10px;
+  }
+
+  @media (max-width:900px){
+    .two,.three{grid-template-columns:1fr}
+    .card{padding:28px 24px}
+    h1{font-size:40px}
+    h2{font-size:32px}
+    p,li,td,th{font-size:21px}
+    .lead{font-size:25px}
+  }
+
+  @media (max-width:650px){
+    header{height:66px;padding:0 18px}
+    .brand{font-size:17px}
+    .counter{font-size:15px}
+    .slide{padding:14px 10px 10px}
+    .card{max-height:calc(100vh - 155px);padding:22px 18px;border-radius:18px}
+    h1{font-size:34px}
+    h2{font-size:28px}
+    h3{font-size:24px}
+    p,li,td,th{font-size:19px}
+    .formula{font-size:27px}
+    .controls{height:76px}
+    button{font-size:15px;padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">SPAN2001 · Unidad 8 · El imperativo afirmativo</div>
+    <div class="counter" id="counter">1 / 12</div>
+  </header>
+
+  <div class="viewport" id="viewport">
+    <div class="track" id="track">
+
+      <!-- 1 -->
+      <section class="slide">
+        <div class="card">
+          <h1>El imperativo</h1>
+          <p class="lead">Today we are going to learn a new <b>verb mood</b> in Spanish: <span class="key">el imperativo</span>.</p>
+          <div class="formula">We use the imperative to tell or ask another person to do something.</div>
+          <div class="examples">
+            <div class="example"><b>Come.</b> — Eat.</div>
+            <div class="example"><b>Espera.</b> — Wait.</div>
+            <div class="example"><b>Mira.</b> — Look.</div>
+            <div class="example"><b>Escucha.</b> — Listen.</div>
+          </div>
+          <div class="note">
+            <p><b>Important:</b> the imperative is a <b>mood</b>, not a tense.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Who are we speaking to?</h2>
+          <p class="lead">The imperative is directed at the <b>listener</b>.</p>
+          <table>
+            <tr><th>Who?</th><th>Spanish</th></tr>
+            <tr><td>one person, informal</td><td><b>tú</b></td></tr>
+            <tr><td>one person, formal</td><td><b>usted</b></td></tr>
+            <tr><td>several people, informal</td><td><b>vosotros / vosotras</b></td></tr>
+            <tr><td>several people</td><td><b>ustedes</b></td></tr>
+          </table>
+          <div class="warn">
+            <p><b>There is no “yo” imperative.</b> We do not give an order to ourselves as the speaker.</p>
+          </div>
+          <p class="small muted">In this unit, we focus on the forms used to address other people directly.</p>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="slide">
+        <div class="card">
+          <h2>What do we use it for?</h2>
+          <div class="two">
+            <div class="box green">
+              <h3>1. Recommendations and advice</h3>
+              <div class="examples">
+                <div class="example"><b>Ponte</b> protector solar.</div>
+                <div class="example"><b>Camina</b> 30 minutos al día.</div>
+                <div class="example"><b>Haz</b> deporte tres veces a la semana.</div>
+              </div>
+            </div>
+            <div class="box blue">
+              <h3>2. Instructions</h3>
+              <div class="examples">
+                <div class="example"><b>Ponte</b> la mascarilla.</div>
+                <div class="example"><b>Espera</b> dos horas.</div>
+                <div class="example"><b>Lávate</b> bien la cara.</div>
+              </div>
+            </div>
+          </div>
+          <div class="note">
+            <p><b>Imperative does not always sound like an order.</b> It is also very common in advice, recipes, instructions and health recommendations.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Tú · regular forms</h2>
+          <p class="lead">A very useful shortcut:</p>
+          <div class="formula">tú present − final <b>-s</b> = imperative</div>
+          <table>
+            <tr><th>Present</th><th></th><th>Imperative</th></tr>
+            <tr><td>compras</td><td class="arrow">→</td><td><b>compra</b></td></tr>
+            <tr><td>comes</td><td class="arrow">→</td><td><b>come</b></td></tr>
+            <tr><td>vives</td><td class="arrow">→</td><td><b>vive</b></td></tr>
+          </table>
+          <div class="good">
+            <p>For regular verbs, this rule is simple and reliable.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Tú · stem-changing verbs</h2>
+          <p class="lead">If the present tense changes the stem, the <b>tú imperative keeps that change</b>.</p>
+          <table>
+            <tr><th>Present</th><th></th><th>Imperative</th></tr>
+            <tr><td>piensas</td><td class="arrow">→</td><td><b>piensa</b></td></tr>
+            <tr><td>duermes</td><td class="arrow">→</td><td><b>duerme</b></td></tr>
+            <tr><td>pides</td><td class="arrow">→</td><td><b>pide</b></td></tr>
+          </table>
+          <div class="note">
+            <p>Think of the same shortcut: <b>present tú − s</b>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Tú · important irregular forms</h2>
+          <p class="lead">These forms must be memorised.</p>
+          <div class="three">
+            <div class="box red"><h3>poner → <span class="bigword">pon</span></h3></div>
+            <div class="box red"><h3>tener → <span class="bigword">ten</span></h3></div>
+            <div class="box red"><h3>ser → <span class="bigword">sé</span></h3></div>
+            <div class="box red"><h3>salir → <span class="bigword">sal</span></h3></div>
+            <div class="box red"><h3>hacer → <span class="bigword">haz</span></h3></div>
+            <div class="box red"><h3>venir → <span class="bigword">ven</span></h3></div>
+            <div class="box red"><h3>ir → <span class="bigword">ve</span></h3></div>
+            <div class="box red"><h3>decir → <span class="bigword">di</span></h3></div>
+          </div>
+          <div class="formula">ven · di · sal · haz · ten · ve · pon · sé</div>
+        </div>
+      </section>
+
+      <!-- 7 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Vosotros / vosotras</h2>
+          <p class="lead">Another very simple rule:</p>
+          <div class="formula">infinitive: <b>-r → -d</b></div>
+          <table>
+            <tr><th>Infinitive</th><th></th><th>Imperative</th></tr>
+            <tr><td>comprar</td><td class="arrow">→</td><td><b>comprad</b></td></tr>
+            <tr><td>comer</td><td class="arrow">→</td><td><b>comed</b></td></tr>
+            <tr><td>vivir</td><td class="arrow">→</td><td><b>vivid</b></td></tr>
+          </table>
+          <div class="good">
+            <p>Just replace the final <b>-r</b> of the infinitive with <b>-d</b>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Usted / ustedes</h2>
+          <p class="lead">Change the final vowel.</p>
+          <div class="two">
+            <div class="box blue">
+              <h3>-AR verbs</h3>
+              <div class="formula">a → e</div>
+              <p>compra → <b>compre</b></p>
+              <p>compran → <b>compren</b></p>
+            </div>
+            <div class="box yellow">
+              <h3>-ER / -IR verbs</h3>
+              <div class="formula">e → a</div>
+              <p>come → <b>coma</b></p>
+              <p>viven → <b>vivan</b></p>
+            </div>
+          </div>
+          <div class="note">
+            <p>For now, focus on the form. We will connect these forms with the subjunctive later.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Regular imperative · full table</h2>
+          <table>
+            <tr>
+              <th></th>
+              <th>COMPRAR</th>
+              <th>COMER</th>
+              <th>VIVIR</th>
+            </tr>
+            <tr>
+              <td><b>tú</b></td>
+              <td>compra</td>
+              <td>come</td>
+              <td>vive</td>
+            </tr>
+            <tr>
+              <td><b>vosotros/as</b></td>
+              <td>comprad</td>
+              <td>comed</td>
+              <td>vivid</td>
+            </tr>
+            <tr>
+              <td><b>usted</b></td>
+              <td>compre</td>
+              <td>coma</td>
+              <td>viva</td>
+            </tr>
+            <tr>
+              <td><b>ustedes</b></td>
+              <td>compren</td>
+              <td>coman</td>
+              <td>vivan</td>
+            </tr>
+          </table>
+          <div class="good">
+            <p><b>Three key shortcuts:</b> tú = present − s · vosotros = infinitive − r + d · usted/ustedes = opposite final vowel.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Imperative + pronouns</h2>
+          <p class="lead">With the <b>affirmative imperative</b>, pronouns go <b>after</b> the verb.</p>
+          <div class="two">
+            <div class="box">
+              <h3>Normal sentence</h3>
+              <p><b>Lo</b> compras.</p>
+              <p><b>Te</b> lavas.</p>
+            </div>
+            <div class="box green">
+              <h3>Affirmative imperative</h3>
+              <p><b>Cómpralo.</b></p>
+              <p><b>Lávate.</b></p>
+            </div>
+          </div>
+          <div class="formula">imperative + pronoun = ONE WORD</div>
+          <div class="examples">
+            <div class="example">compra + lo → <b>cómpralo</b></div>
+            <div class="example">lava + te → <b>lávate</b></div>
+            <div class="example">explica + me + lo → <b>explícamelo</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Why do accent marks appear?</h2>
+          <p class="lead">When pronouns are attached, the word becomes longer. An accent mark may be needed to keep the original stressed syllable.</p>
+          <div class="two">
+            <div class="box blue">
+              <h3>lava → lávate</h3>
+              <p><b>LA</b>-va</p>
+              <p><b>LÁ</b>-va-te</p>
+            </div>
+            <div class="box yellow">
+              <h3>compra → cómpralo</h3>
+              <p><b>COM</b>-pra</p>
+              <p><b>CÓM</b>-pra-lo</p>
+            </div>
+          </div>
+          <div class="note">
+            <p>The accent mark is not decorative. It preserves the correct stress.</p>
+          </div>
+          <div class="warn">
+            <p><b>Vosotros + os:</b> the final <b>-d</b> disappears: lavad + os → <b>lavaos</b>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 -->
+      <section class="slide">
+        <div class="card">
+          <h2>Quick practice · Give advice</h2>
+          <p class="lead">Use the affirmative imperative.</p>
+
+          <div class="practice-q">1. dormir · tú</div>
+          <div class="answer" id="a1">duerme</div>
+          <button class="reveal" onclick="reveal('a1')">Show answer</button>
+
+          <div class="practice-q" style="margin-top:24px">2. hacer · tú</div>
+          <div class="answer" id="a2">haz</div>
+          <button class="reveal" onclick="reveal('a2')">Show answer</button>
+
+          <div class="practice-q" style="margin-top:24px">3. comer · vosotros/as</div>
+          <div class="answer" id="a3">comed</div>
+          <button class="reveal" onclick="reveal('a3')">Show answer</button>
+
+          <div class="practice-q" style="margin-top:24px">4. vivir · usted</div>
+          <div class="answer" id="a4">viva</div>
+          <button class="reveal" onclick="reveal('a4')">Show answer</button>
+
+          <div class="good">
+            <p>Now use these forms to give health advice: <b>Duerme más. Haz ejercicio. Come bien. Bebe agua.</b></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="nav" id="prevBtn">← Previous</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav" id="nextBtn">Next →</button>
+  </div>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const track = document.getElementById('track');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dotsBox = document.getElementById('dots');
+  const viewport = document.getElementById('viewport');
+  let index = 0;
+  let startX = null;
+
+  slides.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.addEventListener('click', ()=>goTo(i));
+    dotsBox.appendChild(d);
+  });
+
+  function render(){
+    track.style.transform = `translateX(-${index * 100}%)`;
+    counter.textContent = `${index + 1} / ${slides.length}`;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+    [...document.querySelectorAll('.dot')].forEach((d,i)=>d.classList.toggle('active', i===index));
+  }
+
+  function goTo(i){
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    render();
+  }
+
+  function reveal(id){
+    document.getElementById(id).classList.toggle('show');
+  }
+
+  prevBtn.addEventListener('click', ()=>goTo(index-1));
+  nextBtn.addEventListener('click', ()=>goTo(index+1));
+
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'ArrowRight' || e.key === 'PageDown') goTo(index+1);
+    if(e.key === 'ArrowLeft' || e.key === 'PageUp') goTo(index-1);
+  });
+
+  viewport.addEventListener('touchstart', e=>{
+    startX = e.touches[0].clientX;
+  }, {passive:true});
+
+  viewport.addEventListener('touchend', e=>{
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 50){
+      if(dx < 0) goTo(index+1);
+      else goTo(index-1);
+    }
+    startX = null;
+  }, {passive:true});
+
+  render();
+</script>
+</body>
+</html>
