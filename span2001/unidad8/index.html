@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPAN2001 · Unidad 8</title>
+
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --white:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+
+      --red:#9c3155;
+      --orange:#d96b42;
+      --yellow:#e9b94f;
+      --green:#397779;
+      --blue:#526da5;
+
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* ---------- HEADER ---------- */
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      padding:28px 24px;
+    }
+
+    .header-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .back{
+      display:inline-block;
+      margin-bottom:16px;
+      color:var(--muted);
+      text-decoration:none;
+      font-size:15px;
+      font-weight:600;
+    }
+
+    .back:hover{
+      color:var(--blue);
+    }
+
+    h1{
+      margin:0;
+      font-size:38px;
+      line-height:1.15;
+      letter-spacing:-0.4px;
+    }
+
+    .subtitle{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.5;
+    }
+
+    /* ---------- MAIN ---------- */
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:42px 24px 60px;
+    }
+
+    .section-title{
+      font-size:22px;
+      margin-bottom:22px;
+      font-weight:800;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:24px;
+    }
+
+    /* ---------- CARD ---------- */
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+      text-decoration:none;
+      color:inherit;
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+      min-height:230px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 42px rgba(25,35,55,.12);
+      border-color:#d7dce6;
+    }
+
+    .icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:25px;
+      margin-bottom:22px;
+    }
+
+    .card.dialogues .icon{
+      background:#fff0ea;
+    }
+
+    .card.imperative .icon{
+      background:#eaf0fb;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1.25;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+
+    .open{
+      margin-top:24px;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .dialogues .open{
+      color:var(--orange);
+    }
+
+    .imperative .open{
+      color:var(--blue);
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer{
+      border-top:1px solid var(--border);
+      background:var(--white);
+      padding:22px 24px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media(max-width:760px){
+
+      h1{
+        font-size:31px;
+      }
+
+      .subtitle{
+        font-size:16px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      main{
+        padding-top:30px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <a class="back" href="../index.html">
+      ← Back to SPAN2001
+    </a>
+
+    <h1>Unidad 8 · Estamos muy bien</h1>
+
+    <div class="subtitle">
+      Interactive materials for vocabulary, health and the affirmative imperative.
+    </div>
+
+  </div>
+</header>
+
+
+<main>
+
+  <div class="section-title">
+    Interactive Materials
+  </div>
+
+  <div class="grid">
+
+    <!-- DIALOGUES -->
+
+    <a
+      class="card dialogues"
+      href="span2001_dialogues_vocab_interactive_with_images.html"
+    >
+
+      <div>
+        <div class="icon">💬</div>
+
+        <h2>
+          Health Dialogues & Vocabulary
+        </h2>
+
+        <p>
+          Review short dialogues about health problems and symptoms,
+          with key vocabulary and English explanations.
+        </p>
+      </div>
+
+      <div class="open">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- IMPERATIVE -->
+
+    <a
+      class="card imperative"
+      href="span2001_unidad8_imperativo_interactive.html"
+    >
+
+      <div>
+        <div class="icon">📘</div>
+
+        <h2>
+          El imperativo afirmativo
+        </h2>
+
+        <p>
+          Learn how to form and use the affirmative imperative,
+          including irregular forms, pronouns and accent marks.
+        </p>
+      </div>
+
+      <div class="open">
+        Open lesson →
+      </div>
+
+    </a>
+
+  </div>
+
+</main>
+
+
+<footer>
+  SPAN2001 · The University of Hong Kong
+</footer>
+
+</body>
+</html>
