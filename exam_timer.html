@@ -593,14 +593,14 @@ function startDisplay(c){
     let progress = 0;
 
     if(now < start){
-      $("countLabel").textContent = "Progress Test starts in";
+      $("countLabel").textContent = "PROGRESS TEST starts in";
       $("countdown").textContent = formatDuration(start-now);
       $("phaseText").textContent = "Please wait for the teacher's instructions.";
       progress = 0;
     }else if(now < end){
       $("countLabel").textContent = "Time remaining";
       $("countdown").textContent = formatDuration(end-now);
-      $("phaseText").textContent = "Test in progress";
+      $("phaseText").textContent = "PROGRESS TEST. Testing in progress";
       progress = Math.min(100,Math.max(0,((now-start)/total)*100));
     }else{
       $("countLabel").textContent = "";
