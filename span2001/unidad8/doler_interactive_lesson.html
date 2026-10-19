@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243c">
+  <meta name="description" content="An interactive, English-language Spanish grammar lesson about the verb doler.">
+  <title>DOLER | Interactive Spanish Grammar Lesson</title>
+  <style>
+    :root {
+      --navy:#10243c; --navy2:#173954; --ink:#1a3046; --muted:#5d7285;
+      --teal:#087e82; --tealbg:#e6f5f3; --blue:#2869bf; --bluebg:#eaf1fc;
+      --orange:#c17b2a; --orangebg:#fff0d8; --coral:#b74e58; --coralbg:#fae9ea;
+      --paper:#ffffff; --canvas:#eaf0f4; --line:#dbe4eb; --gold:#f9ce83;
+    }
+    * {box-sizing:border-box}
+    html,body {margin:0;min-height:100%;font-family: -apple-system,BlinkMacSystemFont,"Avenir Next","Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--canvas)}
+    button,select,input{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible, select:focus-visible {outline:3px solid #4b91d9;outline-offset:3px}
+    #app{height:100dvh;min-height:480px;display:flex;flex-direction:column}
+    .topbar{background:var(--navy);color:#fff;padding:10px clamp(18px,3vw,46px);display:flex;align-items:center;gap:20px;min-height:63px;flex-shrink:0;box-shadow:0 4px 15px #132c4323}
+    .brand{font-size:17px;font-weight:850;letter-spacing:.08em;white-space:nowrap}
+    .brand span{color:#a7e7e3;font-weight:650}
+    .top-kicker{margin-left:auto;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#b9cddd;white-space:nowrap}
+    .header-actions{display:flex;gap:8px}
+    .top-action{border:1px solid #51667a;border-radius:9px;background:#17344e;color:#eff9fe;min-height:34px;padding:6px 12px;font-size:12px;font-weight:700}
+    .top-action:hover{background:#26516e}
+    .stage{position:relative;flex:1;min-height:0;overflow:auto;padding:10px clamp(10px,1.4vw,22px)}
+    .slide{display:none;max-width:1370px;margin:0 auto;background:var(--paper);min-height:100%;border:1px solid #e4eaf0;border-radius:20px;box-shadow:0 14px 50px #18354c0e;overflow:hidden}
+    .slide.active{display:block;animation:come-in .23s ease-out}
+    @keyframes come-in{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    .slide-content{padding:clamp(23px,3.4vw,54px) clamp(24px,5.2vw,82px) 35px}
+    .eyebrow{color:var(--teal);font-size:clamp(10px,.95vw,13px);font-weight:850;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(55px,7.4vw,112px);line-height:.97;letter-spacing:-.067em;margin-bottom:16px;color:var(--navy)}
+    h2{font-size:clamp(31px,3.7vw,56px);line-height:1.08;letter-spacing:-.045em;color:var(--navy);margin-bottom:13px}
+    h3{font-size:clamp(19px,1.75vw,25px);line-height:1.23;letter-spacing:-.022em;margin-bottom:9px}
+    p{font-size:clamp(15px,1.45vw,20px);line-height:1.5;color:var(--muted)}
+    .lead{max-width:950px;margin-bottom:27px}
+    .lead strong{color:var(--ink)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,30px)}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{background:#f7f9fb;border:1px solid var(--line);border-radius:16px;padding:clamp(17px,2vw,27px)}
+    .card.teal{background:var(--tealbg);border-color:#bfdfdb}
+    .card.blue{background:var(--bluebg);border-color:#cadef5}
+    .card.orange{background:var(--orangebg);border-color:#f5dfb8}
+    .card.coral{background:var(--coralbg);border-color:#f1cdd0}
+    .smalllabel{font-size:clamp(11px,1vw,14px);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+    .formula{font-size:clamp(23px,2.65vw,39px);letter-spacing:-.035em;font-weight:750;line-height:1.23;color:var(--navy)}
+    .formula.lg{font-size:clamp(29px,3.25vw,49px)}
+    .translation{font-size:clamp(14px,1.28vw,18px);color:var(--muted);margin-top:9px;line-height:1.45}
+    .person{color:var(--teal)} .pron{color:var(--teal)} .verb{color:var(--blue)} .subject{color:var(--orange)}
+    .hint{display:flex;gap:11px;align-items:flex-start;border-radius:12px;padding:14px 17px;background:#eef4f8;color:#34556d;font-size:clamp(14px,1.19vw,17px);line-height:1.48}
+    .hint:before{content:'i';display:flex;align-items:center;justify-content:center;width:23px;height:23px;min-width:23px;border-radius:50%;background:#376684;color:white;font-style:normal;font-weight:800;font-size:13px;margin-top:1px}
+    .hint strong{color:var(--navy)}
+    .stack{display:flex;flex-direction:column;gap:18px}
+    .divider{height:1px;background:var(--line);margin:22px 0}
+    .list{margin:8px 0 0;padding-left:22px;color:var(--ink);font-size:clamp(15px,1.35vw,19px);line-height:1.7}
+    .list li{margin-bottom:5px}
+    .split-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:center;min-height:470px}
+    .huge-meaning{font-size:clamp(34px,4.6vw,70px);font-weight:720;line-height:1.15;letter-spacing:-.06em;color:var(--teal);margin:0 0 35px}
+    .meaning-icon{width:min(100%,410px);margin:0 auto;display:block}
+    .mini-sentence{background:#f5f9fb;border-left:5px solid var(--gold);border-radius:0 14px 14px 0;padding:16px 23px;max-width:620px}
+    .mini-sentence strong{font-size:clamp(22px,2.4vw,34px);font-weight:780;color:var(--navy)}
+    .mini-sentence small{display:block;font-size:clamp(14px,1.3vw,18px);color:var(--muted);margin-top:7px}
+    .conj-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:21px 0}
+    .conj{border:1px solid var(--line);border-radius:14px;padding:17px 21px;background:#f9fbfc;min-height:100px}
+    .conj.feature{background:#eaf3ff;border:2px solid #9bc6f5}
+    .conj .who{font-size:clamp(13px,1.15vw,17px);color:var(--muted);margin-bottom:7px}
+    .conj .form{font-size:clamp(23px,2.5vw,39px);font-weight:850;letter-spacing:-.04em;color:var(--navy)}
+    .conj .change{color:var(--blue)}
+    .tag{font-size:11px;text-transform:uppercase;font-weight:850;letter-spacing:.08em;padding:5px 8px;background:#cde2fd;color:#1c5b9d;border-radius:6px;vertical-align:middle;margin-left:7px}
+    .diagram-sentence{display:grid;grid-template-columns:1.1fr .45fr .85fr 1.2fr;gap:10px;margin:28px 0 22px}
+    .diagram-part{border-radius:13px;padding:23px 9px 17px;text-align:center;min-width:0;position:relative}
+    .diagram-part .word{font-size:clamp(21px,2.25vw,33px);font-weight:850;white-space:nowrap;letter-spacing:-.04em}
+    .diagram-part .role{font-size:clamp(12px,1.15vw,16px);font-weight:650;margin-top:17px;line-height:1.35}
+    .person-block{background:var(--tealbg);color:var(--teal)}
+    .pron-block{background:#d9f0ef;color:#0b696e}
+    .verb-block{background:var(--bluebg);color:var(--blue)}
+    .subject-block{background:var(--orangebg);color:#a26420}
+    .two-rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .big-rule{background:#f7f9fb;border:1px solid var(--line);border-radius:15px;padding:17px 22px}
+    .big-rule h3{color:var(--navy)}
+    .big-rule p{font-size:clamp(14px,1.24vw,17px);margin:0}
+    .switch-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:8px 0 2px}
+    .pill-buttons{display:flex;gap:7px;flex-wrap:wrap}
+    .pill{border-radius:999px;border:1px solid #b9cfdb;padding:9px 16px;background:#fff;color:#315368;font-weight:750;font-size:clamp(13px,1.2vw,16px)}
+    .pill.selected{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .word-bank{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:17px}
+    .word-bank ul{margin:8px 0 0;padding-left:21px;font-size:clamp(16px,1.52vw,22px);line-height:1.8}
+    .word-bank li{padding-left:4px}
+    .word-bank .head{font-size:clamp(27px,2.9vw,41px);font-weight:850;letter-spacing:-.04em;margin-bottom:5px}
+    .note-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .example-chip{background:white;border:1px solid var(--line);border-radius:11px;padding:12px 15px;font-size:clamp(17px,1.7vw,25px);font-weight:700}
+    .pron-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0 18px}
+    .pron-tile{border:1px solid var(--line);padding:15px 18px;border-radius:13px;background:#f7fafb;cursor:pointer;text-align:left;transition:.15s}
+    .pron-tile:hover{border-color:var(--teal)}
+    .pron-tile.active{border:2px solid var(--teal);background:var(--tealbg);padding:14px 17px}
+    .pron-tile .who{display:block;font-size:clamp(13px,1.1vw,17px);color:var(--muted)}
+    .pron-tile .pr{display:block;font-size:clamp(25px,2.8vw,41px);font-weight:850;color:var(--teal);margin-top:1px}
+    .live-example{background:var(--navy);color:white;border-radius:15px;padding:20px 26px}
+    .live-example .smalllabel{color:#9acacb}
+    .live-example .formula{color:white}
+    .live-example .translation{color:#c4d9e7}
+    .names-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:20px;align-items:stretch}
+    .example-list{display:flex;flex-direction:column;gap:12px}
+    .example-list .entry{padding:13px 16px;background:#f7f9fa;border-radius:12px;font-size:clamp(19px,1.92vw,28px);font-weight:750;line-height:1.35}
+    .wrong-list{display:flex;flex-direction:column;gap:12px}
+    .wrong{background:var(--coralbg);border-left:4px solid var(--coral);padding:13px 15px;border-radius:8px;font-size:clamp(17px,1.53vw,24px);font-weight:700;line-height:1.35}
+    .right{background:var(--tealbg);border-left:4px solid var(--teal);padding:13px 15px;border-radius:8px;font-size:clamp(17px,1.53vw,24px);font-weight:700;line-height:1.35}
+    .kicker-line{font-size:clamp(13px,1.15vw,17px);color:var(--muted);line-height:1.5;margin-bottom:11px}
+    .contrast-mark{font-weight:900;margin-right:7px}
+    .table-wrap{overflow-x:auto}
+    table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:clamp(15px,1.3vw,19px)}
+    th{background:var(--navy);color:white;text-align:left;font-weight:800;font-size:clamp(13px,1.22vw,17px);padding:13px 16px;line-height:1.3}
+    th:first-child{border-top-left-radius:11px}th:last-child{border-top-right-radius:11px}
+    td{padding:11px 16px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.36}
+    tbody tr:nth-child(2n){background:#f4f8fa}
+    td.strong{font-weight:790;color:var(--navy)}
+    .article-showcase{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+    .article-pill{display:flex;gap:15px;align-items:baseline;background:#f8fafc;padding:17px 18px;border-radius:12px;border:1px solid var(--line);font-size:clamp(18px,2.05vw,29px);font-weight:720}
+    .article-pill b{color:var(--orange);font-size:1.05em}
+    .compare-table th:nth-child(1){width:22%}
+    .compare-table th:nth-child(2){width:48%}
+    .compare-table th:nth-child(3){width:30%}
+    .compare-table td{padding:16px 17px}
+    .practice-card{max-width:870px;margin:15px auto 0;background:#f7f9fc;border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3.5vw,49px)}
+    .practice-number{font-size:clamp(13px,1.2vw,17px);color:var(--muted);font-weight:750}
+    .practice-q{font-size:clamp(33px,4.7vw,65px);font-weight:850;line-height:1.1;letter-spacing:-.055em;text-align:center;color:var(--navy);padding:33px 4px 36px}
+    .practice-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .action-btn{border-radius:10px;border:1px solid var(--line);background:#fff;padding:12px 20px;font-size:clamp(13px,1.14vw,16px);font-weight:800;color:var(--navy);min-height:44px}
+    .action-btn:hover:not(:disabled){background:#e8f4f4}
+    .action-btn.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+    .action-btn.primary:hover{background:#07686d}
+    .action-btn:disabled{opacity:.38;cursor:not-allowed}
+    .answer-box{border-radius:13px;padding:17px 19px;background:var(--tealbg);border:1px solid #bbdcd8;margin-bottom:19px;min-height:87px}
+    .answer-box .answer{font-size:clamp(20px,2.17vw,31px);font-weight:800;color:#086b67}
+    .answer-box .explain{font-size:clamp(13px,1.15vw,16px);line-height:1.4;color:#426e6d;margin-top:8px}
+    .hidden{display:none !important}
+    .progress-track{height:4px;width:100%;background:#bed0dc;overflow:hidden;flex-shrink:0}
+    .progress-fill{width:9.09%;height:100%;background:var(--teal);transition:width .25s}
+    .bottombar{background:white;display:flex;justify-content:space-between;gap:14px;align-items:center;padding:9px clamp(16px,3vw,48px);min-height:63px;flex-shrink:0}
+    .foot-left{display:flex;align-items:center;gap:15px;color:var(--muted);font-size:12px}
+    .foot-title{font-weight:800;color:var(--navy);font-size:13px}
+    .nav{display:flex;align-items:center;gap:8px}
+    .navbtn{border:1px solid #d1dce5;border-radius:9px;background:#f5f9fa;color:var(--navy);min-width:86px;min-height:40px;font-size:13px;font-weight:800;padding:8px 16px}
+    .navbtn.next{color:#fff;background:var(--navy);border-color:var(--navy)}
+    .navbtn:hover:not(:disabled){filter:brightness(.94)}
+    .navbtn:disabled{opacity:.4;cursor:not-allowed}
+    .slide-count{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);font-weight:750;padding:0 12px}
+    .overview{position:fixed;z-index:100;inset:0;background:#112942c9;display:flex;align-items:center;justify-content:center;padding:20px}
+    .overview-panel{background:#fff;width:min(850px,100%);max-height:88vh;overflow:auto;padding:26px;border-radius:20px;box-shadow:0 20px 55px #0005}
+    .overview-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:17px}
+    .overview-head h2{font-size:27px;margin:0}
+    .overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+    .overview-item{text-align:left;border:1px solid var(--line);padding:13px;border-radius:10px;background:#f8fafc;color:var(--ink);font-size:14px;font-weight:760;line-height:1.3}
+    .overview-item b{display:block;color:var(--teal);font-size:11px;margin-bottom:6px}
+    .overview-item.current{border:2px solid var(--teal);background:var(--tealbg);padding:12px}
+    .final-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:28px}
+    .final-rule{display:flex;gap:17px;align-items:flex-start;background:#f6f9fa;border:1px solid var(--line);border-radius:15px;padding:24px}
+    .final-rule .number{width:39px;height:39px;min-width:39px;display:flex;align-items:center;justify-content:center;background:var(--tealbg);border-radius:12px;font-size:23px;font-weight:850;color:var(--teal)}
+    .final-rule p{margin:7px 0 0;font-size:clamp(13px,1.21vw,17px)}
+    .final-rule h3{margin:0;font-size:clamp(18px,1.67vw,24px)}
+    .footer-remark{margin-top:20px;background:var(--navy);border-radius:14px;color:white;padding:19px 26px;text-align:center;font-size:clamp(19px,1.95vw,28px);font-weight:780}
+    /* Keep content comfortably visible on classroom projectors (e.g. 1366 × 768). */
+    .slide.dense .slide-content{padding-top:clamp(20px,2.6vw,35px);padding-bottom:18px}
+    .slide.dense .lead{margin-bottom:18px}
+    .slide.dense .hint{padding:11px 14px}
+    .slide.dense .word-bank{margin-bottom:13px}
+    .slide.dense .word-bank ul{line-height:1.5}
+    .slide.dense .pron-grid{margin-top:13px;margin-bottom:12px}
+    .slide.dense .pron-tile{padding:8px 15px}
+    .slide.dense .pron-tile.active{padding:7px 14px}
+    .slide.dense table td{padding-top:8px;padding-bottom:8px}
+    .slide.dense .compare-table td{padding:9px 17px}
+    @media(max-width:850px){
+      #app{min-height:520px}.top-kicker{display:none}.brand{font-size:14px}.topbar{gap:12px;min-height:55px;padding:7px 13px}.top-action{padding:6px 8px;font-size:11px}
+      .split-hero,.names-grid{grid-template-columns:1fr}.split-hero{min-height:0}.meaning-icon{width:min(100%,230px)}
+      .grid2,.final-grid{grid-template-columns:1fr}.conj-grid,.pron-grid{grid-template-columns:repeat(2,1fr)}
+      .diagram-sentence{grid-template-columns:repeat(2,1fr)}.two-rules,.note-row{grid-template-columns:1fr}
+      .stage{padding:7px}.slide{border-radius:14px}.slide-content{padding:22px 20px 30px}
+      .overview-grid{grid-template-columns:repeat(2,1fr)}.foot-title{display:none}
+      .conj{min-height:0}.formula{font-size:23px}
+    }
+    @media(max-width:530px){
+      h2{font-size:32px}h1{font-size:65px}.overview-grid{grid-template-columns:1fr}.diagram-part{padding:15px 6px}
+      .pron-grid,.word-bank,.article-showcase,.final-grid{grid-template-columns:1fr}
+      .bottombar{padding:8px}.navbtn{padding:7px 10px;min-width:63px}.slide-count{padding:0 2px}.top-action.print-button{display:none}
+      .practice-controls{justify-content:center}.foot-left{font-size:11px}.foot-title{display:none}
+      .compare-table table{min-width:560px}.compact-table table{min-width:520px}
+    }
+    @page{size:A4 landscape;margin:9mm}
+    @media print{
+      html,body{background:#fff}#app{display:block;height:auto;min-height:0}.topbar,.bottombar,.progress-track,.overview,.nonprint{display:none !important}.stage{overflow:visible;padding:0}
+      .slide,.slide.active{display:block!important;border:0;border-radius:0;box-shadow:none;min-height:175mm;height:auto;page-break-after:always;break-after:page;animation:none}
+      .slide-content{padding:10mm 12mm}.slide:last-child{page-break-after:auto}.practice-card{margin-top:8px}
+      .hint,.card,.conj,.diagram-part,.pron-tile,.final-rule,.live-example,.footer-remark{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .meaning-icon{max-height:115mm}.slide-content p{font-size:16px}
+    }
+    @media(prefers-reduced-motion:reduce){.slide.active{animation:none}.progress-fill{transition:none}}
+  </style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">DOLER <span>/ Spanish grammar</span></div>
+    <div class="top-kicker">Interactive classroom lesson · A1–A2</div>
+    <div class="header-actions">
+      <button class="top-action" id="outlineBtn" type="button" title="Choose a slide">Slides</button>
+      <button class="top-action print-button" id="printBtn" type="button" title="Print or save all slides as PDF">Print</button>
+      <button class="top-action" id="fullscreenBtn" type="button" title="Toggle fullscreen">Fullscreen</button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <!-- 1: Start with the meaning, not an introductory activity. -->
+    <section class="slide active" data-title="Meaning: doler">
+      <div class="slide-content split-hero">
+        <div>
+          <div class="eyebrow">01 / Meaning</div>
+          <h1>DOLER</h1>
+          <div class="huge-meaning">to hurt · to ache</div>
+          <p style="max-width:600px">We use <strong>doler</strong> to talk about physical pain, especially when a body part hurts.</p>
+          <div class="mini-sentence" style="margin-top:24px">
+            <strong>Me duele la cabeza.</strong>
+            <small>My head hurts. / I have a headache.</small>
+          </div>
+        </div>
+        <svg class="meaning-icon" viewBox="0 0 430 450" role="img" aria-label="Illustration of a person with a headache">
+          <defs><linearGradient id="circleA" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#daf3ed"/><stop offset="1" stop-color="#dfebff"/></linearGradient></defs>
+          <circle cx="215" cy="219" r="190" fill="url(#circleA)"/>
+          <circle cx="215" cy="178" r="75" fill="#f2c8a6"/>
+          <path d="M143 159 Q126 95 195 84 Q270 71 293 141 Q279 112 243 115 Q194 85 151 151Z" fill="#173954"/>
+          <path d="M197 245 L197 272 Q153 271 118 296 Q90 322 87 397 L338 397 Q335 318 305 299 Q278 270 238 270 L236 242" fill="#318f91"/>
+          <path d="M152 300 Q198 343 239 308 Q254 283 267 299" fill="none" stroke="#bde8df" stroke-width="7" stroke-linecap="round"/>
+          <path d="M157 182 Q178 168 193 184 M234 183 Q251 170 268 183" fill="none" stroke="#253e50" stroke-width="5" stroke-linecap="round"/>
+          <path d="M197 225 Q219 207 238 225" fill="none" stroke="#ae705f" stroke-width="4" stroke-linecap="round"/>
+          <path d="M104 337 Q123 264 157 199 M325 337 Q303 265 278 197" stroke="#f2c8a6" stroke-width="29" stroke-linecap="round" fill="none"/>
+          <circle cx="157" cy="195" r="17" fill="#f2c8a6"/><circle cx="279" cy="197" r="17" fill="#f2c8a6"/>
+          <path d="M118 117 L133 99 L126 80 M307 106 L322 89 L318 72 M210 59 L210 37" stroke="#c06b46" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2: Conjugation -->
+    <section class="slide" data-title="Present-tense conjugation">
+      <div class="slide-content">
+        <div class="eyebrow">02 / Conjugation</div>
+        <h2>Present tense of <i>doler</i></h2>
+        <p class="lead"><strong>Doler</strong> is an <strong>-er</strong> verb with a stem change: <strong>o → ue</strong>. The change does not occur in <em>nosotros</em> or <em>vosotros</em>.</p>
+        <div class="conj-grid" aria-label="Conjugation of doler in the present indicative">
+          <div class="conj"><div class="who">yo</div><div class="form">d<span class="change">ue</span>lo</div></div>
+          <div class="conj"><div class="who">tú</div><div class="form">d<span class="change">ue</span>les</div></div>
+          <div class="conj feature"><div class="who">él / ella / usted</div><div class="form">d<span class="change">ue</span>le <span class="tag">Key form</span></div></div>
+          <div class="conj"><div class="who">nosotros/as</div><div class="form">dolemos</div></div>
+          <div class="conj"><div class="who">vosotros/as</div><div class="form">doléis</div></div>
+          <div class="conj feature"><div class="who">ellos / ellas / ustedes</div><div class="form">d<span class="change">ue</span>len <span class="tag">Key form</span></div></div>
+        </div>
+        <div class="hint"><span>In expressions of physical pain, we most often use <strong>duele</strong> (singular subject) or <strong>duelen</strong> (plural subject). The other forms exist, but they are not our main focus here.</span></div>
+      </div>
+    </section>
+
+    <!-- 3: Subject -->
+    <section class="slide" data-title="Who is the subject?">
+      <div class="slide-content">
+        <div class="eyebrow">03 / Sentence structure</div>
+        <h2>Who is the subject?</h2>
+        <p class="lead">With <em>doler</em>, <strong>the body part that hurts is the grammatical subject</strong>. The person who feels the pain is expressed as an indirect object.</p>
+        <div class="switch-row nonprint">
+          <div class="smalllabel" style="margin:0">Watch what changes:</div>
+          <div class="pill-buttons" role="group" aria-label="Choose a body part">
+            <button type="button" class="pill selected" id="subjectSingular">la cabeza</button>
+            <button type="button" class="pill" id="subjectPlural">los pies</button>
+          </div>
+        </div>
+        <div class="diagram-sentence" aria-live="polite">
+          <div class="diagram-part person-block"><div class="word">A María</div><div class="role">Person experiencing pain<br>(indirect object)</div></div>
+          <div class="diagram-part pron-block"><div class="word">le</div><div class="role">Indirect-object<br>pronoun</div></div>
+          <div class="diagram-part verb-block"><div class="word" id="subjectVerb">duele</div><div class="role">Verb<br>(agrees with subject)</div></div>
+          <div class="diagram-part subject-block"><div class="word" id="subjectPart">la cabeza</div><div class="role">Grammatical subject<br>(body part)</div></div>
+        </div>
+        <div class="two-rules">
+          <div class="big-rule"><h3>Who feels the pain?</h3><p><span class="person"><strong>A María</strong></span> — identified by the indirect object phrase and the pronoun <span class="pron"><strong>le</strong></span>.</p></div>
+          <div class="big-rule"><h3>What hurts?</h3><p><span class="subject"><strong id="whatHurts">La cabeza</strong></span> — the subject. It controls whether we use <span class="verb"><strong id="whatVerb">duele</strong></span> or <span class="verb"><strong>duelen</strong></span>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4: singular/plural -->
+    <section class="slide dense" data-title="Duele vs duelen">
+      <div class="slide-content">
+        <div class="eyebrow">04 / Subject–verb agreement</div>
+        <h2><span class="verb">Duele</span> or <span class="verb">duelen</span>?</h2>
+        <p class="lead">Choose the verb according to the <strong>grammatical number of the body part</strong>, not the number of people who feel pain.</p>
+        <div class="word-bank">
+          <div class="card blue">
+            <div class="head verb">DUELE</div>
+            <div class="smalllabel">Singular subject</div>
+            <ul><li>la cabeza</li><li>el estómago</li><li>la espalda</li><li>la garganta</li></ul>
+          </div>
+          <div class="card orange">
+            <div class="head subject">DUELEN</div>
+            <div class="smalllabel">Plural subject</div>
+            <ul><li>los pies</li><li>los oídos</li><li>las muelas</li><li>las piernas</li></ul>
+          </div>
+        </div>
+        <div class="note-row">
+          <div class="example-chip">Me <span class="verb">duele</span> <span class="subject">la cabeza</span>.</div>
+          <div class="example-chip">Me <span class="verb">duelen</span> <span class="subject">los pies</span>.</div>
+        </div>
+        <div class="hint" style="margin-top:18px"><span><strong>Word order:</strong> The subject usually comes <strong>after</strong> the verb in this pattern. It can also appear before the verb for emphasis: <em>La cabeza me duele</em>.</span></div>
+      </div>
+    </section>
+
+    <!-- 5: IO pronouns -->
+    <section class="slide dense" data-title="Indirect-object pronouns">
+      <div class="slide-content">
+        <div class="eyebrow">05 / Who feels the pain?</div>
+        <h2>Indirect-object pronouns</h2>
+        <p class="lead">The pronoun tells us <strong>who experiences the pain</strong>. Select a person to see the correct pronoun. The body part remains the same.</p>
+        <div class="pron-grid" id="pronGrid" role="group" aria-label="Choose who feels the pain">
+          <button type="button" class="pron-tile active" data-pron="me" data-person="yo" data-en="My head hurts."><span class="who">yo</span><span class="pr">me</span></button>
+          <button type="button" class="pron-tile" data-pron="te" data-person="tú" data-en="Your head hurts."><span class="who">tú</span><span class="pr">te</span></button>
+          <button type="button" class="pron-tile" data-pron="le" data-person="él / ella / usted" data-en="His / her / your (formal) head hurts."><span class="who">él / ella / usted</span><span class="pr">le</span></button>
+          <button type="button" class="pron-tile" data-pron="nos" data-person="nosotros/as" data-en="Our heads hurt."><span class="who">nosotros/as</span><span class="pr">nos</span></button>
+          <button type="button" class="pron-tile" data-pron="os" data-person="vosotros/as" data-en="Your heads hurt. (plural, informal)"><span class="who">vosotros/as</span><span class="pr">os</span></button>
+          <button type="button" class="pron-tile" data-pron="les" data-person="ellos / ellas / ustedes" data-en="Their / your (plural) heads hurt."><span class="who">ellos / ellas / ustedes</span><span class="pr">les</span></button>
+        </div>
+        <div class="live-example" aria-live="polite">
+          <div class="smalllabel">Live example</div>
+          <div class="formula" id="pronExample">Me duele la cabeza.</div>
+          <div class="translation" id="pronTranslation">My head hurts.</div>
+        </div>
+        <div class="hint" style="margin-top:17px"><span><strong>Two independent choices:</strong> <em>me / te / le / nos / os / les</em> depends on the <strong>person</strong>; <em>duele / duelen</em> depends on the <strong>body part</strong>.</span></div>
+      </div>
+    </section>
+
+    <!-- 6: named person -->
+    <section class="slide" data-title="a + a person's name">
+      <div class="slide-content">
+        <div class="eyebrow">06 / Naming the person</div>
+        <h2><span class="person">A + name</span> + pronoun + <i>doler</i></h2>
+        <p class="lead">When you explicitly name the person who feels the pain, introduce that person with <strong>a</strong>. Keep the matching <strong>indirect-object pronoun</strong>.</p>
+        <div class="names-grid">
+          <div class="stack">
+            <div class="card teal">
+              <div class="smalllabel">Correct pattern</div>
+              <div class="formula"><span class="person">A María</span> <span class="pron">le</span> <span class="verb">duele</span> <span class="subject">la cabeza</span>.</div>
+              <div class="translation">María's head hurts.</div>
+            </div>
+            <div class="example-list">
+              <div class="entry"><span class="person">A Juan</span> <span class="pron">le</span> duele el estómago.</div>
+              <div class="entry"><span class="person">A Juan y Ana</span> <span class="pron">les</span> duelen los pies.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="smalllabel">Avoid these mistakes</div>
+            <div class="wrong-list">
+              <div class="wrong"><span class="contrast-mark">✕</span>María le duele la cabeza.</div>
+              <div class="wrong"><span class="contrast-mark">✕</span>A María duele la cabeza.</div>
+              <div class="right"><span class="contrast-mark">✓</span>A María le duele la cabeza.</div>
+            </div>
+            <p style="margin:21px 0 0;font-size:clamp(14px,1.18vw,17px)"><strong>Another possible order:</strong> <i>Le duele la cabeza a María.</i> The <em>a + name</em> phrase does not have to be first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7: stressed pronouns -->
+    <section class="slide dense" data-title="a + stressed pronouns">
+      <div class="slide-content">
+        <div class="eyebrow">07 / Emphasis or clarification</div>
+        <h2><span class="person">A mí</span>, <span class="person">a ti</span>, <span class="person">a ella</span>…</h2>
+        <p class="lead">To <strong>emphasize or clarify the person</strong>, use <strong>a + a stressed pronoun</strong>. The corresponding short indirect-object pronoun is still required.</p>
+        <div class="table-wrap compact-table">
+          <table aria-label="Stressed and indirect object pronouns">
+            <thead><tr><th>Emphatic phrase</th><th>Short pronoun</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td class="strong">a mí</td><td class="strong">me</td><td>A mí <b>me</b> duele la cabeza.</td></tr>
+              <tr><td class="strong">a ti</td><td class="strong">te</td><td>A ti <b>te</b> duele la cabeza.</td></tr>
+              <tr><td class="strong">a él / ella / usted</td><td class="strong">le</td><td>A ella <b>le</b> duele la cabeza.</td></tr>
+              <tr><td class="strong">a nosotros/as</td><td class="strong">nos</td><td>A nosotros <b>nos</b> duele la cabeza.</td></tr>
+              <tr><td class="strong">a vosotros/as</td><td class="strong">os</td><td>A vosotros <b>os</b> duele la cabeza.</td></tr>
+              <tr><td class="strong">a ellos / ellas / ustedes</td><td class="strong">les</td><td>A ellos <b>les</b> duele la cabeza.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="hint" style="margin-top:15px"><span><strong>Remember:</strong> <em>Me duele la cabeza</em> is already a complete sentence. Add <em>a mí</em> only when you want emphasis or clarification. <em>A mí duele…</em> and <em>Yo me duele…</em> are incorrect in this meaning.</span></div>
+      </div>
+    </section>
+
+    <!-- 8: articles -->
+    <section class="slide dense" data-title="Body parts and articles">
+      <div class="slide-content">
+        <div class="eyebrow">08 / An important detail</div>
+        <h2>Use the <span class="subject">definite article</span></h2>
+        <p class="lead">In this structure, Spanish normally uses <strong>el / la / los / las</strong> before body parts, rather than a possessive such as <em>mi</em> or <em>mis</em>.</p>
+        <div class="article-showcase">
+          <div class="article-pill">Me duele <b>la</b> cabeza.</div>
+          <div class="article-pill">Le duele <b>el</b> estómago.</div>
+          <div class="article-pill">Te duelen <b>los</b> pies.</div>
+          <div class="article-pill">Nos duelen <b>las</b> muelas.</div>
+        </div>
+        <div class="grid2" style="margin-top:20px">
+          <div class="card teal"><div class="smalllabel">Natural in this context</div><div class="formula">Me duele <span class="subject">la cabeza</span>.</div></div>
+          <div class="card coral"><div class="smalllabel">Normally avoid here</div><div class="formula">Me duele <span style="color:var(--coral)">mi cabeza</span>.</div></div>
+        </div>
+        <div class="hint" style="margin-top:17px"><span>The pronoun <em>me / te / le…</em> already identifies <strong>whose body part</strong> is affected. The definite article agrees with the body-part noun.</span></div>
+      </div>
+    </section>
+
+    <!-- 9: compare -->
+    <section class="slide dense" data-title="Compare doler, tener and estar">
+      <div class="slide-content">
+        <div class="eyebrow">09 / Comparing structures</div>
+        <h2><i>Doler</i> vs <i>tener</i> vs <i>estar</i></h2>
+        <p class="lead">These structures all describe health problems, but <strong>their grammatical subjects are not the same</strong>.</p>
+        <div class="table-wrap compare-table">
+          <table aria-label="Comparison of health expressions">
+            <thead><tr><th>Structure</th><th>Example</th><th>Grammatical subject</th></tr></thead>
+            <tbody>
+              <tr><td class="strong">doler</td><td><span class="person">A María</span> le duele <span class="subject"><b>la cabeza</b></span>.</td><td><b>la cabeza</b></td></tr>
+              <tr><td class="strong">tener dolor de</td><td><b>María</b> tiene dolor de cabeza.</td><td><b>María</b></td></tr>
+              <tr><td class="strong">tener</td><td><b>María</b> tiene tos.</td><td><b>María</b></td></tr>
+              <tr><td class="strong">estar</td><td><b>María</b> está mareada.</td><td><b>María</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid2" style="margin-top:23px">
+          <div class="card blue"><div class="smalllabel">With doler</div><div class="formula">A María le <span class="verb">duele</span> <span class="subject">la cabeza</span>.</div><div class="translation">The body part is the subject.</div></div>
+          <div class="card teal"><div class="smalllabel">With tener</div><div class="formula"><span class="person">María</span> tiene dolor de cabeza.</div><div class="translation">The person is the subject.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10: Practice -->
+    <section class="slide" data-title="Interactive sentence practice">
+      <div class="slide-content">
+        <div class="eyebrow">10 / Interactive practice</div>
+        <h2>Build the correct sentence</h2>
+        <p class="lead">Use the clues to make a complete sentence with <em>doler</em>. Say it aloud, then reveal the answer. Watch for <strong>a + person</strong>, the short pronoun, and <strong>duele / duelen</strong>.</p>
+        <div class="practice-card">
+          <div class="practice-number" id="practiceNumber">Question 1 of 6</div>
+          <div class="practice-q" id="practicePrompt">yo / la cabeza</div>
+          <div class="answer-box hidden" id="answerBox" aria-live="polite">
+            <div class="answer" id="practiceAnswer">Me duele la cabeza.</div>
+            <div class="explain" id="practiceExplain">Use me for yo and duele for a singular body part.</div>
+          </div>
+          <div class="practice-controls nonprint">
+            <button class="action-btn" id="practicePrev" type="button" disabled>← Previous</button>
+            <button class="action-btn primary" id="practiceReveal" type="button">Reveal answer</button>
+            <button class="action-btn" id="practiceNext" type="button">Next →</button>
+          </div>
+          <div class="hidden" id="printPracticeAnswers">
+            <p><strong>Answers:</strong> 1. Me duele la cabeza. 2. Te duelen los pies. 3. A María le duele el estómago. 4. Nos duelen las muelas. 5. A Juan y Ana les duele la espalda. 6. Os duelen los oídos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11: Summary -->
+    <section class="slide" data-title="Four rules to remember">
+      <div class="slide-content">
+        <div class="eyebrow">11 / Key takeaways</div>
+        <h2>DOLER: four rules to remember</h2>
+        <div class="final-grid">
+          <div class="final-rule"><div class="number">1</div><div><h3>The body part is the subject.</h3><p><em>La cabeza</em> and <em>los pies</em> are grammatical subjects, not direct objects.</p></div></div>
+          <div class="final-rule"><div class="number">2</div><div><h3>The verb agrees with the subject.</h3><p><strong>Duele</strong> + singular subject; <strong>duelen</strong> + plural subject.</p></div></div>
+          <div class="final-rule"><div class="number">3</div><div><h3>Use an indirect-object pronoun for the person.</h3><p><strong>me, te, le, nos, os, les</strong> tells us who feels the pain.</p></div></div>
+          <div class="final-rule"><div class="number">4</div><div><h3>Use a when you name the person.</h3><p><em>A María le duele la cabeza.</em> Keep the corresponding short pronoun.</p></div></div>
+        </div>
+        <div class="footer-remark"><span style="color:#b4dfdc">A María</span> <span style="color:#9aceda">le duele</span> <span style="color:#ffdb9d">la cabeza</span>.</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+  <footer class="bottombar">
+    <div class="foot-left"><span class="foot-title" id="footerTitle">Meaning: doler</span><span>← → to navigate</span></div>
+    <div class="nav">
+      <button class="navbtn" id="prevBtn" type="button" disabled>← Back</button>
+      <span class="slide-count" id="slideCount" aria-live="polite">1 / 11</span>
+      <button class="navbtn next" id="nextBtn" type="button">Next →</button>
+    </div>
+  </footer>
+</div>
+
+<div class="overview hidden" id="overview" role="dialog" aria-modal="true" aria-label="Choose a slide">
+  <div class="overview-panel">
+    <div class="overview-head"><h2>Lesson slides</h2><button type="button" class="action-btn" id="overviewClose">Close ×</button></div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+</div>
+
+<script>
+(()=>{
+  'use strict';
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const count = slides.length;
+  const stage = document.getElementById('stage');
+  const progressFill = document.getElementById('progressFill');
+  const slideCount = document.getElementById('slideCount');
+  const footerTitle = document.getElementById('footerTitle');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const overview = document.getElementById('overview');
+  const overviewGrid = document.getElementById('overviewGrid');
+  let index = 0;
+
+  slides.forEach((slide,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='overview-item';
+    b.innerHTML='<b>SLIDE '+String(i+1).padStart(2,'0')+'</b>'+slide.dataset.title;
+    b.addEventListener('click',()=>{closeOverview();goTo(i)});
+    overviewGrid.appendChild(b);
+  });
+  const overviewButtons=Array.from(overviewGrid.children);
+  function goTo(n){
+    index=Math.min(Math.max(n,0),count-1);
+    slides.forEach((s,i)=>{s.classList.toggle('active',i===index);s.setAttribute('aria-hidden',i===index?'false':'true')});
+    overviewButtons.forEach((b,i)=>b.classList.toggle('current',i===index));
+    progressFill.style.width=(((index+1)/count)*100)+'%';
+    slideCount.textContent=(index+1)+' / '+count;
+    footerTitle.textContent=slides[index].dataset.title;
+    prevBtn.disabled=index===0;nextBtn.disabled=index===count-1;
+    stage.scrollTop=0;
+    try{history.replaceState(null,'','#slide='+String(index+1))}catch(e){}
+  }
+  prevBtn.addEventListener('click',()=>goTo(index-1));
+  nextBtn.addEventListener('click',()=>goTo(index+1));
+  function openOverview(){overview.classList.remove('hidden');document.getElementById('overviewClose').focus()}
+  function closeOverview(){overview.classList.add('hidden')}
+  document.getElementById('outlineBtn').addEventListener('click',openOverview);
+  document.getElementById('overviewClose').addEventListener('click',closeOverview);
+  overview.addEventListener('click',event=>{if(event.target===overview)closeOverview()});
+  document.getElementById('printBtn').addEventListener('click',()=>window.print());
+  document.getElementById('fullscreenBtn').addEventListener('click',()=>{
+    if(!document.fullscreenElement){document.documentElement.requestFullscreen?.().catch(()=>{});}
+    else{document.exitFullscreen?.().catch(()=>{});}
+  });
+  document.addEventListener('keydown',event=>{
+    if(!overview.classList.contains('hidden')){if(event.key==='Escape')closeOverview();return}
+    const tag=event.target?.tagName?.toLowerCase();
+    if(tag==='input'||tag==='textarea'||tag==='select')return;
+    if(event.key==='ArrowRight'||event.key==='PageDown'){event.preventDefault();goTo(index+1)}
+    if(event.key==='ArrowLeft'||event.key==='PageUp'){event.preventDefault();goTo(index-1)}
+    if(event.key==='Home'){event.preventDefault();goTo(0)}
+    if(event.key==='End'){event.preventDefault();goTo(count-1)}
+  });
+  const hashMatch=location.hash.match(/^#slide=(\d+)$/);
+  if(hashMatch)goTo(Number(hashMatch[1])-1);else goTo(0);
+
+  // Slide 3: switch the grammatical subject while keeping the experiencer unchanged.
+  const sing=document.getElementById('subjectSingular'), plural=document.getElementById('subjectPlural');
+  function updateSubject(isPlural){
+    sing.classList.toggle('selected',!isPlural);plural.classList.toggle('selected',isPlural);
+    document.getElementById('subjectVerb').textContent=isPlural?'duelen':'duele';
+    document.getElementById('subjectPart').textContent=isPlural?'los pies':'la cabeza';
+    document.getElementById('whatHurts').textContent=isPlural?'Los pies':'La cabeza';
+    document.getElementById('whatVerb').textContent=isPlural?'duelen':'duele';
+  }
+  sing.addEventListener('click',()=>updateSubject(false));
+  plural.addEventListener('click',()=>updateSubject(true));
+
+  // Slide 5: switch the experiencer without changing the subject.
+  const pronTiles=Array.from(document.querySelectorAll('.pron-tile'));
+  pronTiles.forEach(tile=>tile.addEventListener('click',()=>{
+    pronTiles.forEach(other=>{other.classList.toggle('active',other===tile);other.setAttribute('aria-pressed',String(other===tile))});
+    const pron=tile.dataset.pron;
+    document.getElementById('pronExample').textContent=pron.charAt(0).toUpperCase()+pron.slice(1)+' duele la cabeza.';
+    document.getElementById('pronTranslation').textContent=tile.dataset.en;
+  }));
+  pronTiles.forEach((tile,i)=>tile.setAttribute('aria-pressed',String(i===0)));
+
+  // Slide 10: reveal a model answer without advancing prematurely.
+  const practice=[
+    {prompt:'yo / la cabeza',answer:'Me duele la cabeza.',why:'Use me for yo. La cabeza is singular, so choose duele.'},
+    {prompt:'tú / los pies',answer:'Te duelen los pies.',why:'Use te for tú. Los pies is plural, so choose duelen.'},
+    {prompt:'María / el estómago',answer:'A María le duele el estómago.',why:'Use a before María and keep le. El estómago is singular.'},
+    {prompt:'nosotros / las muelas',answer:'Nos duelen las muelas.',why:'Use nos for nosotros. Las muelas is plural.'},
+    {prompt:'Juan y Ana / la espalda',answer:'A Juan y Ana les duele la espalda.',why:'Use les for two people. La espalda is singular, so choose duele.'},
+    {prompt:'vosotros / los oídos',answer:'Os duelen los oídos.',why:'Use os for vosotros. Los oídos is plural.'}
+  ];
+  let q=0,revealed=false;
+  const box=document.getElementById('answerBox'),reveal=document.getElementById('practiceReveal');
+  function renderPractice(){
+    document.getElementById('practiceNumber').textContent='Question '+(q+1)+' of '+practice.length;
+    document.getElementById('practicePrompt').textContent=practice[q].prompt;
+    document.getElementById('practiceAnswer').textContent=practice[q].answer;
+    document.getElementById('practiceExplain').textContent=practice[q].why;
+    box.classList.toggle('hidden',!revealed);
+    reveal.textContent=revealed?'Hide answer':'Reveal answer';
+    document.getElementById('practicePrev').disabled=q===0;
+    document.getElementById('practiceNext').disabled=q===practice.length-1;
+  }
+  document.getElementById('practicePrev').addEventListener('click',()=>{if(q>0){q--;revealed=false;renderPractice()}});
+  document.getElementById('practiceNext').addEventListener('click',()=>{if(q<practice.length-1){q++;revealed=false;renderPractice()}});
+  reveal.addEventListener('click',()=>{revealed=!revealed;renderPractice()});
+  renderPractice();
+
+  // The printout shows the first prompt plus a complete answer key.
+  window.addEventListener('beforeprint',()=>document.getElementById('printPracticeAnswers').classList.remove('hidden'));
+  window.addEventListener('afterprint',()=>document.getElementById('printPracticeAnswers').classList.add('hidden'));
+})();
+</script>
+</body>
+</html>
