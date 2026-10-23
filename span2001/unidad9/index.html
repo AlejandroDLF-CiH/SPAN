@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SPAN2001 · Unidad 9</title>
+
+  <style>
+    :root{
+      --bg:#f7f8fb;
+      --white:#ffffff;
+      --text:#20242c;
+      --muted:#697386;
+      --border:#e5e8ef;
+
+      --red:#9c3155;
+      --orange:#d96b42;
+      --yellow:#e9b94f;
+      --green:#397779;
+      --blue:#526da5;
+
+      --shadow:0 12px 35px rgba(25,35,55,.08);
+      --radius:22px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* ---------- HEADER ---------- */
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      padding:28px 24px;
+    }
+
+    .header-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .back{
+      display:inline-block;
+      margin-bottom:16px;
+      color:var(--muted);
+      text-decoration:none;
+      font-size:15px;
+      font-weight:600;
+    }
+
+    .back:hover{
+      color:var(--blue);
+    }
+
+    h1{
+      margin:0;
+      font-size:38px;
+      line-height:1.15;
+      letter-spacing:-0.4px;
+    }
+
+    .subtitle{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.5;
+    }
+
+    /* ---------- MAIN ---------- */
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:42px 24px 60px;
+    }
+
+    .section-title{
+      font-size:22px;
+      margin-bottom:22px;
+      font-weight:800;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:24px;
+    }
+
+    /* ---------- CARD ---------- */
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+      text-decoration:none;
+      color:inherit;
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        border-color .18s ease;
+      min-height:230px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 42px rgba(25,35,55,.12);
+      border-color:#d7dce6;
+    }
+
+    .icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:25px;
+      margin-bottom:22px;
+    }
+
+    .card.imperfecto .icon{
+      background:#eaf0fb;
+    }
+
+    .card.tardes .icon{
+      background:#fff0ea;
+    }
+
+    .card.abuela .icon{
+      background:#f9e9ef;
+    }
+
+    .card.elisa .icon{
+      background:#e7f3f1;
+    }
+
+    .card.incas .icon{
+      background:#fbf3da;
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      font-size:24px;
+      line-height:1.25;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+
+    .open{
+      margin-top:24px;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .imperfecto .open{
+      color:var(--blue);
+    }
+
+    .tardes .open{
+      color:var(--orange);
+    }
+
+    .abuela .open{
+      color:var(--red);
+    }
+
+    .elisa .open{
+      color:var(--green);
+    }
+
+    .incas .open{
+      color:#806511;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer{
+      border-top:1px solid var(--border);
+      background:var(--white);
+      padding:22px 24px;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media(max-width:760px){
+
+      h1{
+        font-size:31px;
+      }
+
+      .subtitle{
+        font-size:16px;
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+
+      main{
+        padding-top:30px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <a class="back" href="../index.html">
+      ← Back to SPAN2001
+    </a>
+
+    <h1>Unidad 9</h1>
+
+    <div class="subtitle">
+      Interactive materials for the pretérito imperfecto: talking about how life was in the past.
+    </div>
+
+  </div>
+</header>
+
+
+<main>
+
+  <div class="section-title">
+    Interactive Materials
+  </div>
+
+  <div class="grid">
+
+    <!-- PRETÉRITO IMPERFECTO -->
+
+    <a
+      class="card imperfecto"
+      href="span2001_preterito_imperfecto_interactive.html"
+    >
+
+      <div>
+        <div class="icon">🕰️</div>
+
+        <h2>
+          El pretérito imperfecto
+        </h2>
+
+        <p>
+          Learn how to describe what life was like and what was
+          happening in the past, with interactive practice.
+        </p>
+      </div>
+
+      <div class="open">
+        Open lesson →
+      </div>
+
+    </a>
+
+
+    <!-- PISTA 47 · TARDES DE VIAJE -->
+
+    <a
+      class="card tardes"
+      href="Tardes_de_viaje_pista47.html"
+    >
+
+      <div>
+        <div class="icon">🧳</div>
+
+        <h2>
+          Tardes de viaje · Pista 47
+        </h2>
+
+        <p>
+          Listen to the radio programme: listeners share their
+          opinions about travelling, and a travel expert answers.
+        </p>
+      </div>
+
+      <div class="open">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- PISTA 48 · LAS FOTOS DE LA ABUELA -->
+
+    <a
+      class="card abuela"
+      href="Fotos_de_la_abuela_pista48.html"
+    >
+
+      <div>
+        <div class="icon">📷</div>
+
+        <h2>
+          Las fotos de la abuela · Pista 48
+        </h2>
+
+        <p>
+          A grandmother shows three old photos to her grandchild
+          and explains how life was in the past.
+        </p>
+      </div>
+
+      <div class="open">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- PISTA 49 · LA NUEVA VIDA DE ELISA -->
+
+    <a
+      class="card elisa"
+      href="Nueva_vida_de_Elisa_pista49.html"
+    >
+
+      <div>
+        <div class="icon">🎙️</div>
+
+        <h2>
+          La nueva vida de Elisa · Pista 49
+        </h2>
+
+        <p>
+          Elisa, from Argentina, compares her life five years ago
+          with her life now: a story of a life that changed a lot.
+        </p>
+      </div>
+
+      <div class="open">
+        Open activity →
+      </div>
+
+    </a>
+
+
+    <!-- VIDEO 12 · LOS INCAS -->
+
+    <a
+      class="card incas"
+      href="Los_incas_video12_0_hbma.html"
+    >
+
+      <div>
+        <div class="icon">🎬</div>
+
+        <h2>
+          Los incas · Video 12
+        </h2>
+
+        <p>
+          Who were the Incas? Watch the video and discover
+          how they lived, worked and built.
+        </p>
+      </div>
+
+      <div class="open">
+        Open activity →
+      </div>
+
+    </a>
+
+  </div>
+
+</main>
+
+
+<footer>
+  SPAN2001 · The University of Hong Kong
+</footer>
+
+</body>
+</html>
